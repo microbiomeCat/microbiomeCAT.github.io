@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="[TOC] 写在前面其实本文之前有过一个版本，但是忘记了上传github（懒癌晚期患者），源文件又不知为何丢失了（个人分析是开了两个文件，一个编辑了，一个没有，后者也进行了保存而导致的）:sob::sob::sob:，所以这个版本笔者是快速重新写了一遍，和之前那个版本相比，可能简略了一部分内容，毕竟心态崩了:pensive::pensive::pensive:，之后本人会慢慢修改完善的。 背景扩增">
+  <meta name="description" content="写在前面 背景 搭建分析环境  安装方式简介 安装步骤   准备原始数据   写在前面 其实本文之前有过一个版本，但是忘记了上传github（懒癌晚期患者），源文件又不知为何丢失了（个人分析是开了两个文件，一个编辑了，一个没有，后者也进行了保存而导致的）😭😭😭，所以这个版本笔者是快速重新写了一遍，和之前那个版本相比，可能简略了一部分内容，毕竟心态崩了😔😔😔，之后本人会慢慢修改完善的">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基于 QIIME2 的扩增子分析教程-准备篇">
 <meta property="og:url" content="http://yoursite.com/2020/07/26/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/index.html">
 <meta property="og:site_name" content="MicrobiomeCAT">
-<meta property="og:description" content="[TOC] 写在前面其实本文之前有过一个版本，但是忘记了上传github（懒癌晚期患者），源文件又不知为何丢失了（个人分析是开了两个文件，一个编辑了，一个没有，后者也进行了保存而导致的）:sob::sob::sob:，所以这个版本笔者是快速重新写了一遍，和之前那个版本相比，可能简略了一部分内容，毕竟心态崩了:pensive::pensive::pensive:，之后本人会慢慢修改完善的。 背景扩增">
+<meta property="og:description" content="写在前面 背景 搭建分析环境  安装方式简介 安装步骤   准备原始数据   写在前面 其实本文之前有过一个版本，但是忘记了上传github（懒癌晚期患者），源文件又不知为何丢失了（个人分析是开了两个文件，一个编辑了，一个没有，后者也进行了保存而导致的）😭😭😭，所以这个版本笔者是快速重新写了一遍，和之前那个版本相比，可能简略了一部分内容，毕竟心态崩了😔😔😔，之后本人会慢慢修改完善的">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-07-26T13:18:56.000Z">
-<meta property="article:modified_time" content="2020-07-26T13:18:56.935Z">
+<meta property="article:modified_time" content="2020-07-26T13:59:26.011Z">
 <meta property="article:author" content="Sansan Li">
 <meta property="article:tag" content="QIIME2">
 <meta property="article:tag" content="扩增子">
@@ -195,8 +195,9 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2020-07-26 21:18:56" itemprop="dateCreated datePublished" datetime="2020-07-26T21:18:56+08:00">2020-07-26</time>
+              <time title="创建时间：2020-07-26 21:18:56 / 修改时间：21:59:26" itemprop="dateCreated datePublished" datetime="2020-07-26T21:18:56+08:00">2020-07-26</time>
             </span>
 
           
@@ -210,40 +211,71 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>[TOC]</p>
-<h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>其实本文之前有过一个版本，但是忘记了上传github（懒癌晚期患者），源文件又不知为何丢失了（个人分析是开了两个文件，一个编辑了，一个没有，后者也进行了保存而导致的）:sob::sob::sob:，所以这个版本笔者是快速重新写了一遍，和之前那个版本相比，可能简略了一部分内容，毕竟心态崩了:pensive::pensive::pensive:，之后本人会慢慢修改完善的。</p>
-<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p><strong>扩增子测序</strong>，特别是基于 16S rRNA 基因相应可变区域的扩增子测序，是当下微生物研究者们普遍采用的一种检测分析手段。而对于这一研究手段，其难点就在于如何对测序数据进行处理分析。而目前最为流行的两大分析工具，分别是 <a href="https://qiime2.org/" target="_blank" rel="noopener">QIIME2</a> 和 <a href="http://www.drive5.com/usearch/" target="_blank" rel="noopener">USEARCH</a>。国内知名的科研公众号<a href="https://blog.csdn.net/woodcorpse/" target="_blank" rel="noopener">宏基因组</a>对这两个分析工具都进行了详细的分析教程，包括中文翻译的使用文档。这些文档可以作为分析时查看相应命令参数的工具书:+1::+1::+1:，但在实际分析中，分析者其实仍旧会遇到各种各样的问题，特别是如何选择参数:dizzy_face::dizzy_face::dizzy_face:，要知道，轻微地修改某些参数，就可能导致最终分析结果的巨大变化；而这些是普通文档没有讲清楚的，也是本分析教程要着重帮助大家学习。</p>
+        <!-- toc -->
+<ul>
+<li><a href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2">写在前面</a></li>
+<li><a href="#%E8%83%8C%E6%99%AF">背景</a></li>
+<li><a href="#%E6%90%AD%E5%BB%BA%E5%88%86%E6%9E%90%E7%8E%AF%E5%A2%83">搭建分析环境</a>
+<ul>
+<li><a href="#%E5%AE%89%E8%A3%85%E6%96%B9%E5%BC%8F%E7%AE%80%E4%BB%8B">安装方式简介</a></li>
+<li><a href="#%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A4">安装步骤</a></li>
+</ul>
+</li>
+<li><a href="#%E5%87%86%E5%A4%87%E5%8E%9F%E5%A7%8B%E6%95%B0%E6%8D%AE">准备原始数据</a></li>
+</ul>
+<!-- tocstop -->
+<h2><span id="写在前面">写在前面</span></h2>
+<p>其实本文之前有过一个版本，但是忘记了上传github（懒癌晚期患者），源文件又不知为何丢失了（个人分析是开了两个文件，一个编辑了，一个没有，后者也进行了保存而导致的）😭😭😭，所以这个版本笔者是快速重新写了一遍，和之前那个版本相比，可能简略了一部分内容，毕竟心态崩了😔😔😔，之后本人会慢慢修改完善的。</p>
+<h2><span id="背景">背景</span></h2>
+<p><strong>扩增子测序</strong>，特别是基于 16S rRNA 基因相应可变区域的扩增子测序，是当下微生物研究者们普遍采用的一种检测分析手段。而对于这一研究手段，其难点就在于如何对测序数据进行处理分析。而目前最为流行的两大分析工具，分别是 <a href="https://qiime2.org/" target="_blank" rel="noopener">QIIME2</a> 和 <a href="http://www.drive5.com/usearch/" target="_blank" rel="noopener">USEARCH</a>。国内知名的科研公众号<a href="https://blog.csdn.net/woodcorpse/" target="_blank" rel="noopener">宏基因组</a>对这两个分析工具都进行了详细的分析教程，包括中文翻译的使用文档。这些文档可以作为分析时查看相应命令参数的工具书👍👍👍，但在实际分析中，分析者其实仍旧会遇到各种各样的问题，特别是如何选择参数😵😵😵，要知道，轻微地修改某些参数，就可能导致最终分析结果的巨大变化；而这些是普通文档没有讲清楚的，也是本分析教程要着重帮助大家学习。</p>
 <p>目前初步打算将本教程设计为一个系列教程，从如何搭建分析平台和环境，到详细讲解 <a href="https://qiime2.org/" target="_blank" rel="noopener">QIIME2</a> 实战分析的几种 pipeline 流程，如其中的 DADA2 pipeline、VSEARCH pipeline等等；之后再考虑基于分析的结果，拓展一些绘图分析的教程。</p>
-<p>关于 QIIME2 的简介可以点击<a href="https://docs.qiime2.org/2020.6/getting-started/" target="_blank" rel="noopener">这里</a>（官网，英文）和<a href="https://blog.csdn.net/woodcorpse/article/details/75103929" target="_blank" rel="noopener">这里</a>（宏基因组，中文）查看。推荐在学习本教程的过程中，通过以上链接来学习相应的基本概念:grinning::grinning::grinning:。也就是说，<u>本教程是进阶版的教程</U>。</p>
-<h2 id="搭建分析环境"><a href="#搭建分析环境" class="headerlink" title="搭建分析环境"></a>搭建分析环境</h2><h3 id="安装方式简介"><a href="#安装方式简介" class="headerlink" title="安装方式简介"></a>安装方式简介</h3><h4 id="类Unix原生安装"><a href="#类Unix原生安装" class="headerlink" title="类Unix原生安装"></a>类Unix原生安装</h4><p>原生的 QIIME2 是在 linux 系统上搭建的，因此，原生的安装也需要在linux系统上进行；此外，由于MAC OS系统其实和 linux 系统一样，也属于 Unix 系统的衍生:family:，所以也可以原生地安装 QIIME2 软件 (具体的安装方式和 Linux 其实是一致的)。说 QIIME2 是一个软件，其实倒不如说 QIIME2 是一堆软件或脚本，它通过将已有的一些分析脚本/软件的输入输出文件格式以及参数范式化，而达到将这些分析脚本/软件串联成分析流程/网络的目的。而正因如此，QIIME2 需要将这些分析脚本/软件全部安装到系统中去，才能完成这个分析平台的搭建。因此，我们就需要安装 Minconda 来提供 <a href="https://docs.conda.io/en/latest/" target="_blank" rel="noopener">conda</a> 环境（==“环境”的作用是解决软件之间的冲突问题==）并快速安装和管理 QIIME2 所需的主程序和插件。以下是原文的描述：</p>
+<p>关于 QIIME2 的简介可以点击<a href="https://docs.qiime2.org/2020.6/getting-started/" target="_blank" rel="noopener">这里</a>（官网，英文）和<a href="https://blog.csdn.net/woodcorpse/article/details/75103929" target="_blank" rel="noopener">这里</a>（宏基因组，中文）查看。推荐在学习本教程的过程中，通过以上链接来学习相应的基本概念😀😀😀。也就是说，<u>本教程是进阶版的教程</u>。</p>
+<h2><span id="搭建分析环境">搭建分析环境</span></h2>
+<h3><span id="安装方式简介">安装方式简介</span></h3>
+<h4><span id="类unix原生安装">类Unix原生安装</span></h4>
+<p>原生的 QIIME2 是在 linux 系统上搭建的，因此，原生的安装也需要在linux系统上进行；此外，由于MAC OS系统其实和 linux 系统一样，也属于 Unix 系统的衍生👪，所以也可以原生地安装 QIIME2 软件 (具体的安装方式和 Linux 其实是一致的)。说 QIIME2 是一个软件，其实倒不如说 QIIME2 是一堆软件或脚本，它通过将已有的一些分析脚本/软件的输入输出文件格式以及参数范式化，而达到将这些分析脚本/软件串联成分析流程/网络的目的。而正因如此，QIIME2 需要将这些分析脚本/软件全部安装到系统中去，才能完成这个分析平台的搭建。因此，我们就需要安装 Minconda 来提供 <a href="https://docs.conda.io/en/latest/" target="_blank" rel="noopener">conda</a> 环境（==“环境”的作用是解决软件之间的冲突问题==）并快速安装和管理 QIIME2 所需的主程序和插件。以下是原文的描述：</p>
 <blockquote>
 <p>Miniconda provides the conda environment and package manager, and is the recommended way to install QIIME 2. Follow the Miniconda instructions for downloading and installing Miniconda. You may choose either Miniconda2 or Miniconda3 (i.e. Miniconda Python 2 or 3). QIIME 2 will work with either version of Miniconda.</p>
 </blockquote>
-<p>所以Miniconda2和Minconda3都是可以的，当然，更推荐Minconda3，因为所对应的是 Python3（这就别问为什么了:no_mouth::no_mouth::no_mouth:）。<br>安装的方法也非常的简单，直接按照<a href="https://docs.qiime2.org/2020.6/install/native/" target="_blank" rel="noopener">官网流程</a>来就行了，或者参考宏基因组的翻译的<a href="https://blog.csdn.net/woodcorpse/article/details/75103929" target="_blank" rel="noopener">中文流程</a>。当然实际安装中可能会遇到一些包下载不了的问题，当然，最直接的方法就是<strong>多试几次</strong>:sweat_smile::sweat_smile::sweat_smile:，或者有机会的话，我会在以后的教程中叫大家如何有效解决:smirk::smirk::smirk:。因此，这里再不展开介绍如何原生安装 QIIME2。</p>
-<h4 id="虚拟化技术"><a href="#虚拟化技术" class="headerlink" title="虚拟化技术"></a>虚拟化技术</h4><ol>
-<li><p>VirtualBox虚拟机</p>
+<p>所以Miniconda2和Minconda3都是可以的，当然，更推荐Minconda3，因为所对应的是 Python3（这就别问为什么了😶😶😶）。<br>
+安装的方法也非常的简单，直接按照<a href="https://docs.qiime2.org/2020.6/install/native/" target="_blank" rel="noopener">官网流程</a>来就行了，或者参考宏基因组的翻译的<a href="https://blog.csdn.net/woodcorpse/article/details/75103929" target="_blank" rel="noopener">中文流程</a>。当然实际安装中可能会遇到一些包下载不了的问题，当然，最直接的方法就是<strong>多试几次</strong>😅😅😅，或者有机会的话，我会在以后的教程中叫大家如何有效解决😏😏😏。因此，这里再不展开介绍如何原生安装 QIIME2。</p>
+<h4><span id="虚拟化技术">虚拟化技术</span></h4>
+<ol>
+<li>
+<p>VirtualBox虚拟机</p>
 </li>
-<li><p>VMware虚拟机</p>
+<li>
+<p>VMware虚拟机</p>
 </li>
-<li><p>云服务器</p>
+<li>
+<p>云服务器</p>
 </li>
-<li><p>Docker容器引擎<br><a href="https://www.docker.com/" target="_blank" rel="noopener">Docker</a> 其实和一般的虚拟机是有本质区别的（他不是一个虚拟“机”而是一个容“器”），它基于 GO 语言，是一个开源的应用容器引擎。他可以提供一个轻量级、可移植的容器，以加载开发者的应用、脚本、依赖，并发布到目前常见的 Linux、Mac OS 以及 Windows 系统上去，后者即为虚拟化。<br>相比其他的虚拟化技术，Docker最大的特点是<u>容器性能的开销极低</u>:heart::heart::heart:。因此，非常适合于作为教程学习软件来在 Windows 的系统中搭建 QIIME2 使用。</p>
+<li>
+<p>Docker容器引擎<br>
+<a href="https://www.docker.com/" target="_blank" rel="noopener">Docker</a> 其实和一般的虚拟机是有本质区别的（他不是一个虚拟“机”而是一个容“器”），它基于 GO 语言，是一个开源的应用容器引擎。他可以提供一个轻量级、可移植的容器，以加载开发者的应用、脚本、依赖，并发布到目前常见的 Linux、Mac OS 以及 Windows 系统上去，后者即为虚拟化。<br>
+相比其他的虚拟化技术，Docker最大的特点是<u>容器性能的开销极低</u>❤️❤️❤️。因此，非常适合于作为教程学习软件来在 Windows 的系统中搭建 QIIME2 使用。</p>
 </li>
 </ol>
-<h3 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h3><p>本教程选择具有低资源门槛，多系统兼容和可移植性的 docker 技术来搭建/安装 QIIME2 分析平台；分析者可以先在 windows 系统上安装配置该分析平台，并满足对本分析教程的学习以及小规模数据的分析，而在有大规模数据分析需求的时候，docker 也可以快速移植到工作站和服务器上面（当然，这部分教程我会在以后补充:stuck_out_tongue_closed_eyes::stuck_out_tongue_closed_eyes::stuck_out_tongue_closed_eyes:）。<br>安装的过程大致为：</p>
+<h3><span id="安装步骤">安装步骤</span></h3>
+<p>本教程选择具有低资源门槛，多系统兼容和可移植性的 docker 技术来搭建/安装 QIIME2 分析平台；分析者可以先在 windows 系统上安装配置该分析平台，并满足对本分析教程的学习以及小规模数据的分析，而在有大规模数据分析需求的时候，docker 也可以快速移植到工作站和服务器上面（当然，这部分教程我会在以后补充😝😝😝）。<br>
+安装的过程大致为：</p>
 <ul>
 <li>开启虚拟化</li>
 <li>安装 Docker for Windows</li>
 <li>下载 QIIME2 镜像</li>
 <li>Docker 的基本操作</li>
 </ul>
-<h4 id="开启虚拟化"><a href="#开启虚拟化" class="headerlink" title="开启虚拟化"></a>开启虚拟化</h4><ol>
+<h4><span id="开启虚拟化">开启虚拟化</span></h4>
+<ol>
 <li>系统版本要求</li>
 </ol>
-<h4 id="安装-Docker-for-Windows"><a href="#安装-Docker-for-Windows" class="headerlink" title="安装 Docker for Windows"></a>安装 Docker for Windows</h4><h4 id="下载-QIIME2-镜像"><a href="#下载-QIIME2-镜像" class="headerlink" title="下载 QIIME2 镜像"></a>下载 QIIME2 镜像</h4><h4 id="Docker-的基本操作"><a href="#Docker-的基本操作" class="headerlink" title="Docker 的基本操作"></a>Docker 的基本操作</h4><h2 id="准备原始数据"><a href="#准备原始数据" class="headerlink" title="准备原始数据"></a>准备原始数据</h2><p>以后教程所用到的原始文件，可点击<a href="https://github.com/microbiomeCat/tutorials/blob/master/qiime2_dada2/rawdata.tar.gz" target="_blank" rel="noopener">这里</a>下载，并将下载的文件放到相应位置，以便挂在到 Docker 中去。<br>你也可以在 Docker 环境中使用如下代码下载并解压。</p>
+<h4><span id="安装-docker-for-windows">安装 Docker for Windows</span></h4>
+<h4><span id="下载-qiime2-镜像">下载 QIIME2 镜像</span></h4>
+<h4><span id="docker-的基本操作">Docker 的基本操作</span></h4>
+<h2><span id="准备原始数据">准备原始数据</span></h2>
+<p>以后教程所用到的原始文件，可点击<a href="https://github.com/microbiomeCat/tutorials/blob/master/qiime2_dada2/rawdata.tar.gz" target="_blank" rel="noopener">这里</a>下载，并将下载的文件放到相应位置，以便挂在到 Docker 中去。<br>
+你也可以在 Docker 环境中使用如下代码下载并解压。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mkdir tutorial; <span class="built_in">cd</span> tutorial</span><br><span class="line"></span><br><span class="line">wget https://github.com/microbiomeCat/tutorials/blob/master/qiime2_dada2/rawdata.tar.gz</span><br><span class="line"></span><br><span class="line">tar -xzvf rawdata.tar.gz</span><br></pre></td></tr></table></figure>
-
-
 
     </div>
 
@@ -263,8 +295,8 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/07/26/qiime2_pipeline/" rel="prev" title="QIMME2分析教程">
-      <i class="fa fa-chevron-left"></i> QIMME2分析教程
+    <a href="/2020/06/26/hello-world/" rel="prev" title="Hello World">
+      <i class="fa fa-chevron-left"></i> Hello World
     </a></div>
       <div class="post-nav-item"></div>
     </div>
@@ -325,7 +357,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">2.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#搭建分析环境"><span class="nav-number">3.</span> <span class="nav-text">搭建分析环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装方式简介"><span class="nav-number">3.1.</span> <span class="nav-text">安装方式简介</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#类Unix原生安装"><span class="nav-number">3.1.1.</span> <span class="nav-text">类Unix原生安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#虚拟化技术"><span class="nav-number">3.1.2.</span> <span class="nav-text">虚拟化技术</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装步骤"><span class="nav-number">3.2.</span> <span class="nav-text">安装步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#开启虚拟化"><span class="nav-number">3.2.1.</span> <span class="nav-text">开启虚拟化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装-Docker-for-Windows"><span class="nav-number">3.2.2.</span> <span class="nav-text">安装 Docker for Windows</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#下载-QIIME2-镜像"><span class="nav-number">3.2.3.</span> <span class="nav-text">下载 QIIME2 镜像</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Docker-的基本操作"><span class="nav-number">3.2.4.</span> <span class="nav-text">Docker 的基本操作</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#准备原始数据"><span class="nav-number">4.</span> <span class="nav-text">准备原始数据</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#"><span class="nav-number">2.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#"><span class="nav-number">3.</span> <span class="nav-text">搭建分析环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#"><span class="nav-number">3.1.</span> <span class="nav-text">安装方式简介</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#"><span class="nav-number">3.1.1.</span> <span class="nav-text">类Unix原生安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#"><span class="nav-number">3.1.2.</span> <span class="nav-text">虚拟化技术</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#"><span class="nav-number">3.2.</span> <span class="nav-text">安装步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#"><span class="nav-number">3.2.1.</span> <span class="nav-text">开启虚拟化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#"><span class="nav-number">3.2.2.</span> <span class="nav-text">安装 Docker for Windows</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#"><span class="nav-number">3.2.3.</span> <span class="nav-text">下载 QIIME2 镜像</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#"><span class="nav-number">3.2.4.</span> <span class="nav-text">Docker 的基本操作</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#"><span class="nav-number">4.</span> <span class="nav-text">准备原始数据</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -341,7 +373,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives">
         
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">2</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
