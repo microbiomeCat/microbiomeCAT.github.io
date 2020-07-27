@@ -198,7 +198,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-27 23:54:11" itemprop="dateModified" datetime="2020-07-27T23:54:11+08:00">2020-07-27</time>
+                <time title="修改时间：2020-07-28 00:00:15" itemprop="dateModified" datetime="2020-07-28T00:00:15+08:00">2020-07-28</time>
               </span>
 
           
@@ -239,10 +239,12 @@
 <!-- tocstop -->
 <h2><span id="写在前面">写在前面</span></h2>
 <p>其实本文之前有过一个版本，但是忘记了上传github（懒癌晚期患者），源文件又不知为何丢失了（个人分析是开了两个文件，一个编辑了，一个没有，后者也进行了保存而导致的）😭😭😭，所以这个版本笔者是快速重新写了一遍，和之前那个版本相比，可能简略了一部分内容，毕竟心态崩了😔😔😔，之后本人会慢慢修改完善的。</p>
+<hr>
 <h2><span id="背景">背景</span></h2>
 <p><strong>扩增子测序</strong>，特别是基于 16S rRNA 基因相应可变区域的扩增子测序，是当下微生物研究者们普遍采用的一种检测分析手段。而对于这一研究手段，其难点就在于如何对测序数据进行处理分析。而目前最为流行的两大分析工具，分别是 <a href="https://qiime2.org/" target="_blank" rel="noopener">QIIME2</a> 和 <a href="http://www.drive5.com/usearch/" target="_blank" rel="noopener">USEARCH</a>。国内知名的科研公众号<a href="https://blog.csdn.net/woodcorpse/" target="_blank" rel="noopener">宏基因组</a>对这两个分析工具都进行了详细的分析教程，包括中文翻译的使用文档。这些文档可以作为分析时查看相应命令参数的工具书👍👍👍，但在实际分析中，分析者其实仍旧会遇到各种各样的问题，特别是如何选择参数😵😵😵，要知道，轻微地修改某些参数，就可能导致最终分析结果的巨大变化；而这些是普通文档没有讲清楚的，也是本分析教程要着重帮助大家学习。</p>
 <p>目前初步打算将本教程设计为一个系列教程，从如何搭建分析平台和环境，到详细讲解 <a href="https://qiime2.org/" target="_blank" rel="noopener">QIIME2</a> 实战分析的几种 pipeline 流程，如其中的 DADA2 pipeline、VSEARCH pipeline等等；之后再考虑基于分析的结果，拓展一些绘图分析的教程。</p>
 <p>关于 QIIME2 的简介可以点击<a href="https://docs.qiime2.org/2020.6/getting-started/" target="_blank" rel="noopener">这里</a>（官网，英文）和<a href="https://blog.csdn.net/woodcorpse/article/details/75103929" target="_blank" rel="noopener">这里</a>（宏基因组，中文）查看。推荐在学习本教程的过程中，通过以上链接来学习相应的基本概念😀😀😀。也就是说，<u>本教程是进阶版的教程</u>。</p>
+<hr>
 <h2><span id="搭建分析环境">搭建分析环境</span></h2>
 <h3><span id="安装方式简介">安装方式简介</span></h3>
 <h4><span id="类unix原生安装">类Unix原生安装</span></h4>
@@ -252,6 +254,7 @@
 </blockquote>
 <p>所以Miniconda2和Minconda3都是可以的，当然，更推荐Minconda3，因为所对应的是 Python3（这就别问为什么了😶😶😶）。<br>
 安装的方法也非常的简单，直接按照<a href="https://docs.qiime2.org/2020.6/install/native/" target="_blank" rel="noopener">官网流程</a>来就行了，或者参考宏基因组的翻译的<a href="https://blog.csdn.net/woodcorpse/article/details/75103929" target="_blank" rel="noopener">中文流程</a>。当然实际安装中可能会遇到一些包下载不了的问题，当然，最直接的方法就是<strong>多试几次</strong>😅😅😅，或者有机会的话，我会在以后的教程中叫大家如何有效解决😏😏😏。因此，这里再不展开介绍如何原生安装 QIIME2。</p>
+<hr>
 <h4><span id="虚拟化技术">虚拟化技术</span></h4>
 <ol>
 <li>
@@ -269,6 +272,7 @@
 相比其他的虚拟化技术，Docker 最大的特点是<u>容器性能的开销极低</u>❤️❤️❤️。因此，非常适合于作为教程学习软件来在 Windows 的系统中搭建 QIIME2 使用。</p>
 </li>
 </ol>
+<hr>
 <h3><span id="安装步骤">安装步骤</span></h3>
 <p>本教程选择具有低资源门槛，多系统兼容和可移植性的 docker 技术来搭建/安装 QIIME2 分析平台；初学者可以先在 windows 系统上安装配置该分析平台，并满足对本分析教程的学习以及小规模数据的分析，而在有大规模数据分析需求的时候，docker 也可以快速移植到工作站和服务器上面（当然，这部分教程我会在以后补充😝😝😝）。<br>
 安装的过程大致为：</p>
@@ -302,12 +306,16 @@ Docker for Windows 需要你的 Windows 版本为 64 位的 Windows 10 Pro <stro
 <img src="./../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img5.jpg" alt="打开Docker"><br>
 第一次安装启用可能会弹出 Docker Cloud 的登录界面，可以先关掉，也可以去注册然后登录，使用和git有点类似，这里先不讲：<br>
 <img src="./../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img4.5.jpg" alt="打开Docker"></p>
+<hr>
 <h4><span id="下载-qiime2-镜像">下载 QIIME2 镜像</span></h4>
+<hr>
 <h4><span id="docker-的基本操作">Docker 的基本操作</span></h4>
+<hr>
 <h2><span id="准备原始数据">准备原始数据</span></h2>
 <p>以后教程所用到的原始文件，可点击<a href="https://github.com/microbiomeCat/tutorials/blob/master/qiime2_dada2/rawdata.tar.gz" target="_blank" rel="noopener">这里</a>下载，并将下载的文件放到相应位置，以便挂在到 Docker 中去。<br>
 你也可以在 Docker 环境中使用如下代码下载并解压。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mkdir tutorial; <span class="built_in">cd</span> tutorial</span><br><span class="line"></span><br><span class="line">wget https://github.com/microbiomeCat/tutorials/blob/master/qiime2_dada2/rawdata.tar.gz</span><br><span class="line"></span><br><span class="line">tar -xzvf rawdata.tar.gz</span><br></pre></td></tr></table></figure>
+<hr>
 
       
     </div>
