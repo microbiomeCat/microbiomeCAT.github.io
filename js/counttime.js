@@ -21,6 +21,7 @@ else{if(lang == 'zh'){
 })
 }}
    // });
+   
 $(document).ready(function () {
 var $runtimeCount = $('#webinfo-runtime-count')
     var startDate = $runtimeCount.attr('start_date')
