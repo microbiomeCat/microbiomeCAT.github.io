@@ -15,6 +15,25 @@
 
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
+
+<script src="https://cdn.staticfile.org/layer/3.1.1/layer.min.js"></script>
+
+<script>
+var cjhurl = window.location.host;//域名
+pthurl = window.location.pathname;//资源地址
+var lang = navigator.language||navigator.userLanguage;//语言，使用中文的人大多在中国内地
+lang = lang.substr(0, 2);//截取lang前2位字符
+if(cjhurl == 'microbiomecat.gitee.io'){if(lang == 'zh'){
+	layer.confirm('检测到您使用中文但访问本站境外服务器，建议访问速度快的 Gitee备用站 / Vercel服务器', {
+		title:"等待网页加载……",
+  btn: ['Gitee备用站'] ,//按钮
+  shade: 0
+}, function(){
+  window.location.href="https://microbiomecat.gitee.io"+pthurl;//跳转 gitee
+})
+}}
+</script>
+
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"www.microbiomecat.xyz","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};

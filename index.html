@@ -15,6 +15,25 @@
 
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
+
+<script src="https://cdn.staticfile.org/layer/3.1.1/layer.min.js"></script>
+
+<script>
+var cjhurl = window.location.host;//域名
+pthurl = window.location.pathname;//资源地址
+var lang = navigator.language||navigator.userLanguage;//语言，使用中文的人大多在中国内地
+lang = lang.substr(0, 2);//截取lang前2位字符
+if(cjhurl == 'microbiomecat.gitee.io'){if(lang == 'zh'){
+	layer.confirm('检测到您使用中文但访问本站境外服务器，建议访问速度快的 Gitee备用站 / Vercel服务器', {
+		title:"等待网页加载……",
+  btn: ['Gitee备用站'] ,//按钮
+  shade: 0
+}, function(){
+  window.location.href="https://microbiomecat.gitee.io"+pthurl;//跳转 gitee
+})
+}}
+</script>
+
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"www.microbiomecat.xyz","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
@@ -239,7 +258,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3.4k</span>
+              <span>3.5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -258,111 +277,21 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <!-- toc -->
+          <h2 id="摘要"><a class="header-anchor" href="#摘要"></a>摘要</h2>
+<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img-1.png" class="[class names]" width="400" height="320" title="Docker and QIIME2 " alt="使用 Docker Desktop for Windows 搭建 QIIME2 分析平台">
 <ul>
-<li><a href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2">写在前面</a></li>
-<li><a href="#%E8%83%8C%E6%99%AF">背景</a></li>
-<li><a href="#%E6%90%AD%E5%BB%BA%E5%88%86%E6%9E%90%E7%8E%AF%E5%A2%83">搭建分析环境</a>
-<ul>
-<li><a href="#%E5%AE%89%E8%A3%85%E6%96%B9%E5%BC%8F%E7%AE%80%E4%BB%8B">安装方式简介</a>
-<ul>
-<li><a href="#%E7%B1%BBunix%E5%8E%9F%E7%94%9F%E5%AE%89%E8%A3%85">类Unix原生安装</a></li>
-<li><a href="#%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF">虚拟化技术</a></li>
+<li>使用 Docker Desktop for Windows 搭建 QIIME2 分析平台</li>
+<li>Docker 的使用方法简介</li>
+<li>准备扩增子测序所需的测试数据</li>
 </ul>
-</li>
-<li><a href="#%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A4">安装步骤</a>
-<ul>
-<li><a href="#%E5%BC%80%E5%90%AF%E8%99%9A%E6%8B%9F%E5%8C%96">开启虚拟化</a></li>
-<li><a href="#%E5%AE%89%E8%A3%85-docker-desktop-for-windows">安装 Docker Desktop for Windows</a></li>
-<li><a href="#%E4%B8%8B%E8%BD%BD-qiime2-%E9%95%9C%E5%83%8F">下载 QIIME2 镜像</a></li>
-<li><a href="#docker-%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C">Docker 的基本操作</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#%E5%87%86%E5%A4%87%E5%8E%9F%E5%A7%8B%E6%95%B0%E6%8D%AE">准备原始数据</a></li>
-</ul>
-<!-- tocstop -->
-<h2><span id="写在前面">写在前面</span></h2>
-<p>其实本文之前有过一个版本，但是忘记了上传github（懒癌晚期患者），源文件又不知为何丢失了（个人分析是开了两个文件，一个编辑了，一个没有，后者也进行了保存而导致的）😭😭😭，所以这个版本笔者是快速重新写了一遍，和之前那个版本相比，可能简略了一部分内容，毕竟心态崩了😔😔😔，之后本人会慢慢修改完善的。</p>
-<hr>
-<h2><span id="背景">背景</span></h2>
-<p><strong>扩增子测序</strong>，特别是基于 16S rRNA 基因相应可变区域的扩增子测序，是当下微生物研究者们普遍采用的一种检测分析手段。而对于这一研究手段，其难点就在于如何对测序数据进行处理分析。而目前最为流行的两大分析工具，分别是 <a href="https://qiime2.org/" target="_blank" rel="noopener">QIIME2</a> 和 <a href="http://www.drive5.com/usearch/" target="_blank" rel="noopener">USEARCH</a>。国内知名的科研公众号<a href="https://blog.csdn.net/woodcorpse/" target="_blank" rel="noopener">宏基因组</a>对这两个分析工具都进行了详细的分析教程，包括中文翻译的使用文档。这些文档可以作为分析时查看相应命令参数的工具书👍👍👍，但在实际分析中，分析者其实仍旧会遇到各种各样的问题，特别是如何选择参数😵😵😵，要知道，轻微地修改某些参数，就可能导致最终分析结果的巨大变化；而这些是普通文档没有讲清楚的，也是本分析教程要着重帮助大家学习。</p>
-<p>目前初步打算将本教程设计为一个系列教程，从如何搭建分析平台和环境，到详细讲解 <a href="https://qiime2.org/" target="_blank" rel="noopener">QIIME2</a> 实战分析的几种 pipeline 流程，如其中的 DADA2 pipeline、VSEARCH pipeline等等；之后再考虑基于分析的结果，拓展一些绘图分析的教程。</p>
-<p>关于 QIIME2 的简介可以点击<a href="https://docs.qiime2.org/2020.6/getting-started/" target="_blank" rel="noopener">这里</a>（官网，英文）和<a href="https://blog.csdn.net/woodcorpse/article/details/75103929" target="_blank" rel="noopener">这里</a>（宏基因组，中文）查看。推荐在学习本教程的过程中，通过以上链接来学习相应的基本概念😀😀😀。也就是说，<u>本教程是进阶版的教程</u>。</p>
-<hr>
-<h2><span id="搭建分析环境">搭建分析环境</span></h2>
-<h3><span id="安装方式简介">安装方式简介</span></h3>
-<h4><span id="类unix原生安装">类Unix原生安装</span></h4>
-<p>原生的 QIIME2 是在 linux 系统上搭建的，因此，原生的安装也需要在linux系统上进行；此外，由于MAC OS系统其实和 linux 系统一样，也属于 Unix 系统的衍生👪，所以也可以原生地安装 QIIME2 软件 (具体的安装方式和 Linux 其实是一致的)。说 QIIME2 是一个软件，其实倒不如说 QIIME2 是一堆软件或脚本，它通过将已有的一些分析脚本/软件的输入输出文件格式以及参数范式化，而达到将这些分析脚本/软件串联成分析流程/网络的目的。而正因如此，QIIME2 需要将这些分析脚本/软件全部安装到系统中去，才能完成这个分析平台的搭建。因此，我们就需要安装 Minconda 来提供 <a href="https://docs.conda.io/en/latest/" target="_blank" rel="noopener">conda</a> 环境（<u>“环境”的作用是解决软件之间的冲突问题</u>）并快速安装和管理 QIIME2 所需的主程序和插件。以下是原文的描述：</p>
-<blockquote>
-<p>Miniconda provides the conda environment and package manager, and is the recommended way to install QIIME 2. Follow the Miniconda instructions for downloading and installing Miniconda. You may choose either Miniconda2 or Miniconda3 (i.e. Miniconda Python 2 or 3). QIIME 2 will work with either version of Miniconda.</p>
-</blockquote>
-<p>所以Miniconda2和Minconda3都是可以的，当然，更推荐Minconda3，因为所对应的是 Python3（这就别问为什么了😶😶😶）。<br>
-安装的方法也非常的简单，直接按照<a href="https://docs.qiime2.org/2020.6/install/native/" target="_blank" rel="noopener">官网流程</a>来就行了，或者参考宏基因组的翻译的<a href="https://blog.csdn.net/woodcorpse/article/details/75103929" target="_blank" rel="noopener">中文流程</a>。当然实际安装中可能会遇到一些包下载不了的问题，当然，最直接的方法就是<strong>多试几次</strong>😅😅😅，或者有机会的话，我会在以后的教程中叫大家如何有效解决😏😏😏。因此，这里再不展开介绍如何原生安装 QIIME2。</p>
-<hr>
-<h4><span id="虚拟化技术">虚拟化技术</span></h4>
-<ol>
-<li>
-<p>VirtualBox虚拟机</p>
-</li>
-<li>
-<p>VMware虚拟机</p>
-</li>
-<li>
-<p>云服务器</p>
-</li>
-<li>
-<p>Docker容器引擎<br>
-<a href="https://www.docker.com/" target="_blank" rel="noopener">Docker</a> 其实和一般的虚拟机是有本质区别的（他不是一个虚拟“机”而是一个容“器”），它基于 GO 语言，是一个开源的应用容器引擎。他可以提供一个轻量级、可移植的容器，以加载开发者的应用、脚本、依赖，并发布到目前常见的 Linux、Mac OS 以及 Windows 系统上去，后者即为虚拟化。<br>
-相比其他的虚拟化技术，Docker 最大的特点是<u>容器性能的开销极低</u>❤️❤️❤️。因此，非常适合于作为教程学习软件来在 Windows 的系统中搭建 QIIME2 使用。</p>
-</li>
-</ol>
-<hr>
-<h3><span id="安装步骤">安装步骤</span></h3>
-<p>本教程选择具有低资源门槛，多系统兼容和可移植性的 docker 技术来搭建/安装 QIIME2 分析平台；初学者可以先在 windows 系统上安装配置该分析平台，并满足对本分析教程的学习以及小规模数据的分析，而在有大规模数据分析需求的时候，docker 也可以快速移植到工作站和服务器上面（当然，这部分教程我会在以后补充😝😝😝）。<br>
-安装的过程大致为：</p>
-<ul>
-<li>开启虚拟化</li>
-<li>安装 Docker for Windows</li>
-<li>下载 QIIME2 镜像</li>
-<li>Docker 的基本操作</li>
-</ul>
-<h4><span id="开启虚拟化">开启虚拟化</span></h4>
-<p>我们将使用 <a href="https://docs.docker.com/docker-for-windows/install/" target="_blank" rel="noopener">Docker Desktop for Windows</a> 软件来实现在 Windows 系统上安装和运行 docker。开始安装之前，我们得首先确定自己的系统可以安装这个软件。安装<br>
-Docker for Windows 需要你的 Windows 版本为 64 位的 Windows 10 Pro <strong>专业版</strong>、<strong>企业版</strong>和<strong>教育版</strong>（1607 年纪念更新，版本 14393 或更高版本）。<u>家庭版的安装不能使用本教程，或许可以参考<a href="https://docs.docker.com/docker-for-windows/install-windows-home/" target="_blank" rel="noopener">这里</a></u>。如果你的 Windows版本不是这些，那么建议你先升级自己的 Windows。比如家庭版 Windows 10 其实只需要购买一个专业版的 key 就可以快速升级了，别问我哪里能买到哦㊙️㊙️㊙️。或者你也可以安装 <a href="https://docs.docker.com/toolbox/overview/" target="_blank" rel="noopener">Docker Toolbox</a>，至于怎么安装，请自行百度了，毕竟我也没用过😝😝😝。比如我的笔记本是 windows 10 专业版的：<br>
-<img src="./../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img0.jpg" alt="windows版本"><br>
-确定自己的系统满足以上要求后,我们需要先确认自己的电脑打开了虚拟化，首先键盘按 Ctrl + Alt + Delete 来调出任务管理器：<br>
-<img src="./../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img0.1.jpg" alt="查看虚拟化"><br>
-我这边显示“已启用”，如果你的电脑显示“未启用”之类的，那么请执行以下操作：<u><strong>打开“程序与功能”–&gt;选中“启用或关闭 Windows 功能”中的“Hyper-V”–&gt;确定后重启电脑</strong></u>。<br>
-<img src="./../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img1.jpg" alt="程序与功能"><br>
-<img src="./../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img2.jpg" alt="Hyper-V"><br>
-重启电脑后，我们再次 Ctrl + Alt + Delete 调出任务管理器查看是否开启了虚拟化。<br>
-<small><small>对于安装了、安装过 VMware 的系统，请彻底卸载 VMware 后再执行以上过程。</small></small></p>
-<h4><span id="安装-docker-desktop-for-windows">安装 Docker Desktop for Windows</span></h4>
-<p>开启虚拟化后，到 Docker 官网下载 Docker Desktop for Windows，点击<a href="https://www.docker.com/products/docker-desktop" target="_blank" rel="noopener">这里</a>或<a href="https://www.docker.com/products/docker-desktop" target="_blank" rel="noopener">这里</a>跳转到下载页面如下。<br>
-<img src="./../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img3.jpg" alt="下载Docker1"></p>
-<p><img src="./../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img3.2.jpg" alt="下载Docker2"><br>
-以上下载页面只需要选择一个哦☝️。<br>
-打开下载的安装包，依次点击就可以进行安装了，需要注意的是，安装包会自行判断你的系统是否可以安装 Docker Desktop for Windows。如果你的虚拟化没有打开，那可能就会安装失败了。<br>
-<small><small>对于安装了、安装过 VMware 的系统，这一步如果失败了，可以尝试关闭 Hyper-V 后重启，再打开 Hyper-V 再重启，也许就可以解决问题了（这是我当时的解决方式）。</small></small><br>
-完成安装后，可以看到 Docker Desktop 已经在开始菜单中了：<br>
-<img src="./../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img4.jpg" alt="打开Docker"><br>
-我们点击图标打开它。此时可以发现屏幕右下角的任务栏系统托盘区，出现了一个鲸鱼🐋的图标，并且鼠标放在上面后显示“Docker Desktop is running”，这说明 Docker 引擎已经启动了。<br>
-<img src="./../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img5.jpg" alt="打开Docker"><br>
-第一次安装启用可能会弹出 Docker Cloud 的登录界面，可以先关掉，也可以去注册然后登录，使用和git有点类似，这里先不讲：<br>
-<img src="./../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img4.5.jpg" alt="打开Docker"></p>
-<hr>
-<h4><span id="下载-qiime2-镜像">下载 QIIME2 镜像</span></h4>
-<hr>
-<h4><span id="docker-的基本操作">Docker 的基本操作</span></h4>
-<hr>
-<h2><span id="准备原始数据">准备原始数据</span></h2>
-<p>以后教程所用到的原始文件，可点击<a href="https://github.com/microbiomeCat/tutorials/blob/master/qiime2_dada2/rawdata.tar.gz" target="_blank" rel="noopener">这里</a>下载，并将下载的文件放到相应位置，以便挂在到 Docker 中去。<br>
-你也可以在 Docker 环境中使用如下代码下载并解压。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mkdir tutorial; <span class="built_in">cd</span> tutorial</span><br><span class="line"></span><br><span class="line">wget https://github.com/microbiomeCat/tutorials/blob/master/qiime2_dada2/rawdata.tar.gz</span><br><span class="line"></span><br><span class="line">tar -xzvf rawdata.tar.gz</span><br></pre></td></tr></table></figure>
-<hr>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/07/26/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
