@@ -17,7 +17,7 @@ else{if(lang == 'zh'){
   btn: ['Gitee备用站'] ,//按钮
   shade: 0
 }, function(){
-  safeOpenUrl("microbiomecat.gitee.io"+pthurl);
+  safeOpenUrl("https://microbiomecat.gitee.io"+pthurl);
 })
 }}
    // });
