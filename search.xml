@@ -4,7 +4,6 @@
     <title>基于 QIIME2 的扩增子分析教程-准备篇</title>
     <url>/2020/07/26/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/</url>
     <content><![CDATA[<h2><span id="摘要">摘要</span></h2>
-<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img-1.png" class="[class names]" width="400" height="320" title="Docker and QIIME2 " alt="使用 Docker Desktop for Windows 搭建 QIIME2 分析平台">
 <ul>
 <li>使用 Docker Desktop for Windows 搭建 QIIME2 分析平台</li>
 <li>Docker 的使用方法简介</li>
