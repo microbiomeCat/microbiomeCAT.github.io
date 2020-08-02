@@ -41,7 +41,7 @@
 <meta property="og:image" content="https://www.microbiomecat.xyz/image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img5.jpg">
 <meta property="og:image" content="https://www.microbiomecat.xyz/image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img4.5.jpg">
 <meta property="article:published_time" content="2020-07-26T13:18:56.000Z">
-<meta property="article:modified_time" content="2020-08-02T05:03:29.872Z">
+<meta property="article:modified_time" content="2020-08-02T05:39:42.722Z">
 <meta property="article:author" content="Sansan Li">
 <meta property="article:tag" content="QIIME2">
 <meta property="article:tag" content="扩增子">
@@ -366,27 +366,27 @@
 <h4><span id="开启虚拟化">开启虚拟化</span></h4>
 <p>我们将使用 <a href="https://docs.docker.com/docker-for-windows/install/" target="_blank" rel="noopener">Docker Desktop for Windows</a> 软件来实现在 Windows 系统上安装和运行 docker。开始安装之前，我们得首先确定自己的系统可以安装这个软件。安装<br>
 Docker for Windows 需要你的 Windows 版本为 64 位的 Windows 10 Pro <strong>专业版</strong>、<strong>企业版</strong>和<strong>教育版</strong>（1607 年纪念更新，版本 14393 或更高版本）。<u>家庭版的安装不能使用本教程，或许可以参考<a href="https://docs.docker.com/docker-for-windows/install-windows-home/" target="_blank" rel="noopener">这里</a></u>。如果你的 Windows版本不是这些，那么建议你先升级自己的 Windows。比如家庭版 Windows 10 其实只需要购买一个专业版的 key 就可以快速升级了，别问我哪里能买到哦㊙️㊙️㊙️。或者你也可以安装 <a href="https://docs.docker.com/toolbox/overview/" target="_blank" rel="noopener">Docker Toolbox</a>，至于怎么安装，请自行百度了，毕竟我也没用过😝😝😝。比如我的笔记本是 windows 10 专业版的：</p>
-<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img0.jpg" class="[class names]" width="500" height="320" title="windows版本">
-<p>确定自己的系统满足以上要求后,我们需要先确认自己的电脑打开了虚拟化，首先键盘按 Ctrl + Alt + Delete 来调出任务管理器：<br>
-<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img0.1.jpg" alt="查看虚拟化"><br>
-我这边显示“已启用”，如果你的电脑显示“未启用”之类的，那么请执行以下操作：<u><strong>打开“程序与功能”–&gt;选中“启用或关闭 Windows 功能”中的“Hyper-V”–&gt;确定后重启电脑</strong></u>。<br>
-<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img1.jpg" alt="程序与功能"><br>
-<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img2.jpg" alt="Hyper-V"><br>
-重启电脑后，我们再次 Ctrl + Alt + Delete 调出任务管理器查看是否开启了虚拟化。<br>
+<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img0.jpg" class="[class names]" width="750" height="480" title="windows版本">
+<p>确定自己的系统满足以上要求后,我们需要先确认自己的电脑打开了虚拟化，首先键盘按 Ctrl + Alt + Delete 来调出任务管理器：</p>
+<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img0.1.jpg" class="[class names]" width="645" height="585" title="查看虚拟化">
+<p>我这边显示“已启用”，如果你的电脑显示“未启用”之类的，那么请执行以下操作：<u><strong>打开“程序与功能”–&gt;选中“启用或关闭 Windows 功能”中的“Hyper-V”–&gt;确定后重启电脑</strong></u>。</p>
+<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img1.jpg" class="[class names]" width="600" height="600" title="程序与功能">
+<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img2.jpg" class="[class names]" width="660" height="330" title="Hyper-V">
+<p>重启电脑后，我们再次 Ctrl + Alt + Delete 调出任务管理器查看是否开启了虚拟化。<br>
 <small><small>对于安装了、安装过 VMware 的系统，请彻底卸载 VMware 后再执行以上过程。</small></small></p>
 <h4><span id="安装-docker-desktop-for-windows">安装 Docker Desktop for Windows</span></h4>
-<p>开启虚拟化后，到 Docker 官网下载 Docker Desktop for Windows，点击<a href="https://www.docker.com/products/docker-desktop" target="_blank" rel="noopener">这里</a>或<a href="https://www.docker.com/products/docker-desktop" target="_blank" rel="noopener">这里</a>跳转到下载页面如下。<br>
-<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img3.jpg" alt="下载Docker1"></p>
-<p><img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img3.2.jpg" alt="下载Docker2"><br>
-以上下载页面只需要选择一个哦☝️。<br>
+<p>开启虚拟化后，到 Docker 官网下载 Docker Desktop for Windows，点击<a href="https://www.docker.com/products/docker-desktop" target="_blank" rel="noopener">这里</a>或<a href="https://www.docker.com/products/docker-desktop" target="_blank" rel="noopener">这里</a>跳转到下载页面如下。</p>
+<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img3.jpg" class="[class names]" width="810" height="450" title="下载Docker1">
+<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img3.2.jpg" class="[class names]" width="780" height="480" title="下载Docker2">
+<p>以上下载页面只需要选择一个哦☝️。<br>
 打开下载的安装包，依次点击就可以进行安装了，需要注意的是，安装包会自行判断你的系统是否可以安装 Docker Desktop for Windows。如果你的虚拟化没有打开，那可能就会安装失败了。<br>
 <small><small>对于安装了、安装过 VMware 的系统，这一步如果失败了，可以尝试关闭 Hyper-V 后重启，再打开 Hyper-V 再重启，也许就可以解决问题了（这是我当时的解决方式）。</small></small><br>
-完成安装后，可以看到 Docker Desktop 已经在开始菜单中了：<br>
-<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img4.jpg" alt="打开Docker"><br>
-我们点击图标打开它。此时可以发现屏幕右下角的任务栏系统托盘区，出现了一个鲸鱼🐋的图标，并且鼠标放在上面后显示“Docker Desktop is running”，这说明 Docker 引擎已经启动了。<br>
-<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img5.jpg" alt="打开Docker"><br>
-第一次安装启用可能会弹出 Docker Cloud 的登录界面，可以先关掉，也可以去注册然后登录，使用和git有点类似，这里先不讲：<br>
-<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img4.5.jpg" alt="打开Docker"></p>
+完成安装后，可以看到 Docker Desktop 已经在开始菜单中了：</p>
+<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img4.jpg" class="[class names]" width="615" height="690" title="打开Docker1">
+<p>我们点击图标打开它。此时可以发现屏幕右下角的任务栏系统托盘区，出现了一个鲸鱼🐋的图标，并且鼠标放在上面后显示“Docker Desktop is running”，这说明 Docker 引擎已经启动了。</p>
+<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img5.jpg" class="[class names]" width="750" height="330" title="打开Docker2">
+<p>第一次安装启用可能会弹出 Docker Cloud 的登录界面，可以先关掉，也可以去注册然后登录，使用和git有点类似，这里先不讲：</p>
+<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img4.5.jpg" class="[class names]" width="750" height="450" title="打开Docker3">
 <hr>
 <h4><span id="下载-qiime2-镜像">下载 QIIME2 镜像</span></h4>
 <hr>
