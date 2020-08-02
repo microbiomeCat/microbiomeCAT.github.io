@@ -171,7 +171,6 @@ Docker for Windows 需要你的 Windows 版本为 64 位的 Windows 10 Pro <stro
 <p>以后教程所用到的原始文件，可点击<a href="https://microbiomecat.lanzous.com/if8MMf85h2h" target="_blank" rel="noopener">这里</a>下载，并将下载的文件放到相应位置，以便挂在到 Docker 中去。<br>
 你也可以在 Docker 环境中使用如下代码下载并解压。</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mkdir tutorial; <span class="built_in">cd</span> tutorial</span><br><span class="line"></span><br><span class="line">wget https://github.com/microbiomeCat/tutorials/blob/master/qiime2_dada2/rawdata.tar.gz</span><br><span class="line"></span><br><span class="line">tar -xzvf rawdata.tar.gz</span><br></pre></td></tr></table></figure>
-<hr>
 ]]></content>
       <categories>
         <category>扩增子</category>
