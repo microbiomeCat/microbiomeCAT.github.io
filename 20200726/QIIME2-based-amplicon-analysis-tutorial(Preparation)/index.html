@@ -21,7 +21,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.microbiomecat.xyz","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":true,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"www.microbiomecat.xyz","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":true,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="摘要   使用 Docker Desktop for Windows 搭建 QIIME2 分析平台 Docker 的使用方法简介 准备扩增子测序所需的测试数据">
@@ -282,7 +282,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>5.5k</span>
+              <span>5.6k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -419,10 +419,10 @@ Docker for Windows 需要你的 Windows 版本为 64 位的 Windows 10 Pro <stro
 <p>我们打开 window 10 自带的 Powershell，如果你使用的是 VScode 编辑器，也可以用它里面的终端（其实也就是 Powershell）：</p>
 <img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img6.jpg" class="[class names]" width="500" height="500" title="下载镜像1">
 <p>我们可以先看一下镜像加速地址是否配置正确，在 Powershell 的终端中输入 docker info，可以看到出现的信息的最后部分，就有 “Registry Mirrors”，检查其下的地址是否正确。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker info</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><figcaption><span>查看docker信息</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker info</span><br></pre></td></tr></table></figure>
 <img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img14.jpg" class="[class names]" width="700" height="200" title="下载镜像2">
 <p>接着我们再在终端输入</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull qiime2&#x2F;core:2020.6</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><figcaption><span>拉取镜像</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull qiime2/core:2020.6</span><br></pre></td></tr></table></figure>
 <p><small>此操作类似于 git 的拉取</small><br>
 此时就开始下载 QIIME2 的镜像了。</p>
 <img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img7.jpg" class="[class names]" width="700" height="230" title="下载镜像3">
@@ -430,14 +430,14 @@ Docker for Windows 需要你的 Windows 版本为 64 位的 Windows 10 Pro <stro
 <hr>
 <h4><span id="docker-的基本操作">Docker 的基本操作</span></h4>
 <p>下载完成后，我们在终端输入以下命令，查看当前系统中的镜像有哪些？</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><figcaption><span>查看镜像</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></table></figure>
 <img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img10.jpg" class="[class names]" width="750" height="185" title="运行docker1">
 <p>我们发现除了 qiime2:2020.6 的最新版本，我们可以发现，系统中还有一个 qiime2:2020.2 的老版本，我希望把它删除掉，释放一些空间出来，那么，就在终端中输入：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker rmi qiime2&#x2F;core:2020.2</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><figcaption><span>删除镜像</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker rmi qiime2/core:2020.2</span><br></pre></td></tr></table></figure>
 <img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img11.png" class="[class names]" width="750" height="299" title="运行docker2">
 <p>再次查看系统中的镜像，便可发现 qiime2:2020.2 的老版本已经被移除掉了。</p>
 <p>接下来，我们可以尝试运行这个刚下载的镜像 qiime2/core:2020.6。需要注意的是，我们用 “–name” 给创建的容器命名为 “qiime2-2020-6”；再不修改容器名的情况下，我们不能重新运行以下命令（因为已经有这个容器了）。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --name qiime2-2020-6 -it qiime2&#x2F;core:2020.6</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><figcaption><span>第一次运行docker镜像</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --name qiime2-2020-6 -it qiime2/core:2020.6</span><br></pre></td></tr></table></figure>
 <p>参数解析：</p>
 <p>–name 容器名</p>
 <p>-t: 在新容器内指定一个伪终端或终端。</p>
@@ -445,22 +445,22 @@ Docker for Windows 需要你的 Windows 版本为 64 位的 Windows 10 Pro <stro
 <img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img12.jpg" class="[class names]" width="650" height="500" title="运行docker3">
 <p>注意第二行的 root@5d0b9481a30e:/data#，可以发现，我们其实已进入了一个安装有 qiime2 的 linux 系统的容器。</p>
 <p>我们可以输入</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qiime info</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><figcaption><span>查看docker中安装的QIIME2的信息</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qiime info</span><br></pre></td></tr></table></figure>
 <p>查看 qiime2 是否真的在这个系统里了。如果没有什么纰漏，那么我们将看到 qiime2:2020.6 的相应信息，具体请参见上图。</p>
 <p>若要退出容器，可以在命令行输入<code>exit</code>或是在键盘上同时按 Ctrl + D。</p>
 <img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img13.jpg" class="[class names]" width="900" height="90" title="运行docker4">
 <p>现在，我们不光下载了一个 QIIME2 的镜像，而且其实也创建了一个名为 qiime2-2020-6 的 Docker 容器（注意刚才 docker run 命令）。</p>
 <p>我们可以使用以下命令查看当前系统中的容器（结果见上图）。我们可以发现这个容器目前的状态为 “Exited”。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker ps -a ## 查看全部的容器</span><br><span class="line"></span><br><span class="line">docker ps ## 查看启动的容器</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><figcaption><span>查看容器</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker ps -a <span class="comment">## 查看全部的容器</span></span><br><span class="line"></span><br><span class="line">docker ps <span class="comment">## 查看启动的容器</span></span><br></pre></td></tr></table></figure>
 <p>此时我们若需要重新运行这个容器，测需要使用如下命令。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker start qiime2-2020-6 ## 启动一个已停止的容器</span><br><span class="line"></span><br><span class="line">docker restart qiime2-2020-6 ## 无论是否停止，直接重启一个容器</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><figcaption><span>启动与重启docker</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker start qiime2-2020-6 <span class="comment">## 启动一个已停止的容器</span></span><br><span class="line"></span><br><span class="line">docker restart qiime2-2020-6 <span class="comment">## 无论是否停止，直接重启一个容器</span></span><br></pre></td></tr></table></figure>
 <p>若此时再使用 <code>docker ps -a</code> 命令，则会发现，此时的容器已经处于 “Up” 状态。但是，与第一次启动容器不同，我们并没有进入容器中。</p>
 <p>我们可使用 attach 命令进入容器:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker attach qiime2-2020-6</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><figcaption><span>进入docker的一种方式</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ddocker attach qiime2-2020-6</span><br></pre></td></tr></table></figure>
 <img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img15.jpg" class="[class names]" width="850" height="230" title="运行docker5">
 <p>可以发现，在退出时，这个容器也停止了。<br>
 我们再使用 exec 命令进入容器:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker start qiime2-2020-6 ## 首先需要重新运行这个容器</span><br><span class="line">docker exec -it qiime2-2020-6 &#x2F;bin&#x2F;bash ## 进入容器，并执行“打开一个bash”的命令</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><figcaption><span>进入docker的另一种方式</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker start qiime2-2020-6 <span class="comment">## 首先需要重新运行这个容器</span></span><br><span class="line"></span><br><span class="line">docker <span class="built_in">exec</span> -it qiime2-2020-6 /bin/bash <span class="comment">## 进入容器，并执行“打开一个bash”的命令</span></span><br></pre></td></tr></table></figure>
 <img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img16.jpg" class="[class names]" width="800" height="200" title="运行docker6">
 <p>可以发现，在退出时，这个容器并没有停止。</p>
 <p>我们尝试在容器中运行命令 cat /proc/version和ls分别查看当前系统的版本信息和当前目录下的文件列表</p>
@@ -812,7 +812,7 @@ NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
     new Valine({
       el         : '#valine-comments',
       verify     : false,
-      notify     : false,
+      notify     : true,
       appId      : 'GItGRzUdbysXj6n5xqi5dRgu-MdYXbMMI',
       appKey     : 'r68FaoVS1t6dfi2SdVhYhfq6',
       placeholder: "向我提问吧",
