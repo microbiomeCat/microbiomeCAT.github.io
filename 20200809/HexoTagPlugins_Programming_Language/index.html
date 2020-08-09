@@ -24,18 +24,17 @@
     var CONFIG = {"hostname":"www.microbiomecat.xyz","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":true,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="标签插件和 Front-matter 中的标签不同，它们是用于在文章中快速插入特定内容的插件。 官方文档请看这里,本文基于官方文档的演绎。 引用块 在文章中插入别处发表、刊登、分享的文字；此外也可以用于作为重要的提示进行强调。 模板 123&amp;#123;% blockquote [作者[, 出处]] [出处链接] [出处链接的标题] %&amp;#125;内容&amp;#123;% endblockquote %&amp;">
+  <meta name="description" content="标签插件和 Front-matter 中的标签不同，它们是用于在文章中快速插入特定内容的插件。 官方文档请看这里,本文为基于官方文档的演绎。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hexo 标签插件语法">
 <meta property="og:url" content="https://www.microbiomecat.xyz/20200809/HexoTagPlugins_Programming_Language/index.html">
 <meta property="og:site_name" content="MicrobiomeCAT">
-<meta property="og:description" content="标签插件和 Front-matter 中的标签不同，它们是用于在文章中快速插入特定内容的插件。 官方文档请看这里,本文基于官方文档的演绎。 引用块 在文章中插入别处发表、刊登、分享的文字；此外也可以用于作为重要的提示进行强调。 模板 123&amp;#123;% blockquote [作者[, 出处]] [出处链接] [出处链接的标题] %&amp;#125;内容&amp;#123;% endblockquote %&amp;">
+<meta property="og:description" content="标签插件和 Front-matter 中的标签不同，它们是用于在文章中快速插入特定内容的插件。 官方文档请看这里,本文为基于官方文档的演绎。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-08-09T13:18:56.000Z">
 <meta property="article:modified_time" content="2020-08-09T13:08:56.000Z">
 <meta property="article:author" content="Sansan Li">
 <meta property="article:tag" content="hexo">
-<meta property="article:tag" content="markdown">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://www.microbiomecat.xyz/20200809/HexoTagPlugins_Programming_Language/">
@@ -259,7 +258,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>6.6k</span>
+              <span>6.8k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -279,7 +278,51 @@
 
       
         <p>标签插件和 <a href="https://hexo.io/zh-cn/docs/front-matter" target="_blank" rel="noopener">Front-matter</a> 中的标签不同，它们是用于在文章中快速插入特定内容的插件。</p>
-<p>官方文档请看<a href="https://hexo.io/zh-cn/docs/tag-plugins" target="_blank" rel="noopener">这里</a>,本文基于官方文档的演绎。</p>
+<p>官方文档请看<a href="https://hexo.io/zh-cn/docs/tag-plugins" target="_blank" rel="noopener">这里</a>,本文为基于官方文档的演绎。</p>
+<a id="more"></a>
+<!-- toc -->
+<ul>
+<li><a href="#%E5%BC%95%E7%94%A8%E5%9D%97">引用块</a>
+<ul>
+<li><a href="#%E6%A8%A1%E6%9D%BF">模板</a></li>
+<li><a href="#%E5%AE%9E%E4%BE%8B">实例</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BB%A3%E7%A0%81%E5%9D%97">代码块</a>
+<ul>
+<li><a href="#%E6%A8%A1%E6%9D%BF-1">模板</a></li>
+<li><a href="#%E5%AE%9E%E4%BE%8B-1">实例</a></li>
+</ul>
+</li>
+<li><a href="#%E5%8F%8D%E5%BC%95%E5%8F%B7%E4%BB%A3%E7%A0%81%E5%9D%97">反引号代码块</a></li>
+<li><a href="#%E9%86%92%E7%9B%AE%E5%BC%95%E7%94%A8pull-quote">醒目引用|Pull Quote</a>
+<ul>
+<li><a href="#%E6%A8%A1%E6%9D%BF-2">模板</a></li>
+<li><a href="#%E5%AE%9E%E4%BE%8B-2">实例</a></li>
+</ul>
+</li>
+<li><a href="#jsfiddle">jsFiddle</a></li>
+<li><a href="#gist">Gist</a></li>
+<li><a href="#iframe">iframe</a></li>
+<li><a href="#image">Image</a></li>
+<li><a href="#link">Link</a></li>
+<li><a href="#include-code">Include Code</a>
+<ul>
+<li><a href="#%E6%A0%B7%E4%BE%8B">样例</a></li>
+</ul>
+</li>
+<li><a href="#youtube">Youtube</a>
+<ul>
+<li><a href="#examples">Examples</a></li>
+</ul>
+</li>
+<li><a href="#vimeo">Vimeo</a></li>
+<li><a href="#%E5%BC%95%E7%94%A8%E6%96%87%E7%AB%A0">引用文章</a></li>
+<li><a href="#%E5%BC%95%E7%94%A8%E8%B5%84%E6%BA%90">引用资源</a></li>
+<li><a href="#raw">Raw</a></li>
+<li><a href="#%E6%96%87%E7%AB%A0%E6%91%98%E8%A6%81%E5%92%8C%E6%88%AA%E6%96%AD">文章摘要和截断</a></li>
+</ul>
+<!-- tocstop -->
 <h2><span id="引用块">引用块</span></h2>
 <p>在文章中插入别处发表、刊登、分享的文字；此外也可以用于作为重要的提示进行强调。</p>
 <h3><span id="模板">模板</span></h3>
@@ -587,7 +630,6 @@
           
           <div class="post-tags">
               <a href="/tags/hexo/" rel="tag"><i class="fa fa-tag"></i> hexo</a>
-              <a href="/tags/markdown/" rel="tag"><i class="fa fa-tag"></i> markdown</a>
           </div>
 
         
@@ -710,7 +752,7 @@
           <div class="widget-wrap">
               <div id="myCanvasContainer" class="widget tagcloud">
               <canvas width="220" height="250" id="resCanvas" style="width=100%">
-                  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/QIIME2/" rel="tag">QIIME2</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/" rel="tag">markdown</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%89%A9%E5%A2%9E%E5%AD%90/" rel="tag">扩增子</a><span class="tag-list-count">1</span></li></ul>
+                  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/QIIME2/" rel="tag">QIIME2</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/" rel="tag">markdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%89%A9%E5%A2%9E%E5%AD%90/" rel="tag">扩增子</a><span class="tag-list-count">1</span></li></ul>
               </canvas>
               </div>
           </div>
@@ -741,7 +783,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">15k</span>
+    <span title="站点总字数">16k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
