@@ -1,25 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Hello World</title>
-    <url>/20200626/undefined/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2><span id="quick-start">Quick Start</span></h2>
-<h3><span id="create-a-new-post">Create a new post</span></h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3><span id="run-server">Run server</span></h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3><span id="generate-static-files">Generate static files</span></h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3><span id="deploy-to-remote-sites">Deploy to remote sites</span></h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
     <title>基于 QIIME2 的扩增子分析教程-准备篇</title>
     <url>/20200726/QIIME2-based-amplicon-analysis-tutorial(Preparation)/</url>
     <content><![CDATA[<h2><span id="摘要">摘要</span></h2>
@@ -140,7 +121,7 @@ Docker for Windows 需要你的 Windows 版本为 64 位的 Windows 10 Pro <stro
 <p>我们打开 window 10 自带的 Powershell，如果你使用的是 VScode 编辑器，也可以用它里面的终端（其实也就是 Powershell）：</p>
 <img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img6.jpg" class="[class names]" width="500" height="500" title="下载镜像1">
 <p>我们可以先看一下镜像加速地址是否配置正确，在 Powershell 的终端中输入 docker info，可以看到出现的信息的最后部分，就有 “Registry Mirrors”，检查其下的地址是否正确。</p>
-<figure class="highlight bash"><figcaption><span>查看docker信息</span></figcaption><table><tr><td class="code"><pre><span class="line">docker info</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><figcaption><span>查docker信息</span></figcaption><table><tr><td class="code"><pre><span class="line">docker info</span><br></pre></td></tr></table></figure>
 <img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img14.jpg" class="[class names]" width="700" height="200" title="下载镜像2">
 <p>接着我们再在终端输入</p>
 <figure class="highlight bash"><figcaption><span>拉取镜像</span></figcaption><table><tr><td class="code"><pre><span class="line">docker pull qiime2/core:2020.6</span><br></pre></td></tr></table></figure>
@@ -198,5 +179,24 @@ Docker for Windows 需要你的 Windows 版本为 64 位的 Windows 10 Pro <stro
         <tag>QIIME2</tag>
         <tag>扩增子</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/20200626/undefined/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2><span id="quick-start">Quick Start</span></h2>
+<h3><span id="create-a-new-post">Create a new post</span></h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3><span id="run-server">Run server</span></h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3><span id="generate-static-files">Generate static files</span></h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3><span id="deploy-to-remote-sites">Deploy to remote sites</span></h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+]]></content>
   </entry>
 </search>

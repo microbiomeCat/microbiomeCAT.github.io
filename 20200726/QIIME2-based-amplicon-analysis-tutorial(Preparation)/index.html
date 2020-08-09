@@ -419,7 +419,7 @@ Docker for Windows 需要你的 Windows 版本为 64 位的 Windows 10 Pro <stro
 <p>我们打开 window 10 自带的 Powershell，如果你使用的是 VScode 编辑器，也可以用它里面的终端（其实也就是 Powershell）：</p>
 <img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img6.jpg" class="[class names]" width="500" height="500" title="下载镜像1">
 <p>我们可以先看一下镜像加速地址是否配置正确，在 Powershell 的终端中输入 docker info，可以看到出现的信息的最后部分，就有 “Registry Mirrors”，检查其下的地址是否正确。</p>
-<figure class="highlight bash"><figcaption><span>查看docker信息</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker info</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><figcaption><span>查docker信息</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker info</span><br></pre></td></tr></table></figure>
 <img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img14.jpg" class="[class names]" width="700" height="200" title="下载镜像2">
 <p>接着我们再在终端输入</p>
 <figure class="highlight bash"><figcaption><span>拉取镜像</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull qiime2/core:2020.6</span><br></pre></td></tr></table></figure>
