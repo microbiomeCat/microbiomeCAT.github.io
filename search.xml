@@ -199,4 +199,143 @@ Docker for Windows 需要你的 Windows 版本为 64 位的 Windows 10 Pro <stro
 <p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 ]]></content>
   </entry>
+  <entry>
+    <title>Markdown 实用语法</title>
+    <url>/20200809/Markdown%20Programming%20Language/</url>
+    <content><![CDATA[<h2><span id="标题">标题</span></h2>
+<p>使用 # 号表示 1-6 级标题，一级标题对应一个 # 号，二级标题对应两个 # 号，以此类推。</p>
+<figure class="highlight markdown"><figcaption><span>标题代码</span></figcaption><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="section"># 我是一级标题 </span></span><br><span class="line"><span class="section">## 我是二级标题</span></span><br><span class="line"><span class="section">### 我是三级标题</span></span><br><span class="line"><span class="section">#### 我是四级标题</span></span><br><span class="line"><span class="section">##### 我是五级标题</span></span><br><span class="line"><span class="section">###### 我是六级标题</span></span><br><span class="line">我不是标题:smile::smile::smile:</span><br></pre></td></tr></table></figure>
+<h3><span id="标题效果">标题–效果</span></h3>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809153521.png" alt="image-20200809153521032"></p>
+<h2><span id><br></span></h2>
+<br>
+<h2><span id="格式字体">格式–字体</span></h2>
+<figure class="highlight markdown"><figcaption><span>格式--字体代码</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="emphasis">*斜体文本*</span></span><br><span class="line"><span class="emphasis">_斜体文本_</span></span><br><span class="line"><span class="strong">**粗体文本**</span></span><br><span class="line"><span class="strong">__粗体文本__</span></span><br><span class="line"><span class="strong">***粗斜体文本**</span>*</span><br><span class="line"><span class="strong">___粗斜体文本__</span>_</span><br></pre></td></tr></table></figure>
+<h3><span id="格式字体效果">格式–字体–效果</span></h3>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809154026.png" alt="image-20200809154025910"></p>
+<h2><span id><br></span></h2>
+<br>
+<h2><span id="格式下划线与删除线">格式–下划线与删除线</span></h2>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;u&gt;这句话很重要，我给它加了下划线&lt;&#x2F;u&gt;</span><br><span class="line">~~这句话现在不再适用了，我给它加个删除线~~</span><br></pre></td></tr></table></figure>
+<p><small>注意：这里的下划线实际是通过 HTML 的 &lt;u&gt; 标签来实现的 </small></p>
+<hr>
+<h3><span id="格式下划线与删除线效果">格式–下划线与删除线–效果</span></h3>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809154532.png" alt="image-20200809154531947"></p>
+<h2><span id><br></span></h2>
+<br>
+<h2><span id="格式分割线">格式–分割线</span></h2>
+<p>在一行中用三个以上的星号、减号、下滑线来建立一个分隔线，行内不能有其他内容，但可以在星号、减号、下划线中间插入任意空格。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">某段内容</span><br><span class="line">- - -</span><br><span class="line">另一段内容</span><br><span class="line">***</span><br><span class="line">另另一段内容</span><br><span class="line">___</span><br><span class="line">另另另一段内容</span><br><span class="line">_ _ _</span><br><span class="line">另另另另一段内容</span><br></pre></td></tr></table></figure>
+<h3><span id="格式分割线效果">格式–分割线–效果</span></h3>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809155028.png" alt="image-20200809155028085"></p>
+<h2><span id><br></span></h2>
+<br>
+<h2><span id="格式下标与上标">格式–下标与上标</span></h2>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">10^10^ &#x3D; 10,000,000,000</span><br><span class="line">$10^&#123;10&#125;$ &#x3D; 10,000,000,000</span><br><span class="line">未知数 $X_1$, $X_2$</span><br><span class="line"></span><br><span class="line">以下采用 HTML 的方法</span><br><span class="line">10&lt;sup&gt;10&lt;&#x2F;sup&gt; &#x3D; 10,000,000,000</span><br><span class="line">未知数 X&lt;sub&gt;1&lt;&#x2F;sub&gt;, X&lt;sub&gt;2&lt;&#x2F;sub&gt;</span><br></pre></td></tr></table></figure>
+<p>注意：双 $ 符的写法为 Markdown 的公式写法，字体会有一定变化。</p>
+<h3><span id="格式下标与上标效果">格式–下标与上标–效果</span></h3>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809155443.png" alt="image-20200809155443132"></p>
+<h2><span id><br></span></h2>
+<br>
+<h2><span id="格式脚注">格式–脚注</span></h2>
+<figure class="highlight markdown"><figcaption><span>格式--脚注代码</span></figcaption><table><tr><td class="code"><pre><span class="line">不知是谁说过：其实地上本没有路，走的人多了，也便成了路[^1]。</span><br><span class="line"></span><br><span class="line">一段输出之后。。。。</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line">脚注:</span><br><span class="line">[<span class="symbol">^1</span>]:<span class="link">其实是鲁迅说的。</span></span><br></pre></td></tr></table></figure>
+<h3><span id="格式脚注效果">格式–脚注–效果</span></h3>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809160428.png" alt="image-20200809160428760"></p>
+<h2><span id><br></span></h2>
+<br>
+<h2><span id="列表有序列表">列表–有序列表</span></h2>
+<figure class="highlight markdown"><figcaption><span>列表--有序列表代码</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="section">#### 把大象装冰箱，总共分几步</span></span><br><span class="line"><span class="bullet">1. </span>把冰箱门打开</span><br><span class="line"><span class="bullet">2. </span>把大象装进去</span><br><span class="line"><span class="bullet">3. </span>把冰箱门关上</span><br><span class="line"><span class="code">	</span></span><br><span class="line"><span class="bullet">1. </span>把冰箱门打开</span><br><span class="line"><span class="bullet">100. </span>把大象装进去</span><br><span class="line"><span class="bullet">20. </span>把冰箱门关上</span><br></pre></td></tr></table></figure>
+<p>采用任意数字 + . + 空格的方式，自动排序。</p>
+<h3><span id="列表有序列表效果">列表–有序列表–效果</span></h3>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809171333.png" alt="image-20200809160641458"></p>
+<h2><span id><br></span></h2>
+<br>
+<h2><span id="列表无序列表">列表–无序列表</span></h2>
+<figure class="highlight markdown"><figcaption><span>列表--无序列表代码</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="section">#### 我最喜欢的食物：</span></span><br><span class="line"><span class="bullet">- </span>粉蒸肉</span><br><span class="line"><span class="bullet">- </span>红烧肉</span><br><span class="line"><span class="bullet">- </span>回锅肉</span><br><span class="line"></span><br><span class="line"><span class="section">#### 我最喜欢的食物：</span></span><br><span class="line"><span class="bullet">* </span>烤鸡</span><br><span class="line"><span class="bullet">* </span>大盘鸡</span><br><span class="line"><span class="bullet">* </span>肯德基</span><br><span class="line"></span><br><span class="line"><span class="section">#### 我最喜欢的食物：</span></span><br><span class="line"><span class="bullet">+ </span>烤鱼</span><br><span class="line"><span class="bullet">+ </span>水煮鱼</span><br><span class="line"><span class="bullet">+ </span>酸菜鱼</span><br></pre></td></tr></table></figure>
+<p>采用任意数字 + . + 空格的方式，自动排序。</p>
+<h3><span id="列表无序列表效果">列表–无序列表–效果</span></h3>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809171334.png" alt="image-20200809161021577"></p>
+<h2><span id><br></span></h2>
+<br>
+<h2><span id="列表列表分层">列表–列表分层</span></h2>
+<figure class="highlight markdown"><figcaption><span>列表--列表分层代码</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="section">#### 我最喜欢的食物：</span></span><br><span class="line"><span class="bullet">- </span>回锅肉</span><br><span class="line"><span class="bullet">    - </span>四川回锅肉</span><br><span class="line"><span class="bullet">    - </span>湖南回锅肉</span><br><span class="line"><span class="bullet">    - </span>老干妈回锅肉</span><br><span class="line"><span class="bullet">- </span>红烧肉</span><br><span class="line"><span class="bullet">    - </span>甜的</span><br><span class="line"><span class="bullet">    - </span>不甜的</span><br></pre></td></tr></table></figure>
+<p>二级列表要 - 之前加四个空格。</p>
+<h3><span id="列表列表分层效果">列表–列表分层–效果</span></h3>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809171335.png" alt="image-20200809161342623"></p>
+<h2><span id><br></span></h2>
+<br>
+<h2><span id="区块1">区块1</span></h2>
+<figure class="highlight markdown"><figcaption><span>区块代码1</span></figcaption><table><tr><td class="code"><pre><span class="line">只有空想而不为其奋斗、追求、理想是不会实现的，正如那句话说的那样：</span><br><span class="line"></span><br><span class="line"><span class="quote">&gt; 其实地上本没有路，</span></span><br><span class="line"><span class="quote">&gt; 走的人多了，</span></span><br><span class="line"><span class="quote">&gt; 也便成了路</span></span><br><span class="line"><span class="quote">&gt;                                ----鲁迅</span></span><br><span class="line"></span><br><span class="line">所以，有了理想，并且始终如一的追求、奋斗、实践，那样理想才有可能实现。</span><br></pre></td></tr></table></figure>
+<p>一个例子。</p>
+<h3><span id="区块1效果">区块1–效果</span></h3>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809171336.png" alt="image-20200809161524379"></p>
+<h2><span id><br></span></h2>
+<br>
+<h2><span id="区块2">区块2</span></h2>
+<figure class="highlight markdown"><figcaption><span>区块代码2</span></figcaption><table><tr><td class="code"><pre><span class="line">&gt;警告：</span><br><span class="line">&gt;</span><br><span class="line">&gt;&gt; 千万不要学 markdown</span><br><span class="line">&gt;&gt; 否则你可能会再也离不开它！</span><br><span class="line">&gt;</span><br><span class="line">&gt;警告完毕！</span><br></pre></td></tr></table></figure>
+<p>另一个例子。</p>
+<h3><span id="区块2效果">区块2–效果</span></h3>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809171337.png" alt="image-20200809161649000"></p>
+<h2><span id><br></span></h2>
+<br>
+<h2><span id="链接">链接</span></h2>
+<figure class="highlight markdown"><figcaption><span>链接代码</span></figcaption><table><tr><td class="code"><pre><span class="line">学习 markdown，大家可以点击[<span class="string">这里</span>](<span class="link">https://www.runoob.com/markdown/md-tutorial.html</span>)。</span><br></pre></td></tr></table></figure>
+<h3><span id="链接效果">链接–效果</span></h3>
+<p>学习 markdown，大家可以点击<a href="https://www.runoob.com/markdown/md-tutorial.html" target="_blank" rel="noopener">这里</a>。</p>
+<h2><span id><br></span></h2>
+<br>
+<h2><span id="图片来自网络-图床">图片–来自网络、图床</span></h2>
+<figure class="highlight markdown"><figcaption><span>图片代码</span></figcaption><table><tr><td class="code"><pre><span class="line">![<span class="string">图片1</span>](<span class="link">https://iknow-pic.cdn.bcebos.com/8b13632762d0f7030cd823a305fa513d2697c563?x-bce-process=image/resize,m_lfit,w_600,h_800,limit_1</span>)</span><br></pre></td></tr></table></figure>
+<h3><span id="图片来自网络-图床效果">图片–来自网络、图床–效果</span></h3>
+<p><img src="https://iknow-pic.cdn.bcebos.com/8b13632762d0f7030cd823a305fa513d2697c563?x-bce-process=image/resize,m_lfit,w_600,h_800,limit_1" alt="图片1"></p>
+<h2><span id><br></span></h2>
+<br>
+<h2><span id="图片来自本地">图片–来自本地</span></h2>
+<figure class="highlight markdown"><figcaption><span>图片代码1</span></figcaption><table><tr><td class="code"><pre><span class="line">![<span class="string">图片2</span>](<span class="link">images/安利markdown/鲁迅.jpg</span>)</span><br></pre></td></tr></table></figure>
+<p>可以是绝对路径，也可以是相对当前 md 文件的相对路径。注意斜杠方向。</p>
+<h3><span id="图片来自本地效果">图片–来自本地–效果</span></h3>
+<img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809171338.png" alt="image-20200809163434235" style="zoom:100%;">
+<h2><span id><br></span></h2>
+<br>
+<h2><span id="图片html-格式实现缩放">图片–HTML 格式实现缩放</span></h2>
+<figure class="highlight markdown"><figcaption><span>图片代码2</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"https://iknow-pic.cdn.bcebos.com/8b13632762d0f7030cd823a305fa513d2697c563?x-bce-process=image/resize,m_lfit,w_600,h_800,limit_1"</span> <span class="attr">alt</span>=<span class="string">"图片1"</span> <span class="attr">style</span>=<span class="string">"zoom:40%;"</span> /&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>在 Typora 中可以简单实现哦。</p>
+<h3><span id="图片html-格式实现缩放效果">图片–HTML 格式实现缩放–效果</span></h3>
+<img src="https://iknow-pic.cdn.bcebos.com/8b13632762d0f7030cd823a305fa513d2697c563?x-bce-process=image/resize,m_lfit,w_600,h_800,limit_1" alt="图片1" style="zoom:40%;">
+<h2><span id><br></span></h2>
+<br>
+<h2><span id="表格">表格</span></h2>
+<p>Markdown 的表格，使用 | 来分隔不同的单元格，使用 - 来分隔表头和其他行。</p>
+<figure class="highlight markdown"><figcaption><span>图片代码3</span></figcaption><table><tr><td class="code"><pre><span class="line">| 表头1 | 表头2 | 表头3 |</span><br><span class="line">| :---: | :--- | ---: |</span><br><span class="line">| 单元格 | 单元格 |单元格 |</span><br><span class="line">| 单元格 | 单元格 |单元格 |</span><br></pre></td></tr></table></figure>
+<h3><span id="表格效果">表格–效果</span></h3>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809171339.png" alt="image-20200809164140992"></p>
+<h2><span id><br></span></h2>
+<br>
+<h2><span id="代码块">代码块</span></h2>
+<figure class="highlight markdown"><figcaption><span>代码块代码</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="section"># ```python</span></span><br><span class="line"><span class="section"># def function()</span></span><br><span class="line"><span class="section"># return "llll"</span></span><br><span class="line"><span class="section">#</span></span><br></pre></td></tr></table></figure>
+<h1><span id="r">```R</span></h1>
+<h1><span id="librarytidyverse">library(tidyverse)</span></h1>
+<h1><span id="printhello-world">print(Hello world)</span></h1>
+<h1><span id>```</span></h1>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### 代码块--效果</span><br><span class="line"></span><br><span class="line">![image-20200809164459588](https:&#x2F;&#x2F;gitee.com&#x2F;microbiomecat&#x2F;image_hosting&#x2F;raw&#x2F;master&#x2F;img&#x2F;20200809171307.png)</span><br><span class="line"></span><br><span class="line">&lt;br&gt;</span><br><span class="line">---</span><br><span class="line">&lt;br&gt;</span><br><span class="line"></span><br><span class="line">## 进阶技巧--使用 HTML 元素 </span><br><span class="line">&#96;&#96;&#96;markdown 使用HTML元素代码</span><br><span class="line">使用&lt;kbd&gt;Tab&lt;&#x2F;kbd&gt;切换大小写</span><br><span class="line">&lt;b&gt;加粗&lt;&#x2F;b&gt;</span><br><span class="line">&lt;strong&gt;加粗&lt;&#x2F;strong&gt;</span><br><span class="line">&lt;i&gt;斜体&lt;&#x2F;i&gt;</span><br><span class="line">&lt;em&gt;斜体&lt;&#x2F;em&gt;</span><br><span class="line">&lt;big&gt;变大&lt;&#x2F;big&gt;</span><br><span class="line">&lt;small&gt;变小&lt;&#x2F;small&gt;</span><br></pre></td></tr></table></figure>
+<h3><span id="进阶技巧使用-html-元素效果">进阶技巧–使用 HTML 元素–效果</span></h3>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809171244.png" alt="image-20200809164707685"></p>
+<h2><span id><br></span></h2>
+<br>
+<h2><span id="进阶技巧表情包">进阶技巧–表情包</span></h2>
+<figure class="highlight markdown"><figcaption><span>表情包代码</span></figcaption><table><tr><td class="code"><pre><span class="line">:smile::laughing::blush::smiley::relaxed::smirk::heart<span class="emphasis">_eyes::kissing_</span>heart::kissing<span class="emphasis">_closed_</span>eyes::flushed:</span><br><span class="line">:relieved::satisfied::grin::wink::stuck<span class="emphasis">_out_</span>tongue<span class="emphasis">_winking_</span>eye::stuck<span class="emphasis">_out_</span>tongue<span class="emphasis">_closed_</span>eyes::grinning::kissing::kissing<span class="emphasis">_smiling_</span>eyes::confounded:</span><br><span class="line">:stuck<span class="emphasis">_out_</span>tongue::sleeping::worried::frowning::open_mouth::grimacing::confused::hushed::expressionless::unamused:</span><br></pre></td></tr></table></figure>
+<p>更多 emoji 请到<a href="https://www.webfx.com/tools/emoji-cheat-sheet/" target="_blank" rel="noopener">这里</a>查找，个别 emoji 表情可能你的md编辑器不支持，所以不要强求。</p>
+<h3><span id="进阶技巧表情包效果">进阶技巧–表情包–效果</span></h3>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809171236.png" alt="image-20200809164923719"></p>
+<h2><span id><br></span></h2>
+<br>
+]]></content>
+      <categories>
+        <category>其他</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+        <tag>markdown</tag>
+      </tags>
+  </entry>
 </search>
