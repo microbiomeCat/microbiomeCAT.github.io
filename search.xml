@@ -2,102 +2,102 @@
 <search>
   <entry>
     <title>Markdown 实用语法</title>
-    <url>/20200809/Markdown%20Programming%20Language/</url>
+    <url>/20200809/Markdown_Programming_Language/</url>
     <content><![CDATA[<!-- toc -->
 <ul>
 <li><a href="#%E6%A0%87%E9%A2%98">标题</a>
 <ul>
-<li><a href="#%E6%A0%87%E9%A2%98-%E6%95%88%E6%9E%9C">标题–效果</a></li>
+<li><a href="#%E6%A0%87%E9%A2%98%E6%95%88%E6%9E%9C">标题—效果</a></li>
 </ul>
 </li>
-<li><a href="#%E6%A0%BC%E5%BC%8F-%E5%AD%97%E4%BD%93">格式–字体</a>
+<li><a href="#%E6%A0%BC%E5%BC%8F%E5%AD%97%E4%BD%93">格式—字体</a>
 <ul>
-<li><a href="#%E6%A0%BC%E5%BC%8F-%E5%AD%97%E4%BD%93-%E6%95%88%E6%9E%9C">格式–字体–效果</a></li>
+<li><a href="#%E6%A0%BC%E5%BC%8F%E5%AD%97%E4%BD%93%E6%95%88%E6%9E%9C">格式—字体—效果</a></li>
 </ul>
 </li>
-<li><a href="#%E6%A0%BC%E5%BC%8F-%E4%B8%8B%E5%88%92%E7%BA%BF%E4%B8%8E%E5%88%A0%E9%99%A4%E7%BA%BF">格式–下划线与删除线</a>
+<li><a href="#%E6%A0%BC%E5%BC%8F%E4%B8%8B%E5%88%92%E7%BA%BF%E4%B8%8E%E5%88%A0%E9%99%A4%E7%BA%BF">格式—下划线与删除线</a>
 <ul>
-<li><a href="#%E6%A0%BC%E5%BC%8F-%E4%B8%8B%E5%88%92%E7%BA%BF%E4%B8%8E%E5%88%A0%E9%99%A4%E7%BA%BF-%E6%95%88%E6%9E%9C">格式–下划线与删除线–效果</a></li>
+<li><a href="#%E6%A0%BC%E5%BC%8F%E4%B8%8B%E5%88%92%E7%BA%BF%E4%B8%8E%E5%88%A0%E9%99%A4%E7%BA%BF%E6%95%88%E6%9E%9C">格式—下划线与删除线—效果</a></li>
 </ul>
 </li>
-<li><a href="#%E6%A0%BC%E5%BC%8F-%E5%88%86%E5%89%B2%E7%BA%BF">格式–分割线</a>
+<li><a href="#%E6%A0%BC%E5%BC%8F%E5%88%86%E5%89%B2%E7%BA%BF">格式—分割线</a>
 <ul>
-<li><a href="#%E6%A0%BC%E5%BC%8F-%E5%88%86%E5%89%B2%E7%BA%BF-%E6%95%88%E6%9E%9C">格式–分割线–效果</a></li>
+<li><a href="#%E6%A0%BC%E5%BC%8F%E5%88%86%E5%89%B2%E7%BA%BF%E6%95%88%E6%9E%9C">格式—分割线—效果</a></li>
 </ul>
 </li>
-<li><a href="#%E6%A0%BC%E5%BC%8F-%E4%B8%8B%E6%A0%87%E4%B8%8E%E4%B8%8A%E6%A0%87">格式–下标与上标</a>
+<li><a href="#%E6%A0%BC%E5%BC%8F%E4%B8%8B%E6%A0%87%E4%B8%8E%E4%B8%8A%E6%A0%87">格式—下标与上标</a>
 <ul>
-<li><a href="#%E6%A0%BC%E5%BC%8F-%E4%B8%8B%E6%A0%87%E4%B8%8E%E4%B8%8A%E6%A0%87-%E6%95%88%E6%9E%9C">格式–下标与上标–效果</a></li>
+<li><a href="#%E6%A0%BC%E5%BC%8F%E4%B8%8B%E6%A0%87%E4%B8%8E%E4%B8%8A%E6%A0%87%E6%95%88%E6%9E%9C">格式—下标与上标—效果</a></li>
 </ul>
 </li>
-<li><a href="#%E6%A0%BC%E5%BC%8F-%E8%84%9A%E6%B3%A8">格式–脚注</a>
+<li><a href="#%E6%A0%BC%E5%BC%8F%E8%84%9A%E6%B3%A8">格式—脚注</a>
 <ul>
-<li><a href="#%E6%A0%BC%E5%BC%8F-%E8%84%9A%E6%B3%A8-%E6%95%88%E6%9E%9C">格式–脚注–效果</a></li>
+<li><a href="#%E6%A0%BC%E5%BC%8F%E8%84%9A%E6%B3%A8%E6%95%88%E6%9E%9C">格式—脚注—效果</a></li>
 </ul>
 </li>
-<li><a href="#%E5%88%97%E8%A1%A8-%E6%9C%89%E5%BA%8F%E5%88%97%E8%A1%A8">列表–有序列表</a>
+<li><a href="#%E5%88%97%E8%A1%A8%E6%9C%89%E5%BA%8F%E5%88%97%E8%A1%A8">列表—有序列表</a>
 <ul>
-<li><a href="#%E5%88%97%E8%A1%A8-%E6%9C%89%E5%BA%8F%E5%88%97%E8%A1%A8-%E6%95%88%E6%9E%9C">列表–有序列表–效果</a></li>
+<li><a href="#%E5%88%97%E8%A1%A8%E6%9C%89%E5%BA%8F%E5%88%97%E8%A1%A8%E6%95%88%E6%9E%9C">列表—有序列表—效果</a></li>
 </ul>
 </li>
-<li><a href="#%E5%88%97%E8%A1%A8-%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A8">列表–无序列表</a>
+<li><a href="#%E5%88%97%E8%A1%A8%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A8">列表—无序列表</a>
 <ul>
-<li><a href="#%E5%88%97%E8%A1%A8-%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A8-%E6%95%88%E6%9E%9C">列表–无序列表–效果</a></li>
+<li><a href="#%E5%88%97%E8%A1%A8%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A8%E6%95%88%E6%9E%9C">列表—无序列表—效果</a></li>
 </ul>
 </li>
-<li><a href="#%E5%88%97%E8%A1%A8-%E5%88%97%E8%A1%A8%E5%88%86%E5%B1%82">列表–列表分层</a>
+<li><a href="#%E5%88%97%E8%A1%A8%E5%88%97%E8%A1%A8%E5%88%86%E5%B1%82">列表—列表分层</a>
 <ul>
-<li><a href="#%E5%88%97%E8%A1%A8-%E5%88%97%E8%A1%A8%E5%88%86%E5%B1%82-%E6%95%88%E6%9E%9C">列表–列表分层–效果</a></li>
+<li><a href="#%E5%88%97%E8%A1%A8%E5%88%97%E8%A1%A8%E5%88%86%E5%B1%82%E6%95%88%E6%9E%9C">列表—列表分层—效果</a></li>
 </ul>
 </li>
 <li><a href="#%E5%8C%BA%E5%9D%971">区块1</a>
 <ul>
-<li><a href="#%E5%8C%BA%E5%9D%971-%E6%95%88%E6%9E%9C">区块1–效果</a></li>
+<li><a href="#%E5%8C%BA%E5%9D%971%E6%95%88%E6%9E%9C">区块1—效果</a></li>
 </ul>
 </li>
 <li><a href="#%E5%8C%BA%E5%9D%972">区块2</a>
 <ul>
-<li><a href="#%E5%8C%BA%E5%9D%972-%E6%95%88%E6%9E%9C">区块2–效果</a></li>
+<li><a href="#%E5%8C%BA%E5%9D%972%E6%95%88%E6%9E%9C">区块2—效果</a></li>
 </ul>
 </li>
 <li><a href="#%E9%93%BE%E6%8E%A5">链接</a>
 <ul>
-<li><a href="#%E9%93%BE%E6%8E%A5-%E6%95%88%E6%9E%9C">链接–效果</a></li>
+<li><a href="#%E9%93%BE%E6%8E%A5%E6%95%88%E6%9E%9C">链接—效果</a></li>
 </ul>
 </li>
-<li><a href="#%E5%9B%BE%E7%89%87-%E6%9D%A5%E8%87%AA%E7%BD%91%E7%BB%9C-%E5%9B%BE%E5%BA%8A">图片–来自网络、图床</a>
+<li><a href="#%E5%9B%BE%E7%89%87%E6%9D%A5%E8%87%AA%E7%BD%91%E7%BB%9C-%E5%9B%BE%E5%BA%8A">图片—来自网络、图床</a>
 <ul>
-<li><a href="#%E5%9B%BE%E7%89%87-%E6%9D%A5%E8%87%AA%E7%BD%91%E7%BB%9C-%E5%9B%BE%E5%BA%8A-%E6%95%88%E6%9E%9C">图片–来自网络、图床–效果</a></li>
+<li><a href="#%E5%9B%BE%E7%89%87%E6%9D%A5%E8%87%AA%E7%BD%91%E7%BB%9C-%E5%9B%BE%E5%BA%8A%E6%95%88%E6%9E%9C">图片—来自网络、图床—效果</a></li>
 </ul>
 </li>
-<li><a href="#%E5%9B%BE%E7%89%87-%E6%9D%A5%E8%87%AA%E6%9C%AC%E5%9C%B0">图片–来自本地</a>
+<li><a href="#%E5%9B%BE%E7%89%87%E6%9D%A5%E8%87%AA%E6%9C%AC%E5%9C%B0">图片—来自本地</a>
 <ul>
-<li><a href="#%E5%9B%BE%E7%89%87-%E6%9D%A5%E8%87%AA%E6%9C%AC%E5%9C%B0-%E6%95%88%E6%9E%9C">图片–来自本地–效果</a></li>
+<li><a href="#%E5%9B%BE%E7%89%87%E6%9D%A5%E8%87%AA%E6%9C%AC%E5%9C%B0%E6%95%88%E6%9E%9C">图片—来自本地—效果</a></li>
 </ul>
 </li>
-<li><a href="#%E5%9B%BE%E7%89%87-html-%E6%A0%BC%E5%BC%8F%E5%AE%9E%E7%8E%B0%E7%BC%A9%E6%94%BE">图片–HTML 格式实现缩放</a>
+<li><a href="#%E5%9B%BE%E7%89%87html-%E6%A0%BC%E5%BC%8F%E5%AE%9E%E7%8E%B0%E7%BC%A9%E6%94%BE">图片—HTML 格式实现缩放</a>
 <ul>
-<li><a href="#%E5%9B%BE%E7%89%87-html-%E6%A0%BC%E5%BC%8F%E5%AE%9E%E7%8E%B0%E7%BC%A9%E6%94%BE-%E6%95%88%E6%9E%9C">图片–HTML 格式实现缩放–效果</a></li>
+<li><a href="#%E5%9B%BE%E7%89%87html-%E6%A0%BC%E5%BC%8F%E5%AE%9E%E7%8E%B0%E7%BC%A9%E6%94%BE%E6%95%88%E6%9E%9C">图片—HTML 格式实现缩放—效果</a></li>
 </ul>
 </li>
 <li><a href="#%E8%A1%A8%E6%A0%BC">表格</a>
 <ul>
-<li><a href="#%E8%A1%A8%E6%A0%BC-%E6%95%88%E6%9E%9C">表格–效果</a></li>
+<li><a href="#%E8%A1%A8%E6%A0%BC%E6%95%88%E6%9E%9C">表格—效果</a></li>
 </ul>
 </li>
 <li><a href="#%E4%BB%A3%E7%A0%81%E5%9D%97">代码块</a>
 <ul>
-<li><a href="#%E4%BB%A3%E7%A0%81%E5%9D%97-%E6%95%88%E6%9E%9C">代码块–效果</a></li>
+<li><a href="#%E4%BB%A3%E7%A0%81%E5%9D%97%E6%95%88%E6%9E%9C">代码块—效果</a></li>
 </ul>
 </li>
-<li><a href="#%E8%BF%9B%E9%98%B6%E6%8A%80%E5%B7%A7-%E4%BD%BF%E7%94%A8-html-%E5%85%83%E7%B4%A0">进阶技巧–使用 HTML 元素</a>
+<li><a href="#%E8%BF%9B%E9%98%B6%E6%8A%80%E5%B7%A7%E4%BD%BF%E7%94%A8-html-%E5%85%83%E7%B4%A0">进阶技巧—使用 HTML 元素</a>
 <ul>
-<li><a href="#%E8%BF%9B%E9%98%B6%E6%8A%80%E5%B7%A7-%E4%BD%BF%E7%94%A8-html-%E5%85%83%E7%B4%A0-%E6%95%88%E6%9E%9C">进阶技巧–使用 HTML 元素–效果</a></li>
+<li><a href="#%E8%BF%9B%E9%98%B6%E6%8A%80%E5%B7%A7%E4%BD%BF%E7%94%A8-html-%E5%85%83%E7%B4%A0%E6%95%88%E6%9E%9C">进阶技巧—使用 HTML 元素—效果</a></li>
 </ul>
 </li>
-<li><a href="#%E8%BF%9B%E9%98%B6%E6%8A%80%E5%B7%A7-%E8%A1%A8%E6%83%85%E5%8C%85">进阶技巧–表情包</a>
+<li><a href="#%E8%BF%9B%E9%98%B6%E6%8A%80%E5%B7%A7%E8%A1%A8%E6%83%85%E5%8C%85">进阶技巧—表情包</a>
 <ul>
-<li><a href="#%E8%BF%9B%E9%98%B6%E6%8A%80%E5%B7%A7-%E8%A1%A8%E6%83%85%E5%8C%85-%E6%95%88%E6%9E%9C">进阶技巧–表情包–效果</a></li>
+<li><a href="#%E8%BF%9B%E9%98%B6%E6%8A%80%E5%B7%A7%E8%A1%A8%E6%83%85%E5%8C%85%E6%95%88%E6%9E%9C">进阶技巧—表情包—效果</a></li>
 </ul>
 </li>
 </ul>
@@ -105,110 +105,110 @@
 <h2><span id="标题">标题</span></h2>
 <p>使用 # 号表示 1-6 级标题，一级标题对应一个 # 号，二级标题对应两个 # 号，以此类推。</p>
 <figure class="highlight markdown"><figcaption><span>标题代码</span></figcaption><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="section"># 我是一级标题 </span></span><br><span class="line"><span class="section">## 我是二级标题</span></span><br><span class="line"><span class="section">### 我是三级标题</span></span><br><span class="line"><span class="section">#### 我是四级标题</span></span><br><span class="line"><span class="section">##### 我是五级标题</span></span><br><span class="line"><span class="section">###### 我是六级标题</span></span><br><span class="line">我不是标题:smile::smile::smile:</span><br></pre></td></tr></table></figure>
-<h3><span id="标题效果">标题–效果</span></h3>
+<h3><span id="标题效果">标题—效果</span></h3>
 <p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809153521.png" alt></p>
 <hr>
-<h2><span id="格式字体">格式–字体</span></h2>
-<figure class="highlight markdown"><figcaption><span>格式--字体代码</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="emphasis">*斜体文本*</span></span><br><span class="line"><span class="emphasis">_斜体文本_</span></span><br><span class="line"><span class="strong">**粗体文本**</span></span><br><span class="line"><span class="strong">__粗体文本__</span></span><br><span class="line"><span class="strong">***粗斜体文本**</span>*</span><br><span class="line"><span class="strong">___粗斜体文本__</span>_</span><br></pre></td></tr></table></figure>
-<h3><span id="格式字体效果">格式–字体–效果</span></h3>
+<h2><span id="格式字体">格式—字体</span></h2>
+<figure class="highlight markdown"><figcaption><span>格式—字体代码</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="emphasis">*斜体文本*</span></span><br><span class="line"><span class="emphasis">_斜体文本_</span></span><br><span class="line"><span class="strong">**粗体文本**</span></span><br><span class="line"><span class="strong">__粗体文本__</span></span><br><span class="line"><span class="strong">***粗斜体文本**</span>*</span><br><span class="line"><span class="strong">___粗斜体文本__</span>_</span><br></pre></td></tr></table></figure>
+<h3><span id="格式字体效果">格式—字体—效果</span></h3>
 <p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809154026.png" alt></p>
 <hr>
-<h2><span id="格式下划线与删除线">格式–下划线与删除线</span></h2>
+<h2><span id="格式下划线与删除线">格式—下划线与删除线</span></h2>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;u&gt;这句话很重要，我给它加了下划线&lt;&#x2F;u&gt;</span><br><span class="line">~~这句话现在不再适用了，我给它加个删除线~~</span><br></pre></td></tr></table></figure>
 <p>注意：这里的下划线实际是通过 HTML 的 &lt;u&gt; 标签来实现的。</p>
-<h3><span id="格式下划线与删除线效果">格式–下划线与删除线–效果</span></h3>
+<h3><span id="格式下划线与删除线效果">格式—下划线与删除线—效果</span></h3>
 <p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809154532.png" alt></p>
 <hr>
-<h2><span id="格式分割线">格式–分割线</span></h2>
+<h2><span id="格式分割线">格式—分割线</span></h2>
 <p>在一行中用三个以上的星号、减号、下滑线来建立一个分隔线，行内不能有其他内容，但可以在星号、减号、下划线中间插入任意空格。</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">某段内容</span><br><span class="line">- - -</span><br><span class="line">另一段内容</span><br><span class="line">***</span><br><span class="line">另另一段内容</span><br><span class="line">___</span><br><span class="line">另另另一段内容</span><br><span class="line">_ _ _</span><br><span class="line">另另另另一段内容</span><br></pre></td></tr></table></figure>
-<h3><span id="格式分割线效果">格式–分割线–效果</span></h3>
+<h3><span id="格式分割线效果">格式—分割线—效果</span></h3>
 <p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809155028.png" alt></p>
 <hr>
-<h2><span id="格式下标与上标">格式–下标与上标</span></h2>
+<h2><span id="格式下标与上标">格式—下标与上标</span></h2>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">10^10^ &#x3D; 10,000,000,000</span><br><span class="line">$10^&#123;10&#125;$ &#x3D; 10,000,000,000</span><br><span class="line">未知数 $X_1$, $X_2$</span><br><span class="line"></span><br><span class="line">以下采用 HTML 的方法</span><br><span class="line">10&lt;sup&gt;10&lt;&#x2F;sup&gt; &#x3D; 10,000,000,000</span><br><span class="line">未知数 X&lt;sub&gt;1&lt;&#x2F;sub&gt;, X&lt;sub&gt;2&lt;&#x2F;sub&gt;</span><br></pre></td></tr></table></figure>
 <p>注意：双 $ 符的写法为 Markdown 的公式写法，字体会有一定变化。</p>
-<h3><span id="格式下标与上标效果">格式–下标与上标–效果</span></h3>
+<h3><span id="格式下标与上标效果">格式—下标与上标—效果</span></h3>
 <p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809155443.png" alt></p>
 <hr>
-<h2><span id="格式脚注">格式–脚注</span></h2>
-<figure class="highlight markdown"><figcaption><span>格式--脚注代码</span></figcaption><table><tr><td class="code"><pre><span class="line">不知是谁说过：其实地上本没有路，走的人多了，也便成了路[^1]。</span><br><span class="line"></span><br><span class="line">一段输出之后。。。。</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line">脚注:</span><br><span class="line">[<span class="symbol">^1</span>]:<span class="link">其实是鲁迅说的。</span></span><br></pre></td></tr></table></figure>
-<h3><span id="格式脚注效果">格式–脚注–效果</span></h3>
+<h2><span id="格式脚注">格式—脚注</span></h2>
+<figure class="highlight markdown"><figcaption><span>格式—脚注代码</span></figcaption><table><tr><td class="code"><pre><span class="line">不知是谁说过：其实地上本没有路，走的人多了，也便成了路[^1]。</span><br><span class="line"></span><br><span class="line">一段输出之后。。。。</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line">脚注:</span><br><span class="line">[<span class="symbol">^1</span>]:<span class="link">其实是鲁迅说的。</span></span><br></pre></td></tr></table></figure>
+<h3><span id="格式脚注效果">格式—脚注—效果</span></h3>
 <p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809160428.png" alt></p>
 <hr>
-<h2><span id="列表有序列表">列表–有序列表</span></h2>
-<figure class="highlight markdown"><figcaption><span>列表--有序列表代码</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="section">#### 把大象装冰箱，总共分几步</span></span><br><span class="line"><span class="bullet">1. </span>把冰箱门打开</span><br><span class="line"><span class="bullet">2. </span>把大象装进去</span><br><span class="line"><span class="bullet">3. </span>把冰箱门关上</span><br><span class="line"><span class="code">	</span></span><br><span class="line"><span class="bullet">1. </span>把冰箱门打开</span><br><span class="line"><span class="bullet">100. </span>把大象装进去</span><br><span class="line"><span class="bullet">20. </span>把冰箱门关上</span><br></pre></td></tr></table></figure>
+<h2><span id="列表有序列表">列表—有序列表</span></h2>
+<figure class="highlight markdown"><figcaption><span>列表—有序列表代码</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="section">#### 把大象装冰箱，总共分几步</span></span><br><span class="line"><span class="bullet">1. </span>把冰箱门打开</span><br><span class="line"><span class="bullet">2. </span>把大象装进去</span><br><span class="line"><span class="bullet">3. </span>把冰箱门关上</span><br><span class="line"><span class="code">	</span></span><br><span class="line"><span class="bullet">1. </span>把冰箱门打开</span><br><span class="line"><span class="bullet">100. </span>把大象装进去</span><br><span class="line"><span class="bullet">20. </span>把冰箱门关上</span><br></pre></td></tr></table></figure>
 <p>采用任意数字 + . + 空格的方式，自动排序。</p>
-<h3><span id="列表有序列表效果">列表–有序列表–效果</span></h3>
+<h3><span id="列表有序列表效果">列表—有序列表—效果</span></h3>
 <p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809171333.png" alt></p>
 <hr>
-<h2><span id="列表无序列表">列表–无序列表</span></h2>
-<figure class="highlight markdown"><figcaption><span>列表--无序列表代码</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="section">#### 我最喜欢的食物：</span></span><br><span class="line"><span class="bullet">- </span>粉蒸肉</span><br><span class="line"><span class="bullet">- </span>红烧肉</span><br><span class="line"><span class="bullet">- </span>回锅肉</span><br><span class="line"></span><br><span class="line"><span class="section">#### 我最喜欢的食物：</span></span><br><span class="line"><span class="bullet">* </span>烤鸡</span><br><span class="line"><span class="bullet">* </span>大盘鸡</span><br><span class="line"><span class="bullet">* </span>肯德基</span><br><span class="line"></span><br><span class="line"><span class="section">#### 我最喜欢的食物：</span></span><br><span class="line"><span class="bullet">+ </span>烤鱼</span><br><span class="line"><span class="bullet">+ </span>水煮鱼</span><br><span class="line"><span class="bullet">+ </span>酸菜鱼</span><br></pre></td></tr></table></figure>
+<h2><span id="列表无序列表">列表—无序列表</span></h2>
+<figure class="highlight markdown"><figcaption><span>列表—无序列表代码</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="section">#### 我最喜欢的食物：</span></span><br><span class="line"><span class="bullet">- </span>粉蒸肉</span><br><span class="line"><span class="bullet">- </span>红烧肉</span><br><span class="line"><span class="bullet">- </span>回锅肉</span><br><span class="line"></span><br><span class="line"><span class="section">#### 我最喜欢的食物：</span></span><br><span class="line"><span class="bullet">* </span>烤鸡</span><br><span class="line"><span class="bullet">* </span>大盘鸡</span><br><span class="line"><span class="bullet">* </span>肯德基</span><br><span class="line"></span><br><span class="line"><span class="section">#### 我最喜欢的食物：</span></span><br><span class="line"><span class="bullet">+ </span>烤鱼</span><br><span class="line"><span class="bullet">+ </span>水煮鱼</span><br><span class="line"><span class="bullet">+ </span>酸菜鱼</span><br></pre></td></tr></table></figure>
 <p>采用任意数字 + . + 空格的方式，自动排序。</p>
-<h3><span id="列表无序列表效果">列表–无序列表–效果</span></h3>
+<h3><span id="列表无序列表效果">列表—无序列表—效果</span></h3>
 <p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809171334.png" alt></p>
 <hr>
-<h2><span id="列表列表分层">列表–列表分层</span></h2>
-<figure class="highlight markdown"><figcaption><span>列表--列表分层代码</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="section">#### 我最喜欢的食物：</span></span><br><span class="line"><span class="bullet">- </span>回锅肉</span><br><span class="line"><span class="bullet">    - </span>四川回锅肉</span><br><span class="line"><span class="bullet">    - </span>湖南回锅肉</span><br><span class="line"><span class="bullet">    - </span>老干妈回锅肉</span><br><span class="line"><span class="bullet">- </span>红烧肉</span><br><span class="line"><span class="bullet">    - </span>甜的</span><br><span class="line"><span class="bullet">    - </span>不甜的</span><br></pre></td></tr></table></figure>
+<h2><span id="列表列表分层">列表—列表分层</span></h2>
+<figure class="highlight markdown"><figcaption><span>列表—列表分层代码</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="section">#### 我最喜欢的食物：</span></span><br><span class="line"><span class="bullet">- </span>回锅肉</span><br><span class="line"><span class="bullet">    - </span>四川回锅肉</span><br><span class="line"><span class="bullet">    - </span>湖南回锅肉</span><br><span class="line"><span class="bullet">    - </span>老干妈回锅肉</span><br><span class="line"><span class="bullet">- </span>红烧肉</span><br><span class="line"><span class="bullet">    - </span>甜的</span><br><span class="line"><span class="bullet">    - </span>不甜的</span><br></pre></td></tr></table></figure>
 <p>二级列表要 - 之前加四个空格。</p>
-<h3><span id="列表列表分层效果">列表–列表分层–效果</span></h3>
+<h3><span id="列表列表分层效果">列表—列表分层—效果</span></h3>
 <p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809171335.png" alt></p>
 <hr>
 <h2><span id="区块1">区块1</span></h2>
 <figure class="highlight markdown"><figcaption><span>区块代码1</span></figcaption><table><tr><td class="code"><pre><span class="line">只有空想而不为其奋斗、追求、理想是不会实现的，正如那句话说的那样：</span><br><span class="line"></span><br><span class="line"><span class="quote">&gt; 其实地上本没有路，</span></span><br><span class="line"><span class="quote">&gt; 走的人多了，</span></span><br><span class="line"><span class="quote">&gt; 也便成了路</span></span><br><span class="line"><span class="quote">&gt;                                ----鲁迅</span></span><br><span class="line"></span><br><span class="line">所以，有了理想，并且始终如一的追求、奋斗、实践，那样理想才有可能实现。</span><br></pre></td></tr></table></figure>
 <p>一个例子。</p>
-<h3><span id="区块1效果">区块1–效果</span></h3>
+<h3><span id="区块1效果">区块1—效果</span></h3>
 <p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809171336.png" alt></p>
 <hr>
 <h2><span id="区块2">区块2</span></h2>
 <figure class="highlight markdown"><figcaption><span>区块代码2</span></figcaption><table><tr><td class="code"><pre><span class="line">&gt;警告：</span><br><span class="line">&gt;</span><br><span class="line">&gt;&gt; 千万不要学 markdown</span><br><span class="line">&gt;&gt; 否则你可能会再也离不开它！</span><br><span class="line">&gt;</span><br><span class="line">&gt;警告完毕！</span><br></pre></td></tr></table></figure>
 <p>另一个例子。</p>
-<h3><span id="区块2效果">区块2–效果</span></h3>
+<h3><span id="区块2效果">区块2—效果</span></h3>
 <p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809171337.png" alt></p>
 <hr>
 <h2><span id="链接">链接</span></h2>
 <figure class="highlight markdown"><figcaption><span>链接代码</span></figcaption><table><tr><td class="code"><pre><span class="line">学习 markdown，大家可以点击[<span class="string">这里</span>](<span class="link">https://www.runoob.com/markdown/md-tutorial.html</span>)。</span><br></pre></td></tr></table></figure>
-<h3><span id="链接效果">链接–效果</span></h3>
+<h3><span id="链接效果">链接—效果</span></h3>
 <p>学习 markdown，大家可以点击<a href="https://www.runoob.com/markdown/md-tutorial.html" target="_blank" rel="noopener">这里</a>。</p>
 <hr>
-<h2><span id="图片来自网络-图床">图片–来自网络、图床</span></h2>
+<h2><span id="图片来自网络-图床">图片—来自网络、图床</span></h2>
 <figure class="highlight markdown"><figcaption><span>图片代码1</span></figcaption><table><tr><td class="code"><pre><span class="line">![<span class="string">图片1</span>](<span class="link">https://iknow-pic.cdn.bcebos.com/8b13632762d0f7030cd823a305fa513d2697c563?x-bce-process=image/resize,m_lfit,w_600,h_800,limit_1</span>)</span><br></pre></td></tr></table></figure>
-<h3><span id="图片来自网络-图床效果">图片–来自网络、图床–效果</span></h3>
+<h3><span id="图片来自网络-图床效果">图片—来自网络、图床—效果</span></h3>
 <p><img src="https://iknow-pic.cdn.bcebos.com/8b13632762d0f7030cd823a305fa513d2697c563?x-bce-process=image/resize,m_lfit,w_600,h_800,limit_1" alt="图片1"></p>
 <hr>
-<h2><span id="图片来自本地">图片–来自本地</span></h2>
+<h2><span id="图片来自本地">图片—来自本地</span></h2>
 <figure class="highlight markdown"><figcaption><span>图片代码2</span></figcaption><table><tr><td class="code"><pre><span class="line">![<span class="string">图片2</span>](<span class="link">images/安利markdown/鲁迅.jpg</span>)</span><br></pre></td></tr></table></figure>
 <p>可以是绝对路径，也可以是相对当前 md 文件的相对路径。注意斜杠方向。</p>
-<h3><span id="图片来自本地效果">图片–来自本地–效果</span></h3>
+<h3><span id="图片来自本地效果">图片—来自本地—效果</span></h3>
 <img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809171338.png" alt="图片2" style="zoom:100%;">
 <hr>
-<h2><span id="图片html-格式实现缩放">图片–HTML 格式实现缩放</span></h2>
+<h2><span id="图片html-格式实现缩放">图片—HTML 格式实现缩放</span></h2>
 <figure class="highlight markdown"><figcaption><span>图片代码2</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"https://iknow-pic.cdn.bcebos.com/8b13632762d0f7030cd823a305fa513d2697c563?x-bce-process=image/resize,m_lfit,w_600,h_800,limit_1"</span> <span class="attr">alt</span>=<span class="string">"图片2"</span> <span class="attr">style</span>=<span class="string">"zoom:40%;"</span> /&gt;</span></span></span><br></pre></td></tr></table></figure>
 <p>在 Typora 中可以简单实现哦。</p>
-<h3><span id="图片html-格式实现缩放效果">图片–HTML 格式实现缩放–效果</span></h3>
+<h3><span id="图片html-格式实现缩放效果">图片—HTML 格式实现缩放—效果</span></h3>
 <img src="https://iknow-pic.cdn.bcebos.com/8b13632762d0f7030cd823a305fa513d2697c563?x-bce-process=image/resize,m_lfit,w_600,h_800,limit_1" alt="图片2" style="zoom:40%;">
 <hr>
 <h2><span id="表格">表格</span></h2>
 <p>Markdown 的表格，使用 | 来分隔不同的单元格，使用 - 来分隔表头和其他行。</p>
 <figure class="highlight markdown"><figcaption><span>图片代码3</span></figcaption><table><tr><td class="code"><pre><span class="line">| 表头1 | 表头2 | 表头3 |</span><br><span class="line">| :---: | :--- | ---: |</span><br><span class="line">| 单元格 | 单元格 |单元格 |</span><br><span class="line">| 单元格 | 单元格 |单元格 |</span><br></pre></td></tr></table></figure>
-<h3><span id="表格效果">表格–效果</span></h3>
+<h3><span id="表格效果">表格—效果</span></h3>
 <p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809171339.png" alt></p>
 <hr>
 <h2><span id="代码块">代码块</span></h2>
 <p>注意 前面的 $ 号请忽略</p>
 <figure class="highlight plain"><figcaption><span>代码块代码</span></figcaption><table><tr><td class="code"><pre><span class="line">$ &#96;&#96;&#96;python</span><br><span class="line">$ def function()</span><br><span class="line">$ return &quot;llll&quot;</span><br><span class="line">$ &#96;&#96;&#96;</span><br><span class="line"></span><br><span class="line">$ &#96;&#96;&#96;R</span><br><span class="line">$ library(tidyverse)</span><br><span class="line">$ print(Hello world)</span><br><span class="line">$ &#96;&#96;&#96;</span><br></pre></td></tr></table></figure>
-<h3><span id="代码块效果">代码块–效果</span></h3>
+<h3><span id="代码块效果">代码块—效果</span></h3>
 <p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809171307.png" alt></p>
 <hr>
-<h2><span id="进阶技巧使用-html-元素">进阶技巧–使用 HTML 元素</span></h2>
+<h2><span id="进阶技巧使用-html-元素">进阶技巧—使用 HTML 元素</span></h2>
 <figure class="highlight markdown"><figcaption><span>使用HTML元素代码</span></figcaption><table><tr><td class="code"><pre><span class="line">使用<span class="xml"><span class="tag">&lt;<span class="name">kbd</span>&gt;</span></span>Tab<span class="xml"><span class="tag">&lt;/<span class="name">kbd</span>&gt;</span></span>切换大小写</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">b</span>&gt;</span></span>加粗<span class="xml"><span class="tag">&lt;/<span class="name">b</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">strong</span>&gt;</span></span>加粗<span class="xml"><span class="tag">&lt;/<span class="name">strong</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">i</span>&gt;</span></span>斜体<span class="xml"><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">em</span>&gt;</span></span>斜体<span class="xml"><span class="tag">&lt;/<span class="name">em</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">big</span>&gt;</span></span>变大<span class="xml"><span class="tag">&lt;/<span class="name">big</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">small</span>&gt;</span></span>变小<span class="xml"><span class="tag">&lt;/<span class="name">small</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
-<h3><span id="进阶技巧使用-html-元素效果">进阶技巧–使用 HTML 元素–效果</span></h3>
+<h3><span id="进阶技巧使用-html-元素效果">进阶技巧—使用 HTML 元素—效果</span></h3>
 <p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809171244.png" alt></p>
 <hr>
-<h2><span id="进阶技巧表情包">进阶技巧–表情包</span></h2>
+<h2><span id="进阶技巧表情包">进阶技巧—表情包</span></h2>
 <figure class="highlight markdown"><figcaption><span>表情包代码</span></figcaption><table><tr><td class="code"><pre><span class="line">:smile::laughing::blush::smiley::relaxed::smirk::heart<span class="emphasis">_eyes::kissing_</span>heart::kissing<span class="emphasis">_closed_</span>eyes::flushed:</span><br><span class="line">:relieved::satisfied::grin::wink::stuck<span class="emphasis">_out_</span>tongue<span class="emphasis">_winking_</span>eye::stuck<span class="emphasis">_out_</span>tongue<span class="emphasis">_closed_</span>eyes::grinning::kissing::kissing<span class="emphasis">_smiling_</span>eyes::confounded:</span><br><span class="line">:stuck<span class="emphasis">_out_</span>tongue::sleeping::worried::frowning::open_mouth::grimacing::confused::hushed::expressionless::unamused:</span><br></pre></td></tr></table></figure>
 <p>更多 emoji 请到<a href="https://www.webfx.com/tools/emoji-cheat-sheet/" target="_blank" rel="noopener">这里</a>查找，个别 emoji 表情可能你的md编辑器不支持，所以不要强求。</p>
-<h3><span id="进阶技巧表情包效果">进阶技巧–表情包–效果</span></h3>
+<h3><span id="进阶技巧表情包效果">进阶技巧—表情包—效果</span></h3>
 <p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809171236.png" alt></p>
 <hr>
 ]]></content>
@@ -401,22 +401,254 @@ Docker for Windows 需要你的 Windows 版本为 64 位的 Windows 10 Pro <stro
       </tags>
   </entry>
   <entry>
-    <title>Hello World</title>
-    <url>/20200626/undefined/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2><span id="quick-start">Quick Start</span></h2>
-<h3><span id="create-a-new-post">Create a new post</span></h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3><span id="run-server">Run server</span></h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3><span id="generate-static-files">Generate static files</span></h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3><span id="deploy-to-remote-sites">Deploy to remote sites</span></h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-]]></content>
+    <title>Hexo 标签插件语法</title>
+    <url>/20200809/HexoTagPlugins_Programming_Language/</url>
+    <content><![CDATA[<p>标签插件和 <a href="https://hexo.io/zh-cn/docs/front-matter" target="_blank" rel="noopener">Front-matter</a> 中的标签不同，它们是用于在文章中快速插入特定内容的插件。</p>
+<p>官方文档请看<a href="https://hexo.io/zh-cn/docs/tag-plugins" target="_blank" rel="noopener">这里</a>,本文基于官方文档的演绎。</p>
+<h2><span id="引用块">引用块</span></h2>
+<p>在文章中插入别处发表、刊登、分享的文字；此外也可以用于作为重要的提示进行强调。</p>
+<h3><span id="模板">模板</span></h3>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% blockquote [作者[, 出处]] [出处链接] [出处链接的标题] %&#125;</span><br><span class="line">内容</span><br><span class="line">&#123;% endblockquote %&#125;</span><br></pre></td></tr></table></figure>
+<br>
+<h3><span id="实例">实例</span></h3>
+<p><strong>实例1 只输出普通的引用块</strong><br>
+输出一个提示信息</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% blockquote %&#125;</span><br><span class="line">提示：</span><br><span class="line">这是我编的!</span><br><span class="line">&#123;% endblockquote %&#125;</span><br></pre></td></tr></table></figure>
+<blockquote><p>提示：<br>
+这是我编的!</p>
+</blockquote>
+<br>
+<p><strong>实例2 引用书上的内容</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% blockquote 鲁迅, 《故乡》%&#125;</span><br><span class="line">其实地上本没有路，走的人多了，也便成了路。</span><br><span class="line">&#123;% endblockquote %&#125;</span><br></pre></td></tr></table></figure>
+<blockquote><p>其实地上本没有路，走的人多了，也便成了路。</p>
+<footer><strong>鲁迅</strong><cite>《故乡》</cite></footer></blockquote>
+<br>
+<p><strong>实例3 引用微博</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% blockquote @央视新闻 https:&#x2F;&#x2F;weibo.com&#x2F;2656274875&#x2F;Jf1dzmI3r?type&#x3D;comment 点击查看详情 %&#125;</span><br><span class="line">【[#白岩松谈张玉环案#](https:&#x2F;&#x2F;s.weibo.com&#x2F;weibo?q&#x3D;%23%E7%99%BD%E5%B2%A9%E6%9D%BE%E8%B0%88%E5%BC%A0%E7%8E%89%E7%8E%AF%E6%A1%88%23&amp;from&#x3D;default) 27年，人生失去多少？】白岩松：张玉环蒙冤27年，起点是在1993年，我想想自己，那一年25岁，走进东方时空当主持，今年已经52岁，想想这27年人生翻天覆地的变化，就更能明白对于张玉环来说，这27年在人生当中失去多少？祝愿未来张玉环的人生之路顺畅一些，能够幸福快乐多一些，更盼望这样的错案，今后不要再有了，过去有的也都能够迅速纠错，谁的人生都经不起折腾。</span><br><span class="line">&#123;% endblockquote %&#125;</span><br></pre></td></tr></table></figure>
+<blockquote><p>【<a href="https://s.weibo.com/weibo?q=%23%E7%99%BD%E5%B2%A9%E6%9D%BE%E8%B0%88%E5%BC%A0%E7%8E%89%E7%8E%AF%E6%A1%88%23&amp;from=default" target="_blank" rel="noopener">#白岩松谈张玉环案#</a> 27年，人生失去多少？】白岩松：张玉环蒙冤27年，起点是在1993年，我想想自己，那一年25岁，走进东方时空当主持，今年已经52岁，想想这27年人生翻天覆地的变化，就更能明白对于张玉环来说，这27年在人生当中失去多少？祝愿未来张玉环的人生之路顺畅一些，能够幸福快乐多一些，更盼望这样的错案，今后不要再有了，过去有的也都能够迅速纠错，谁的人生都经不起折腾。</p>
+<footer><strong>@央视新闻</strong><cite><a href="https://weibo.com/2656274875/Jf1dzmI3r?type=comment" target="_blank" rel="noopener">点击查看详情</a></cite></footer></blockquote>
+<br>
+<p><strong>实例4 引用网络上的文章</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% blockquote 猴子老湿 https:&#x2F;&#x2F;www.zhihu.com&#x2F;question&#x2F;412595987&#x2F;answer&#x2F;1391041851 [如何看待特朗普正式封杀TikTok和微信，这意味着什么？] %&#125;</span><br><span class="line">我在法学院的时候，一个偏左的法理学教授意味深长地对我们说了一句话——去政治化本身就是一种政治。</span><br><span class="line">&#123;% endblockquote %&#125;</span><br></pre></td></tr></table></figure>
+<blockquote><p>我在法学院的时候，一个偏左的法理学教授意味深长地对我们说了一句话——去政治化本身就是一种政治。</p>
+<footer><strong>猴子老湿</strong><cite><a href="https://www.zhihu.com/question/412595987/answer/1391041851" target="_blank" rel="noopener">知乎：如何看待特朗普正式封杀TikTok和微信，这意味着什么？</a></cite></footer></blockquote>
+<hr>
+<h2><span id="代码块">代码块</span></h2>
+<p>在文章中插入代码。</p>
+<h3><span id="模板">模板</span></h3>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% codeblock [标题] [lang:语言] [链接地址url] [链接名称] [其他选项] %&#125;</span><br><span class="line">一至多段代码</span><br><span class="line">&#123;% endcodeblock %&#125;</span><br></pre></td></tr></table></figure>
+<p>其中，其他选项可以是如下内容，表达方式如：<code>line_number:false first_line:5</code>.</p>
+<table>
+<thead>
+<tr>
+<th>其他选项</th>
+<th>选项描述</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>line_number</code></td>
+<td>Show line number</td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td><code>highlight</code></td>
+<td>Enable code highlighting</td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td><code>first_line</code></td>
+<td>Specify the first line number</td>
+<td><code>1</code></td>
+</tr>
+<tr>
+<td><code>mark</code></td>
+<td>Line highlight specific line(s), each value separated by a comma. Specify number range using a dash Example: <code>mark:1,4-7,10</code> will mark line 1, 4 to 7 and 10.</td>
+<td></td>
+</tr>
+<tr>
+<td><code>wrap</code></td>
+<td>Wrap the code block in <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/table" target="_blank" rel="noopener">``</a></td>
+<td><code>true</code></td>
+</tr>
+</tbody>
+</table>
+<h3><span id="实例">实例</span></h3>
+<p><strong>实例1 普通的代码块</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% codeblock %&#125;</span><br><span class="line">echo &quot;Hello World!&quot;</span><br><span class="line">&#123;% endcodeblock %&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">echo &quot;Hello World!&quot;</span><br></pre></td></tr></table></figure>
+<p><strong>实例2 指定语言</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% codeblock lang:bash %&#125;</span><br><span class="line">echo &quot;Hello World!&quot;</span><br><span class="line">&#123;% endcodeblock %&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"Hello World!"</span></span><br></pre></td></tr></table></figure>
+<p><strong>实例3 增加代码块标题并指定语言</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% codeblock 在Powershell中输入： lang:bash %&#125;</span><br><span class="line">echo &quot;Hello World!&quot;</span><br><span class="line">&#123;% endcodeblock %&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><figcaption><span>在Powershell中输入：</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"Hello World!"</span></span><br></pre></td></tr></table></figure>
+<p><strong>实例4 增加代码块标题并指定语言，给出链接, 不显示行号</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% codeblock HTML5示例： lang:html https:&#x2F;&#x2F;www.runoob.com&#x2F;html&#x2F;html5-intro.html runoob.com line_number:false %&#125;</span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta charset&#x3D;&quot;utf-8&quot;&gt;</span><br><span class="line">&lt;title&gt;文档标题&lt;&#x2F;title&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line"> </span><br><span class="line">&lt;body&gt;</span><br><span class="line">文档内容......</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line"> </span><br><span class="line">&lt;&#x2F;html&gt;</span><br><span class="line">&#123;% endcodeblock %&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><figcaption><span>HTML5示例：</span><a href="https://www.runoob.com/html/html5-intro.html" target="_blank" rel="noopener">runoob.com</a></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>文档标题<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">文档内容......</span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h2><span id="反引号代码块">反引号代码块</span></h2>
+<p>反引号代码块是另一种形式的代码块（即 markdown 形式），它使用三个反引号来包裹；同时它也支持添加标题、链接、链接名称。这里不足赘述</p>
+<p>``` [language] [title] [url] [link text] code snippet ```</p>
+<hr>
+<h2><span id="醒目引用pull-quote">醒目引用|Pull Quote</span></h2>
+<p>在文章中插入 Pull quote, 重要应用？个人对这个不是很理解。</p>
+<h3><span id="模板">模板</span></h3>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% pullquote [class] %&#125;</span><br><span class="line">content</span><br><span class="line">&#123;% endpullquote %&#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="实例">实例</span></h3>
+<p><strong>实例1：绘制本博客的结构脑图</strong><br>
+通过<code>npm install hexo-simple-mindmap</code>安装mindmap后使用</p>
+<blockquote class="pullquote mindmap mindmap-md"><ul>
+<li>microbiomecat
+<ul>
+<li>测序数据生息处理分析
+<ul>
+<li>扩增子数据分析
+<ul>
+<li>16S、18S、ITS等数据分析</li>
+<li>功能基因数据分析</li>
+</ul>
+</li>
+<li>宏基因组数据分析</li>
+<li>宏转录组数据分析</li>
+<li>宏病毒组数据分析</li>
+<li>功能预测分析</li>
+<li>网络分析</li>
+</ul>
+</li>
+<li>统计绘图
+<ul>
+<li>柱状图</li>
+<li>散点图</li>
+<li>散点图</li>
+<li>热图</li>
+<li>树图</li>
+<li>富集分析</li>
+<li>网络绘图</li>
+<li>差异分析
+<ul>
+<li>秩和检验</li>
+<li>lefse分析</li>
+<li>metagenomeSeq分析</li>
+<li>edgeR分析</li>
+<li>DESeq2</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>编程语言
+<ul>
+<li>linux基本操作</li>
+<li>git</li>
+<li>docker</li>
+<li>R</li>
+<li>python</li>
+<li>html&amp;css</li>
+<li>markdown</li>
+<li>perl</li>
+<li>hexo</li>
+<li>reveal.js</li>
+</ul>
+</li>
+<li>研究论文
+<ul>
+<li>研究进展</li>
+<li>分析方法</li>
+</ul>
+</li>
+<li>其他<br>
+- 生活<br>
+- 摄影</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<hr>
+<h2><span id="jsfiddle">jsFiddle</span></h2>
+<p>在文章中嵌入 jsFiddle。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% jsfiddle shorttag [tabs] [skin] [width] [height] %&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="gist">Gist</span></h2>
+<p>在文章中嵌入 Gist。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% gist gist_id [filename] %&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="iframe">iframe</span></h2>
+<p>在文章中插入 iframe。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% iframe url [width] [height] %&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="image">Image</span></h2>
+<p>在文章中插入指定大小的图片。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% img [class names] &#x2F;path&#x2F;to&#x2F;image [width] [height] &#39;&quot;title text&quot; &quot;alt text&quot;&#39; %&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="link">Link</span></h2>
+<p>在文章中插入链接，并自动给外部链接添加 <code>target=&quot;_blank&quot;</code> 属性。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% link text url [external] [title] %&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="include-code">Include Code</span></h2>
+<p>插入 <code>source/downloads/code</code> 文件夹内的代码文件。<code>source/downloads/code</code> 不是固定的，取决于你在配置文件中 <code>code_dir</code> 的配置。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% include_code [title] [lang:language] [from:line] [to:line] path&#x2F;to&#x2F;file %&#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="样例">样例</span></h3>
+<p><strong>嵌入 test.js 文件全文</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% include_code lang:javascript test.js %&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>只嵌入第 3 行</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% include_code lang:javascript from:3 to:3 test.js %&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>嵌入第 5 行至第 8 行</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% include_code lang:javascript from:5 to:8 test.js %&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>嵌入第 5 行至文件结束</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% include_code lang:javascript from:5 test.js %&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>嵌入第 1 行至第 8 行</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% include_code lang:javascript to:8 test.js %&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="youtube">Youtube</span></h2>
+<p>在文章中插入 Youtube 视频。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% youtube video_id [type] [cookie] %&#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="examples">Examples</span></h3>
+<p><strong>视频</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% youtube lJIrF4YjHfQ %&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>播放列表</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% youtube PL9hW1uS6HUfscJ9DHkOSoOX45MjXduUxo &#39;playlist&#39; %&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>隐私模式</strong></p>
+<p>禁止 YouTube cookie</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% youtube lJIrF4YjHfQ false %&#125;</span><br><span class="line">&#123;% youtube PL9hW1uS6HUfscJ9DHkOSoOX45MjXduUxo &#39;playlist&#39; false %&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="vimeo">Vimeo</span></h2>
+<p>在文章中插入 Vimeo 视频。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% vimeo video_id %&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="引用文章">引用文章</span></h2>
+<p>引用其他文章的链接。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% post_path filename %&#125;</span><br><span class="line">&#123;% post_link filename [title] [escape] %&#125;</span><br></pre></td></tr></table></figure>
+<p>在使用此标签时可以忽略文章文件所在的路径或者文章的永久链接信息、如语言、日期。</p>
+<p>例如，在文章中使用 <code></code> 时，只需有一个名为 <code>how-to-bake-a-cake.md</code> 的文章文件即可。即使这个文件位于站点文件夹的 <code>source/posts/2015-02-my-family-holiday</code> 目录下、或者文章的永久链接是 <code>2018/en/how-to-bake-a-cake</code>，都没有影响。</p>
+<p>默认链接文字是文章的标题，你也可以自定义要显示的文本。此时不应该使用 Markdown 语法 <code>[]()</code>。</p>
+<p>默认对文章的标题和自定义标题里的特殊字符进行转义。可以使用<code>escape</code>选项，禁止对特殊字符进行转义。</p>
+<p><strong>链接使用文章的标题</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% post_link hexo-3-8-released %&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="https://hexo.io/news/2018/10/19/hexo-3-8-released/" target="_blank" rel="noopener">Hexo 3.8.0 Released</a></p>
+<p><strong>链接使用自定义文字</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% post_link hexo-3-8-released &#39;通往文章的链接&#39; %&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="https://hexo.io/news/2018/10/19/hexo-3-8-released/" target="_blank" rel="noopener">通往文章的链接</a></p>
+<p><strong>对标题的特殊字符进行转义</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% post_link hexo-4-released &#39;How to use &lt;b&gt; tag in title&#39; %&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="https://hexo.io/news/2019/10/14/hexo-4-released/" target="_blank" rel="noopener">How to use  tag in title</a></p>
+<p><strong>禁止对标题的特殊字符进行转义</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% post_link hexo-4-released &#39;&lt;b&gt;bold&lt;&#x2F;b&gt; custom title&#39; false %&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="https://hexo.io/news/2019/10/14/hexo-4-released/" target="_blank" rel="noopener"><strong>bold</strong> custom title</a></p>
+<h2><span id="引用资源">引用资源</span></h2>
+<p>引用文章的资源。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% asset_path filename %&#125;</span><br><span class="line">&#123;% asset_img filename [title] %&#125;</span><br><span class="line">&#123;% asset_link filename [title] [escape] %&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="raw">Raw</span></h2>
+<p>如果您想在文章中插入 Swig 标签，可以尝试使用 Raw 标签，以免发生解析异常。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% raw %&#125;</span><br><span class="line">content</span><br><span class="line">&#123;% endraw %&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="文章摘要和截断">文章摘要和截断</span></h2>
+<p>在文章中使用 <code>&lt;!-- more --&gt;</code>，那么 <code>&lt;!-- more --&gt;</code> 之前的文字将会被视为摘要。首页中将只出现这部分文字，同时这部分文字也会出现在正文之中。</p>
+<p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span><br><span class="line">&lt;!-- more --&gt;</span><br><span class="line">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span><br></pre></td></tr></table></figure>
+<p>首页中将只会出现</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span><br></pre></td></tr></table></figure>
+<p>正文中则会出现</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span><br><span class="line"></span><br><span class="line">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span><br></pre></td></tr></table></figure>
+<p>注意，摘要可能会被 Front Matter 中的 <code>excerpt</code> 覆盖。</p>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
+      <categories>
+        <category>其他</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+        <tag>markdown</tag>
+      </tags>
   </entry>
 </search>
