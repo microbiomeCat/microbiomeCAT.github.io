@@ -87,16 +87,6 @@
 </li>
 <li><a href="#%E4%BB%A3%E7%A0%81%E5%9D%97">代码块</a>
 <ul>
-<li><a href="#python">```python</a></li>
-<li><a href="#def-function">def function()</a></li>
-<li><a href="#return-llll">return “llll”</a></li>
-<li><a href="#">```</a></li>
-<li><a href="#r">```R</a></li>
-<li><a href="#librarytidyverse">library(tidyverse)</a></li>
-<li><a href="#printhello-world">print(Hello world)</a></li>
-<li><a href="#-1">```</a></li>
-</ul>
-<ul>
 <li><a href="#%E4%BB%A3%E7%A0%81%E5%9D%97-%E6%95%88%E6%9E%9C">代码块–效果</a></li>
 </ul>
 </li>
@@ -206,7 +196,7 @@
 <hr>
 <h2><span id="代码块">代码块</span></h2>
 <p>注意 前面的 # 号请忽略</p>
-<figure class="highlight plain"><figcaption><span>代码块代码</span></figcaption><table><tr><td class="code"><pre><span class="line">#### &#96;&#96;&#96;python</span><br><span class="line">#### def function()</span><br><span class="line">#### return &quot;llll&quot;</span><br><span class="line">#### &#96;&#96;&#96;</span><br><span class="line"></span><br><span class="line">#### &#96;&#96;&#96;R</span><br><span class="line">#### library(tidyverse)</span><br><span class="line">#### print(Hello world)</span><br><span class="line">#### &#96;&#96;&#96;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><figcaption><span>代码块代码</span></figcaption><table><tr><td class="code"><pre><span class="line">##### &#96;&#96;&#96;python</span><br><span class="line">##### def function()</span><br><span class="line">##### return &quot;llll&quot;</span><br><span class="line">##### &#96;&#96;&#96;</span><br><span class="line"></span><br><span class="line">##### &#96;&#96;&#96;R</span><br><span class="line">##### library(tidyverse)</span><br><span class="line">##### print(Hello world)</span><br><span class="line">##### &#96;&#96;&#96;</span><br></pre></td></tr></table></figure>
 <h3><span id="代码块效果">代码块–效果</span></h3>
 <p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809171307.png" alt></p>
 <hr>
