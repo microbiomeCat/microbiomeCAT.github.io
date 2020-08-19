@@ -163,7 +163,7 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% codeblock 在Powershell中输入： lang:bash %&#125;</span><br><span class="line">echo &quot;Hello World!&quot;</span><br><span class="line">&#123;% endcodeblock %&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight bash"><figcaption><span>在Powershell中输入：</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"Hello World!"</span></span><br></pre></td></tr></table></figure>
 <p><strong>实例4 增加代码块标题并指定语言，给出链接, 不显示行号</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% codeblock HTML5示例： lang:html https:&#x2F;&#x2F;www.runoob.com&#x2F;html&#x2F;html5-intro.html runoob.com line_number:false %&#125;</span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta charset&#x3D;&quot;utf-8&quot;&gt;</span><br><span class="line">&lt;title&gt;文档标题&lt;&#x2F;title&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line"> </span><br><span class="line">&lt;body&gt;</span><br><span class="line">文档内容......</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line"> </span><br><span class="line">&lt;&#x2F;html&gt;</span><br><span class="line">&#123;% endcodeblock %&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% codeblock HTML5示例： lang:html https:&#x2F;&#x2F;www.runoob.com&#x2F;html&#x2F;html5-intro.html runoob.com line_number:false %&#125;</span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta charset&#x3D;&quot;utf-8&quot;&gt;</span><br><span class="line">&lt;title&gt;文档标题&lt;&#x2F;title&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line">文档内容......</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;html&gt;</span><br><span class="line">&#123;% endcodeblock %&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight html"><figcaption><span>HTML5示例：</span><a href="https://www.runoob.com/html/html5-intro.html" target="_blank" rel="noopener">runoob.com</a></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>文档标题<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">文档内容......</span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <hr>
 <h2><span id="反引号代码块">反引号代码块</span></h2>
@@ -750,5 +750,144 @@ Docker for Windows 需要你的 Windows 版本为 64 位的 Windows 10 Pro <stro
         <tag>QIIME2</tag>
         <tag>扩增子</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>小家越住越大-收纳篇</title>
+    <url>/20200819/undefined/</url>
+    <content><![CDATA[<hr>
+<p>title: 小家越住越大-收纳篇<br>
+tags:</p>
+<ul>
+<li>装修</li>
+<li>读书笔记</li>
+<li>收纳<br>
+urlname: small_house_big_home_(storage)<br>
+comments: true<br>
+categories:</li>
+<li>生活</li>
+<li>装修<br>
+date: 2020-08-18 21:18:56<br>
+updated: 2020-08-18 21:08:56</li>
+</ul>
+<hr>
+<blockquote><p>你如何对待家，家便如何对待你。</p>
+<p>**House ≠ Home **<br>
+那个灰色的水泥壳子，并不是家。<br>
+人可以没有房，却不能没有家。<br>
+好好住的地方就是家。</p>
+<p>**Designer ≠ Dweller **<br>
+设计者，只能提供半成品的“住宅”。<br>
+居住者，才能搭建独一无二的“家”。</p>
+<p>**Bigger ≠ Better **<br>
+与其烦恼买不起大房子考虑改善型居住，不如好好提升自己内在的“住商”。</p>
+<p>**M<sup>2</sup> ≠ M<sup>3</sup> **<br>
+收纳是管理好小房子的大智慧。</p>
+<footer><strong>逯薇</strong><cite>《小家越住越大》</cite></footer></blockquote>
+<p>本文为阅读逯薇《小家越住越大》三部曲的读书笔记。</p>
+<p>本篇主要整理其中的收纳部分。</p>
+<a id="more"></a>
+<!-- toc -->
+<ul>
+<li><a href="#%E6%94%B6%E7%BA%B3">收纳</a>
+<ul>
+<li><a href="#%E5%AD%A6%E4%BC%9A%E4%B8%A2%E5%BC%83%E6%98%AF%E6%94%B6%E7%BA%B3%E7%9A%84%E5%89%8D%E6%8F%90">学会“丢弃”是收纳的前提</a></li>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%94%B6%E7%BA%B3">什么是收纳？</a></li>
+<li><a href="#%E5%AE%B6%E7%9A%84%E5%9B%9B%E7%BA%A7%E6%94%B6%E7%BA%B3%E5%AE%B9%E5%99%A8">家的四级收纳容器</a></li>
+<li><a href="#%E6%94%B6%E7%BA%B3%E8%A7%84%E5%88%99">收纳规则</a>
+<ul>
+<li><a href="#%E5%A1%AB%E8%89%B2%E6%B8%B8%E6%88%8F">填色游戏</a></li>
+<li><a href="#%E6%A0%87%E5%87%86">标准</a></li>
+</ul>
+</li>
+<li><a href="#%E7%BB%9F%E4%B8%80%E5%AE%B9%E5%99%A8">统一容器</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<h2><span id="收纳">收纳</span></h2>
+<h3><span id="学会丢弃是收纳的前提">学会“丢弃”是收纳的前提</span></h3>
+<p>学会“丢弃”，也就是我们常说的“断舍离”，是需要一些底层逻辑作为支撑的：</p>
+<ul>
+<li>
+<p>大几万一平米的房子被用于存放价格低廉、使用频率极低或闲置的杂物？</p>
+</li>
+<li>
+<p>贵买贱用才是浪费：房子是世界上最昂贵的生活必需品。</p>
+</li>
+<li>
+<p>享受仍有大量富余空间的松快感，就像减肥成功的喜悦。</p>
+</li>
+</ul>
+<h3><span id="什么是收纳">什么是收纳？</span></h3>
+<ul>
+<li>收纳是家居第一元素。</li>
+<li>收纳释放新的生活空间。</li>
+<li>收纳无处不在：大到房子，小到包包，抑或是虚拟的数据。</li>
+</ul>
+<h3><span id="家的四级收纳容器">家的四级收纳容器</span></h3>
+<ul>
+<li>
+<p>房子是家的容器</p>
+</li>
+<li>
+<p>房间是人和家居的容器</p>
+</li>
+<li>
+<p>大型家具是具体物品的收纳</p>
+</li>
+<li>
+<p>细分储物件是提高效率的核心工具</p>
+</li>
+</ul>
+<h3><span id="收纳规则">收纳规则</span></h3>
+<h4><span id="填色游戏">填色游戏</span></h4>
+<p>将收纳区域在户型图上画出，收纳区域的颜色涂成黄色（版权问题，不使用图书中图绘）。</p>
+<h4><span id="标准">标准</span></h4>
+<ol>
+<li>
+<p>各处均布，分门别类：收纳容器应在使用位置附近。</p>
+</li>
+<li>
+<p>收纳占比(地) ≥ 12%：房屋面积<strong>越小</strong>，收纳比例<strong>越大</strong>。</p>
+</li>
+<li>
+<p>立体集成；消除厚重和压迫感：嵌入墙体、浅色简洁、隐藏拉手。</p>
+</li>
+<li>
+<p>有藏有露，二八原则：隐藏80%的乱，才能展露20%的美（艺术品，最常用的物品）。</p>
+</li>
+</ol>
+<h3><span id="统一容器">统一容器</span></h3>
+<p><strong>凌乱物品 + 统一容器 = 瞬间整洁</strong></p>
+<p>统一的标准：形制统一，尺寸统一，色彩协调，材质相近——变化越少越好</p>
+<p>易补货才易统一：品牌稳定，款式经典，价格适中</p>
+<p>五个关键词：</p>
+<ol>
+<li>
+<p>方，方形优先</p>
+</li>
+<li>
+<p>摞，易于摞放</p>
+</li>
+<li>
+<p>美，外露容器需考虑美观，外表精致</p>
+</li>
+<li>
+<p>透，对内容一目了然</p>
+</li>
+<li>
+<p>通，多处通用</p>
+</li>
+</ol>
+<p>用容器管理物品：有限的容器，限制购买力<br>
+如何区分容器：<strong>贴标签</strong>，<strong>快行动</strong>，<strong>直白</strong><sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup></p>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>文字 &gt; 图像 &gt; 序号 &gt; 没有 <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
   </entry>
 </search>
