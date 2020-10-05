@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+<script src="//cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/layer/3.1.1/layer.min.js"></script>
+<script src="https://boycott-ie.github.io/boycott-ie/boycott-ie.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.microbiomecat.xyz","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":true,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="摘要  本教程为基于 QIIME2 的扩增子分析教程的第二篇。 本教程为基于 QIIME2 的 2020-8 版本的 “Moving Pictures” 教程进行的中文翻译 (非直译)。 本教程旨在帮助理解 QIIME2 以及扩增子测序的相关概念和基本分析模块和流程。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于 QIIME2 的扩增子分析教程-基础篇">
+<meta property="og:url" content="https://www.microbiomecat.xyz/20201005/QIIME2-based-amplicon-analysis-tutorial(Basic)/index.html">
+<meta property="og:site_name" content="MicrobiomeCAT">
+<meta property="og:description" content="摘要  本教程为基于 QIIME2 的扩增子分析教程的第二篇。 本教程为基于 QIIME2 的 2020-8 版本的 “Moving Pictures” 教程进行的中文翻译 (非直译)。 本教程旨在帮助理解 QIIME2 以及扩增子测序的相关概念和基本分析模块和流程。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200921172304277.png">
+<meta property="og:image" content="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200921172620700.png">
+<meta property="og:image" content="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200921173332598.png">
+<meta property="og:image" content="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200921173442418.png">
+<meta property="og:image" content="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200921173412478.png">
+<meta property="og:image" content="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200921173917530.png">
+<meta property="og:image" content="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200921175251049.png">
+<meta property="og:image" content="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200921180306454.png">
+<meta property="og:image" content="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200921181456436.png">
+<meta property="og:image" content="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200921185618246.png">
+<meta property="og:image" content="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200921185750183.png">
+<meta property="og:image" content="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922092321221.png">
+<meta property="og:image" content="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200921190040468.png">
+<meta property="og:image" content="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922112937366.png">
+<meta property="og:image" content="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922113442357.png">
+<meta property="og:image" content="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922114251640.png">
+<meta property="og:image" content="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922141253688.png">
+<meta property="og:image" content="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922141158119.png">
+<meta property="og:image" content="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922143924885.png">
+<meta property="og:image" content="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922144200144.png">
+<meta property="og:image" content="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922144244927.png">
+<meta property="og:image" content="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922155147390.png">
+<meta property="og:image" content="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922155208293.png">
+<meta property="og:image" content="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922162009833.png">
+<meta property="og:image" content="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922162045760.png">
+<meta property="og:image" content="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922162217024.png">
+<meta property="og:image" content="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922162313599.png">
+<meta property="og:image" content="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922162329569.png">
+<meta property="og:image" content="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922171443498.png">
+<meta property="og:image" content="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922171654473.png">
+<meta property="og:image" content="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922172544198.png">
+<meta property="og:image" content="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922172142619.png">
+<meta property="og:image" content="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922192759746.png">
+<meta property="og:image" content="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922185220000.png">
+<meta property="og:image" content="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922195924646.png">
+<meta property="og:image" content="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922200117469.png">
+<meta property="og:image" content="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922200131990.png">
+<meta property="og:image" content="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922200708970.png">
+<meta property="og:image" content="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922200612495.png">
+<meta property="og:image" content="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922200738565.png">
+<meta property="og:image" content="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922200812413.png">
+<meta property="og:image" content="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922201754492.png">
+<meta property="og:image" content="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922193508459.png">
+<meta property="og:image" content="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922194018003.png">
+<meta property="og:image" content="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922203126299.png">
+<meta property="og:image" content="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922203047964.png">
+<meta property="og:image" content="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922213738221.png">
+<meta property="og:image" content="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922214134978.png">
+<meta property="og:image" content="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922214155565.png">
+<meta property="og:image" content="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922215042673.png">
+<meta property="og:image" content="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922215103351.png">
+<meta property="og:image" content="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922215118717.png">
+<meta property="article:published_time" content="2020-10-05T03:18:56.000Z">
+<meta property="article:modified_time" content="2020-10-05T09:08:56.000Z">
+<meta property="article:author" content="Sansan Li">
+<meta property="article:tag" content="QIIME2">
+<meta property="article:tag" content="扩增子">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200921172304277.png">
+
+<link rel="canonical" href="https://www.microbiomecat.xyz/20201005/QIIME2-based-amplicon-analysis-tutorial(Basic)/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>基于 QIIME2 的扩增子分析教程-基础篇 | MicrobiomeCAT</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">MicrobiomeCAT</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Microbiome Core Analytical Techniques</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.microbiomecat.xyz/20201005/QIIME2-based-amplicon-analysis-tutorial(Basic)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/image/876364972032900262.jpg">
+      <meta itemprop="name" content="Sansan Li">
+      <meta itemprop="description" content="MicrobiomeCAT -- 微生物组学猫">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MicrobiomeCAT">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          基于 QIIME2 的扩增子分析教程-基础篇
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-05 11:18:56" itemprop="dateCreated datePublished" datetime="2020-10-05T11:18:56+08:00">2020-10-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%89%A9%E5%A2%9E%E5%AD%90/" itemprop="url" rel="index"><span itemprop="name">扩增子</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/20201005/QIIME2-based-amplicon-analysis-tutorial(Basic)/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/20201005/QIIME2-based-amplicon-analysis-tutorial(Basic)/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>16k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>15 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2><span id="摘要">摘要</span></h2>
+<ul>
+<li>本教程为基于 QIIME2 的扩增子分析教程的第二篇。</li>
+<li>本教程为基于 QIIME2 的 2020-8 版本的 “Moving Pictures” 教程进行的中文翻译 (非直译)。</li>
+<li>本教程旨在帮助理解 QIIME2 以及扩增子测序的相关概念和基本分析模块和流程。</li>
+</ul>
+<a id="more"></a>
+<hr>
+<!-- toc -->
+<ul>
+<li><a href="#%E5%88%9B%E5%BB%BA%E7%9B%AE%E5%BD%95">创建目录</a></li>
+<li><a href="#%E6%8B%B7%E8%B4%9D%E6%95%B0%E6%8D%AE">拷贝数据</a></li>
+<li><a href="#%E5%AF%BC%E5%85%A5%E6%95%B0%E6%8D%AE">导入数据</a></li>
+<li><a href="#%E6%8B%86%E5%88%86%E6%A0%B7%E5%93%81">拆分样品</a></li>
+<li><a href="#%E8%B4%A8%E6%8E%A7%E4%B8%8E%E7%94%9F%E6%88%90%E7%89%B9%E5%BE%81%E8%A1%A8">质控与生成特征表</a>
+<ul>
+<li><a href="#1-dada2-%E6%B5%81%E7%A8%8B">1. DADA2 流程</a></li>
+<li><a href="#2-deblur-%E6%B5%81%E7%A8%8B">2. Deblur 流程</a></li>
+</ul>
+</li>
+<li><a href="#%E7%89%B9%E5%BE%81%E5%BA%8F%E5%88%97%E4%B8%8E%E7%89%B9%E5%BE%81%E8%A1%A8%E6%B1%87%E6%80%BB">特征序列与特征表汇总</a>
+<ul>
+<li><a href="#%E4%BA%8C%E9%80%89%E4%B8%80">二选一</a></li>
+<li><a href="#%E5%88%9B%E5%BB%BA%E5%8F%AF%E8%A7%86%E5%8C%96%E6%91%98%E8%A6%81">创建可视化摘要</a></li>
+<li><a href="#%E7%9C%BC%E8%A7%81%E4%B8%BA%E5%AE%9E">眼见为实</a></li>
+</ul>
+</li>
+<li><a href="#%E5%BB%BA%E6%A0%91">建树</a></li>
+<li><a href="#%E7%89%A9%E7%A7%8D%E6%B3%A8%E9%87%8A">物种注释</a></li>
+<li><a href="#%E7%BB%9F%E8%AE%A1%E5%88%86%E6%9E%90">统计分析</a>
+<ul>
+<li><a href="#1-%E7%89%A9%E7%A7%8D%E7%BB%84%E6%88%90%E5%88%86%E6%9E%90">1. 物种组成分析</a></li>
+<li><a href="#2-alpha-%E5%92%8C-beta-%E5%A4%9A%E6%A0%B7%E6%80%A7%E5%88%86%E6%9E%90">2. Alpha 和 Beta 多样性分析</a>
+<ul>
+<li><a href="#21-%E8%AE%A1%E7%AE%97-alpha-%E5%A4%9A%E6%A0%B7%E6%80%A7%E6%8C%87%E6%95%B0%E5%92%8C-beta-%E5%A4%9A%E6%A0%B7%E6%80%A7%E8%B7%9D%E7%A6%BB%E7%9F%A9%E9%98%B5">2.1 计算 alpha 多样性指数和 Beta 多样性距离矩阵</a></li>
+<li><a href="#22-alpha-%E5%A4%9A%E6%A0%B7%E6%80%A7%E6%8C%87%E6%95%B0%E7%9A%84%E7%BB%84%E9%97%B4%E5%B7%AE%E5%BC%82%E5%88%86%E6%9E%90">2.2 Alpha 多样性指数的组间差异分析</a></li>
+<li><a href="#23-beta-%E5%A4%9A%E6%A0%B7%E6%80%A7%E6%8C%87%E6%95%B0%E7%9A%84%E7%BB%84%E9%97%B4%E5%B7%AE%E5%BC%82%E5%88%86%E6%9E%90">2.3 Beta 多样性指数的组间差异分析</a></li>
+<li><a href="#24-%E8%87%AA%E5%AE%9A%E4%B9%89-emperor-%E7%9A%84%E7%AC%AC%E4%B8%89%E8%BD%B4">2.4 自定义 emperor 的第三轴</a></li>
+</ul>
+</li>
+<li><a href="#alpha-%E7%A8%80%E7%96%8F%E6%9B%B2%E7%BA%BF">Alpha 稀疏曲线</a></li>
+<li><a href="#ancom-%E7%89%A9%E7%A7%8D%E5%B7%AE%E5%BC%82%E5%88%86%E6%9E%90">ANCOM 物种差异分析</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<h2><span id="创建目录">创建目录</span></h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 重启psn_qiime2容器</span></span><br><span class="line">docker restart psn_qiime2</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建目录  注意下面代码，直接复制可能会有问题，请参考下面的图片</span></span><br><span class="line">docker <span class="built_in">exec</span> psn_qiime2 mkdir -p qiime2-tutorial/qiime2-moving-pictures-tutorial/emp-single-end-sequences/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看</span></span><br><span class="line">docker <span class="built_in">exec</span> psn_qiime2 ls qiime2-tutorial/qiime2-moving-pictures-tutorial</span><br><span class="line"></span><br><span class="line"><span class="comment">########################################### 另一种方式是</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 重启psn_qiime2容器</span></span><br><span class="line">docker restart psn_qiime2</span><br><span class="line"></span><br><span class="line"><span class="comment"># 交互模式，打开容器的一个终端</span></span><br><span class="line">docker <span class="built_in">exec</span> -it psn_qiime2 /bin/bash</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建目录 注意下面代码，直接复制可能会有问题，请参考下面的图片</span></span><br><span class="line">mkdir -p qiime2-tutorial/qiime2-moving-pictures-tutorial/emp-single-end-sequences/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看</span></span><br><span class="line">ls qiime2-tutorial/qiime2-moving-pictures-tutorial</span><br><span class="line"></span><br><span class="line"><span class="comment"># 关闭终端</span></span><br><span class="line"><span class="built_in">exit</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 更直接的方法是直接在相应的位置新建文件夹 </span></span><br><span class="line"><span class="comment">## (因为我们创建容器时使用了-v /PATH/，即宿主和容器可以同时对该位置进行操作)</span></span><br></pre></td></tr></table></figure>
+<img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200921172304277.png" alt="image-20200921172304277" style="zoom:150%;">
+<img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200921172620700.png" alt="image-20200921172620700" style="zoom:150%;">
+<h2><span id="拷贝数据">拷贝数据</span></h2>
+<p>关于数据的来源可参见<a href="https://docs.qiime2.org/2020.8/tutorials/moving-pictures/#sample-metadata" target="_blank" rel="noopener">QIIME2官网</a>，或**<u>对应的PPT教材</u>**。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 拷贝 样本信息元数据 注意下面代码，直接复制可能会有问题，请参考下面的图片</span></span><br><span class="line">docker cp D:\qiime2\data\02_data\sample_metadata.tsv psn_qiime2:/data/qiime2-tutorial/qiime2-moving-pictures-tutorial</span><br><span class="line"></span><br><span class="line"><span class="comment"># 拷贝barcode序列文件 注意下面代码，直接复制可能会有问题，请参考下面的图片</span></span><br><span class="line">docker cp D:\qiime2\data\02_data\barcodes.fastq.gz psn_qiime2:/data/qiime2-tutorial/qiime2-moving-pictures-tutorial/emp-single-end-sequences/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 拷贝序列文件 注意下面代码，直接复制可能会有问题，请参考下面的图片</span></span><br><span class="line">docker cp D:\qiime2\data\02_data\sequences.fastq.gz psn_qiime2:/data/qiime2-tutorial/qiime2-moving-pictures-tutorial/emp-single-end-sequences/</span><br><span class="line"></span><br><span class="line"><span class="comment">## 更直接的方法是将以上文件直接复制在相应的位置 </span></span><br><span class="line"><span class="comment">## (因为我们创建容器时使用了-v /PATH/，即宿主和容器可以同时对该位置进行操作)</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200921173332598.png" alt="image-20200921173332598"></p>
+<img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200921173442418.png" alt="image-20200921173442418" style="zoom:150%;">
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200921173412478.png" alt="image-20200921173412478"></p>
+<h2><span id="导入数据">导入数据</span></h2>
+<p>为什么要导入数据？</p>
+<p>这是因为 QIIME2 中操作的几乎所有数据，都是以 QIIME 2 对象 (<em>QIIME 2 artifacts</em>) 的形式存储的，其中不关包含主要的数据 (如序列数据、表格数据等)，也包含有关数据类型和数据源的信息。因此，使用 QIIME2 分析的第一地步，也是最关键的一步，就是将序列数据文件导入到 QIIME 2 对象（也就是我们见到的 .qza 文件）中。关于 QIIME 2 对象的详细说明，请参见我们的 <u><strong>PPT 教材</strong></u>。</p>
+<p>如何导入？</p>
+<p>QIIME2 使用<code>qiime tools import</code>命令语句进行导入，并需要通过<code>--type</code>参数指定导入的方式。关于原始数据的所有导入方式，可参见官网相应<a href="https://docs.qiime2.org/2020.8/tutorials/importing/" target="_blank" rel="noopener">教程</a>，也可参考我们的 <strong><u>PPT 教材</u></strong>，Moving Pictures” 采用的是 EMP 单端格式的导入方式 (这种方式并未将不同样本的序列拆分开来)。而国内研究者在测序公司测序后到手的原始数据并不符合 EMP 规则（<u>我们之后的实战分析教程将会解决这一问题</u>）。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 交互模式，打开容器的一个终端</span></span><br><span class="line">docker <span class="built_in">exec</span> -it psn_qiime2 /bin/bash</span><br><span class="line"></span><br><span class="line"><span class="comment"># 进入工作目录</span></span><br><span class="line"><span class="built_in">cd</span> qiime2-tutorial/qiime2-moving-pictures-tutorial/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 导入数据</span></span><br><span class="line">qiime tools import \</span><br><span class="line">  --<span class="built_in">type</span> EMPSingleEndSequences \</span><br><span class="line">  --input-path emp-single-end-sequences \</span><br><span class="line">  --output-path emp-single-end-sequences.qza</span><br><span class="line">  </span><br><span class="line"> <span class="comment">## 注意，这里的“\”后接换行符是为了分隔长脚本为多行，没有具体意义。</span></span><br></pre></td></tr></table></figure>
+<img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200921173917530.png" alt="image-20200921173917530" style="zoom:150%;">
+<img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200921175251049.png" alt="image-20200921175251049" style="zoom:150%;">
+<p>我们可以使用<code>qiime tools peek</code>命令查看 QIIME 2 对象 (.qza 和 .qzv) 的基本信息。如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看帮助文档</span></span><br><span class="line">qiime tools peek --<span class="built_in">help</span> </span><br><span class="line"></span><br><span class="line"><span class="comment">## 其他的命令也可以采用这种方式查看帮助文档哦,</span></span><br><span class="line"><span class="comment">## 并且命令的每一个层次都是调用帮助，如：</span></span><br><span class="line"></span><br><span class="line">qiime --<span class="built_in">help</span>  <span class="comment">### 第一级</span></span><br><span class="line"></span><br><span class="line">qiime tools --<span class="built_in">help</span>  <span class="comment">### 第二级</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看刚刚生成的emp-single-end-sequences.qza文件的基本信息</span></span><br><span class="line">qiime tools peek emp-single-end-sequences.qza</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200921180306454.png" alt="image-20200921180306454"></p>
+<blockquote>
+<p><strong>TIPs</strong></p>
+<p>可以通过输入 <code>qiime    </code>后键盘点击两次 TAB 键 (qiime 后面需要加)，让 QIIME2 自动补全可能的命令，如下图。</p>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200921181456436.png" alt="image-20200921181456436"></p>
+<p>这个技巧也可以用于快速补全输入到一半的单词。</p>
+</blockquote>
+<h2><span id="拆分样品">拆分样品</span></h2>
+<p>我们知道采用 EMP 格式导入的序列数据，是没有拆分样品的，所有样本的序列序列都混合在一起 (sequences.fastq.gz)；测序时，我们其实是通过连接在正向引物之前 barcode 序列 (一般出现在正向序列的最前面)；和/或连接在反向引物 (如果是双端测序) 之前的 barcode 序列 (一般出现在反向序列的最前面)，对不同的样本进行区分的，教程中这部分序列已被提取为一个文件 (barcodes.fastq.gz)。</p>
+<p>因此，我们需要依据 barcode 序列的样本归属 (此信息包含在样本元数据文件中)，辨别相应 ID (barcode 序列 ID 与序列 ID 一一对应) 的样本归属，进而辨别序列的样本归属。对应单端序列，QIIME2 采用 <code>demux emp-single</code> 命令进行样本拆分。</p>
+<p>一般测序公司已经将样本拆分好了，所以对于普通分析者来说，这个步骤是可以跳过的，详见后续实战分析教程。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">qiime demux emp-single \</span><br><span class="line">  --i-seqs emp-single-end-sequences.qza \</span><br><span class="line">  --m-barcodes-file sample_metadata.tsv \</span><br><span class="line">  --m-barcodes-column barcode-sequence \</span><br><span class="line">  --o-per-sample-sequences demux.qza \</span><br><span class="line">  --o-error-correction-details demux-details.qza  </span><br><span class="line">  </span><br><span class="line"><span class="comment"># --i-seqs                      输入待拆分的数据</span></span><br><span class="line"><span class="comment"># --m-barcodes-file             提供 barcode-样本ID对应信息的文件</span></span><br><span class="line"><span class="comment"># --m-barcodes-column           上述文件中barcode序列所在列的列名</span></span><br><span class="line"><span class="comment"># --o-per-sample-sequences      输出的结果</span></span><br><span class="line"><span class="comment"># --o-error-correction-details  barcode序列可能存在个别碱基的测序错误，</span></span><br><span class="line"><span class="comment">#                               此时程序可以尝试校正，这个文件即为校正的信息。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 注意拆分样本并不一定要把文件分成多个，而是要在序列ID处标注清楚样本的ID。</span></span><br></pre></td></tr></table></figure>
+<p>在样本拆分完成之后，我们可以对生成的结果文件进行统计，以获得每个样本的序列数，以及序列的质量分布的情况。<u>注意，这个统计结果，对于双端测序数据采用 DADA2 分析流程的，这个统计结果特别重要</u>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">qiime demux summarize \</span><br><span class="line">  --i-data demux.qza \</span><br><span class="line">  --o-visualization demux.qzv</span><br><span class="line">  </span><br><span class="line">## 可以将生产的demux.qzv文件拖入 view.qiime2.org 网站进行可视化</span><br><span class="line"></span><br><span class="line">## 此外，最新版本的QIIME2也支持使用脚本直接进行可视化：</span><br><span class="line"> </span><br><span class="line">qiime tools view demux.qzv</span><br><span class="line"></span><br><span class="line">## 但是，由于我们采用的docker环境没有安装可视化的支持，所以无法使用该脚本。如果是使用linux桌面版系统或MacOS系统原生安装QIIME2的，则可以使用该脚本。</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200921185618246.png" alt="image-20200921185618246"></p>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200921185750183.png" alt="image-20200921185750183"></p>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922092321221.png" alt="image-20200922092321221"></p>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200921190040468.png" alt="image-20200921190040468"></p>
+<h2><span id="质控与生成特征表">质控与生成特征表</span></h2>
+<p>获得了每个样本的序列之后，我们接下来需要做的就是将 “<strong>存在测序错误的序列</strong>” 通过<u>生物信息学的方法</u>转化为 “<strong>可靠的序列</strong>” 的过程，其实也可以称之为<strong>质量控制</strong> (一般的序列聚类，从某种程度上看其实也是一种质控)。QIIME 2 提供的质控方法有很多：包括 <a href="https://www.ncbi.nlm.nih.gov/pubmed/27214047" target="_blank" rel="noopener">DADA2</a>, <a href="http://msystems.asm.org/content/2/2/e00191-16" target="_blank" rel="noopener">Deblur</a> 和 <a href="https://www.nature.com/nmeth/journal/v10/n1/abs/nmeth.2276.html" target="_blank" rel="noopener">basic quality-score-based filtering</a>。本教程使用 DADA2 和 Deblur 分别进行演示。实际分析中，我们需要根据自己数据的情况进行选用或试用。</p>
+<p>通过这两种方法获得的 “<strong>可靠的序列</strong>” 包含两方面内容，一个是序列文件，一个是序列数绝对丰度表文件；它们通过一一对应的ID进行关联，并分别使用 QIIME 2 对象 <code>FeatureData[Sequence]</code> 和 <code>FeatureTable[Frequency]</code> 存放，它们相当于QIIME1 的 <em>representative sequences</em> 文件 (代表序列) 文件 和 OTU or BIOM table (OTU 表格) 文件。</p>
+<h3><span id="1-dada2-流程">1. DADA2 流程</span></h3>
+<p>DADA2 流程是用于检测、学习、校正和过滤 Illumina 扩增序列测序错误的工作流程，其核心是通过学习序列测序错误分布，对其进行校正，还原为正确的序列 (或者说是找到测序完全正确的母序列)。使用 <code>qiime dada2</code> 命令实现，这个质量控制过程将过滤掉在测序数据中识别的任何 <code>phiX</code> 序列 (通常存在于标记基因 Illumina 测序数据中，用于提高扩增子测序质量)，并同时过滤嵌合序列。</p>
+<blockquote>
+<p>注：DADA2 是斯坦福大学统计系教授 Susan P. Holmes 于 2016 年发表于 Nature Methods 的文章，知名的 R 包 “phyloseq” 也是他的作品。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">qiime dada2 denoise-single \</span><br><span class="line">  --i-demultiplexed-seqs demux.qza \</span><br><span class="line">  --p-trim-left 0 \</span><br><span class="line">  --p-trunc-len 120 \</span><br><span class="line">  --o-representative-sequences rep-seqs-dada2.qza \</span><br><span class="line">  --o-table table-dada2.qza \</span><br><span class="line">  --o-denoising-stats stats-dada2.qza</span><br><span class="line">  </span><br><span class="line"><span class="comment"># 对于单端采用 denoise-single (第三级) 命令，</span></span><br><span class="line"><span class="comment">## 如果是双端，则需要采用 denoise-paired 命令，</span></span><br><span class="line"><span class="comment">## 一代采用 denoise-pyro 命令；</span></span><br><span class="line"><span class="comment">## 三代数据，我们公司采用的是自主编写的 denoise-pacbio 命令</span></span><br><span class="line"><span class="comment">## 这是由于 DADA2 本身已经能够支持三代数据</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 参数说明</span></span><br><span class="line"><span class="comment">## --i-demultiplexed-seqs  输入拆分好样品的序列文件，即上一步的输出文件 </span></span><br><span class="line"><span class="comment">## --p-trim-left           序列左端 (5'端) 切除碱基长度。</span></span><br><span class="line"><span class="comment">##                         一般用于切除低质量碱基、引物(建议切除)或barcode(如有)。</span></span><br><span class="line"><span class="comment">## --p-trunc-len           序列右端 (3'端) 切除碱基，使得长度为该值。</span></span><br><span class="line"><span class="comment">##                         注意，如果本身长度已经低于该值，则该序列将被舍弃，</span></span><br><span class="line"><span class="comment">##                         所以不要设置得过高；设置为 0 不进行任何切除和过滤。 </span></span><br><span class="line"></span><br><span class="line"><span class="comment">## --o-representative-sequences 输出 ASV 特征序列(代表序列)文件</span></span><br><span class="line"><span class="comment">## --o-table                    输出 ASV 特征表文件</span></span><br><span class="line"><span class="comment">## --o-denoising-stats          输出去噪的统计结果</span></span><br><span class="line"><span class="comment">## 其他参数请见实战流程</span></span><br></pre></td></tr></table></figure>
+<img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922112937366.png" alt="image-20200922112937366" style="zoom:150%;">
+<p>我们看一看结果 (绿色为当前产生的文件)：</p>
+<img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922113442357.png" alt="image-20200922113442357" style="zoom:150%;">
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 我们再看一下去噪的情况，使用以下脚本</span></span><br><span class="line">qiime metadata tabulate \</span><br><span class="line">  --m-input-file stats-dada2.qza \</span><br><span class="line">  --o-visualization stats-dada2.qzv</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922114251640.png" alt="image-20200922114251640"></p>
+<p>可以看到：对于单端数据，DADA2流程包括了：质量过滤、去噪、去嵌合体三个主要的数据处理步骤。</p>
+<h3><span id="2-deblur-流程">2. Deblur 流程</span></h3>
+<p>另外一种方法是 Deblur，由于我们后期主要还是使用 DADA2 进行实战分析，所以此方法只作为拓展学习。算法是虽然有所不同，但 Deblur 也是利用了序列的质量值来做文章的。它使用序列的质量值将存在测序错误的序列与真实生物序列（16S 为 88% 聚类的Green_Genes 13_8 数据库序列，其他类型的扩增子需要自行提供）相关联，从而得到高质量的 ASV 序列数据。</p>
+<p>需要注意的是，目前 Deblur 只支持单端序列，双端序列需要先拼接后才能使用。</p>
+<p>首先，需要生成序列错误配置文件，这里使用基于质量得分的质量过滤命令。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># 过滤并产生 序列错误统计文件</span><br><span class="line">qiime quality-filter q-score \</span><br><span class="line"> --i-demux demux.qza \</span><br><span class="line"> --o-filtered-sequences demux-filtered.qza \</span><br><span class="line"> --o-filter-stats demux-filter-stats.qza</span><br><span class="line"></span><br><span class="line"># 查看序列错误统计结果</span><br><span class="line">qiime metadata tabulate \</span><br><span class="line">  --m-input-file demux-filter-stats.qza \</span><br><span class="line">  --o-visualization demux-filter-stats.qzv</span><br></pre></td></tr></table></figure>
+<img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922141253688.png" alt="image-20200922141253688" style="zoom:150%;">
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922141158119.png" alt="image-20200922141158119"></p>
+<p>这之后，便可以使用 <code>qiime deblur denoise-16S</code> 命令进行去噪。此方法需要一个用于质量过滤的参数，即截断位置n长度的序列的 <code>--p-trim-length n</code>。通常，Deblur 开发人员建议将该值设置为质量分数中位数开始下降至低质量区时的长度。在本次数据上，质量图（在质量过滤之前）表明合理的选择是在115至130序列位置范围内。这是一个主观的评估。你可能不采用该建议的一种原因是存在多个批次测序的元分析时。在这种情况的元分析中，<strong>比较所有批次的序列长度是否相同，以避免人为引入特定的偏差，全局考虑这些是非常重要的</strong>。由于我们已经使用修剪长度为 120 bp用于<code>qiime dada2 denoise-single</code>分析，并且由于120 bp是基于质量图的结果，这里我们将使用<code>--p-trim-length 120</code>参数。下一个命令可能需要10分钟才能运行完成。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Deblur 去噪</span></span><br><span class="line">qiime deblur denoise-16S \</span><br><span class="line">  --i-demultiplexed-seqs demux-filtered.qza \</span><br><span class="line">  --p-trim-length 120 \</span><br><span class="line">  --o-representative-sequences rep-seqs-deblur.qza \</span><br><span class="line">  --o-table table-deblur.qza \</span><br><span class="line">  --p-sample-stats \</span><br><span class="line">  --o-stats deblur-stats.qza</span><br><span class="line"></span><br><span class="line"><span class="comment">## 参数说明</span></span><br><span class="line"><span class="comment">## --i-demultiplexed-seqs       分样并质控后的序列</span></span><br><span class="line"><span class="comment">## --p-trim-length              序列右端 (3'端) 切除碱基，使得长度为该值。</span></span><br><span class="line"><span class="comment">##                              注意，如果本身长度已经低于该值，则该序列将被舍弃，</span></span><br><span class="line"><span class="comment">##                              所以不要设置得过高；设置为 0 不进行任何切除和过滤。       </span></span><br><span class="line"><span class="comment">## --o-representative-sequences 输出 ASV 特征序列(代表序列)文件</span></span><br><span class="line"><span class="comment">## --o-table table-deblur.qza   输出 ASV 特征丰度表文件</span></span><br><span class="line"><span class="comment">## --p-sample-stats             指定对每个样本分别进行去噪结果的统计</span></span><br><span class="line"><span class="comment">## --o-stats deblur-stats.qza   去噪结果统计文件</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看去噪的情况</span></span><br><span class="line">qiime deblur visualize-stats \</span><br><span class="line">  --i-deblur-stats deblur-stats.qza \</span><br><span class="line">  --o-visualization deblur-stats.qzv</span><br></pre></td></tr></table></figure>
+<img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922143924885.png" alt="image-20200922143924885" style="zoom:150%;">
+<img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922144200144.png" alt="image-20200922144200144" style="zoom:150%;">
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922144244927.png" alt="image-20200922144244927"></p>
+<h2><span id="特征序列与特征表汇总">特征序列与特征表汇总</span></h2>
+<h3><span id="二选一">二选一</span></h3>
+<ul class="contains-task-list">
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled type="checkbox"> 选择 Deblur 进行后续分析</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mv rep-seqs-deblur.qza rep-seqs.qza</span><br><span class="line">mv table-deblur.qza table.qza</span><br></pre></td></tr></table></figure>
+<ul class="contains-task-list">
+<li class="task-list-item"><input class="task-list-item-checkbox" checked disabled type="checkbox"> 选择 DADA2 进行后续分析</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mv rep-seqs-dada2.qza rep-seqs.qza</span><br><span class="line">mv table-dada2.qza table.qza</span><br></pre></td></tr></table></figure>
+<h3><span id="创建可视化摘要">创建可视化摘要</span></h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 汇总特征丰度表</span></span><br><span class="line">qiime feature-table summarize \</span><br><span class="line">  --i-table table.qza \</span><br><span class="line">  --o-visualization table.qzv \</span><br><span class="line">  --m-sample-metadata-file sample_metadata.tsv</span><br><span class="line"></span><br><span class="line"><span class="comment"># 汇总特征序列  </span></span><br><span class="line">qiime feature-table tabulate-seqs \</span><br><span class="line">  --i-data rep-seqs.qza \</span><br><span class="line">  --o-visualization rep-seqs.qzv</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922155147390.png" alt="image-20200922155147390"></p>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922155208293.png" alt="image-20200922155208293"></p>
+<h3><span id="眼见为实">眼见为实</span></h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">rm -rf table rep-seqs    <span class="comment">## 事先删除这两个文件夹 </span></span><br><span class="line"></span><br><span class="line">qiime tools <span class="built_in">export</span> \</span><br><span class="line">   --input-path table.qza \</span><br><span class="line">   --output-path table     </span><br><span class="line">   <span class="comment">## 在table文件夹中将产生feature-table.biom文件</span></span><br><span class="line"></span><br><span class="line">mv table/feature-table.biom table.biom  <span class="comment">## 把它移出来</span></span><br><span class="line"></span><br><span class="line">biom convert -i table.biom -o table.tsv --to-tsv  <span class="comment">## 转化为tsv格式</span></span><br><span class="line"></span><br><span class="line">qiime tools <span class="built_in">export</span> \</span><br><span class="line">   --input-path rep-seqs.qza \</span><br><span class="line">   --output-path rep-seqs  </span><br><span class="line">   <span class="comment">## 在rep-seqs文件夹中将产生dna-sequences.fasta文件</span></span><br><span class="line">   </span><br><span class="line">mv rep-seqs/dna-sequences.fasta rep-seqs.fasta  <span class="comment">## 把它移出来</span></span><br><span class="line"></span><br><span class="line">rm -rf table rep-seqs 删除</span><br></pre></td></tr></table></figure>
+<img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922162009833.png" alt="image-20200922162009833" style="zoom:150%;">
+<img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922162045760.png" alt="image-20200922162045760" style="zoom:150%;">
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">## 可以使用</span><br><span class="line">## head 文件名     查看前几行</span><br><span class="line">## less -S 文件名  拖动查看文件，键盘按q键退出</span><br><span class="line">## wc -l 文件名    查看行数</span><br></pre></td></tr></table></figure>
+<img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922162217024.png" alt="image-20200922162217024" style="zoom:150%;">
+<img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922162313599.png" alt="image-20200922162313599" style="zoom:150%;">
+<img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922162329569.png" alt="image-20200922162329569" style="zoom:150%;">
+<h2><span id="建树">建树</span></h2>
+<p>进行多样性分析会使用到一些基于系统发育的多样性指数，包括<code>Faith’s Phylogenetic Diversity</code>、<code>weighted</code>和<code>unweighted UniFrac</code>。这些指数需要使用到由 ASV 序列文件构建的有根的进化树。这里使用的是 <code>qiime phylogeny</code> 命令的 <code>align-to-tree-mafft-fasttree</code> 流程。</p>
+<p>从命令的命名也可以看出，该流程是首先调用 <code>mafft</code> 程序执行对 ASV 特征序列中的每条 ASV 序列进行多序列比对并对齐，创建 QIIME 2 对象 aligned-rep-seqs.qza (对齐的序列文件)。接下来，流程会对对齐的高度可变区 (高变区, 或者无意义的噪声区域) 进行 mask 或过滤。随后，调用 <code>FastTree</code> 程序基于 mask 后的对齐的序列文件生成系统发育树，该程序创建的是一个无根树，因此流程最后会使用 “根中点法” 将树的根放置在无根树中最长端到端距离的中点，从而形成有根树。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">qiime phylogeny align-to-tree-mafft-fasttree \</span><br><span class="line">  --i-sequences rep-seqs.qza \</span><br><span class="line">  --o-alignment aligned-rep-seqs.qza \</span><br><span class="line">  --o-masked-alignment masked-aligned-rep-seqs.qza \</span><br><span class="line">  --o-tree unrooted-tree.qza \</span><br><span class="line">  --o-rooted-tree rooted-tree.qza</span><br><span class="line"></span><br><span class="line"><span class="comment"># 参数说明</span></span><br><span class="line"><span class="comment">##  --i-sequences         输入特征序列文件</span></span><br><span class="line"><span class="comment">##  --o-alignment         输出对齐的序列文件</span></span><br><span class="line"><span class="comment">##  --o-masked-alignment  输出 mask 后的对齐的序列文件</span></span><br><span class="line"><span class="comment">##  --o-tree              输出无根数文件</span></span><br><span class="line"><span class="comment">##  --o-rooted-tree       输出有根数文件</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>warnings:</p>
+<p>​    对于ITS项目，由于ITS序列的高可变性，因此往往难以对齐，也就不能进行常规的建树分析了。</p>
+<p>​	对于功能基因项目，如需建树，一般考虑使用聚类后的蛋白序列进行建树。</p>
+</blockquote>
+<h2><span id="物种注释">物种注释</span></h2>
+<p>QIIME 2 默认提供了三种物种注释的手段：局部比对注释 (blast)，全局比对注释 (vsearch) 以及本教程使用的经过预先训练的 <a href="https://data.qiime2.org/2020.8/common/gg-13-8-99-515-806-nb-classifier.qza" target="_blank" rel="noopener">Naive Bayes 分类器</a>，使用的命令是 <code>qiime feature-classifier classify-sklearn</code>。</p>
+<blockquote>
+<p>注：本教程的分类器是在基于 Greengenes 13_8 99% 序列训练的，这些序列首先被修剪 16S V4 区域，即引物 515F/806R 能够扩增到的序列区域范围。我们将把这个分类器应用到序列中，并且可以生成从序列到物种注释结果关联的可视化。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 请先将 gg-13-8-99-515-806-nb-classifier.qza </span></span><br><span class="line"><span class="comment"># 文件复制到 qiime2-moving-pictures-tutorial 文件夹中去。</span></span><br><span class="line"><span class="comment">## 机器学习物种注释</span></span><br><span class="line">qiime feature-classifier classify-sklearn \</span><br><span class="line">  --i-classifier gg-13-8-99-515-806-nb-classifier.qza \</span><br><span class="line">  --i-reads rep-seqs.qza \</span><br><span class="line">  --o-classification taxonomy.qza</span><br><span class="line"></span><br><span class="line"><span class="comment">## 参数说明</span></span><br><span class="line"><span class="comment">##  --i-classifier      输入 Naive Bayes 分类器</span></span><br><span class="line"><span class="comment">##  --i-reads           ASV特征序列文件</span></span><br><span class="line"><span class="comment">##  --o-classification  物种注释结果文件</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 物种注释结果可视化</span></span><br><span class="line">qiime metadata tabulate \</span><br><span class="line">  --m-input-file taxonomy.qza \</span><br><span class="line">  --o-visualization taxonomy.qzv</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922171443498.png" alt="image-20200922171443498"></p>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922171654473.png" alt="image-20200922171654473"></p>
+<h2><span id="统计分析">统计分析</span></h2>
+<h3><span id="1-物种组成分析">1. 物种组成分析</span></h3>
+<ul>
+<li>绘制柱状图</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">qiime taxa barplot \</span><br><span class="line">  --i-table table.qza \</span><br><span class="line">  --i-taxonomy taxonomy.qza \</span><br><span class="line">  --m-metadata-file sample_metadata.tsv \</span><br><span class="line">  --o-visualization taxa-bar-plots.qzv</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922172544198.png" alt="image-20200922172544198"></p>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922172142619.png" alt="image-20200922172142619"></p>
+<h3><span id="2-alpha-和-beta-多样性分析">2. Alpha 和 Beta 多样性分析</span></h3>
+<p>QIIME 2 的多样性分析使用 <code>qiime diversity</code> 命令，实现同时对几种最重要的 α 和 β 多样性指数进行计算，并可以使用分析和统计检验手段生成交互式可视化图表。</p>
+<h4><span id="21-计算-alpha-多样性指数和-beta-多样性距离矩阵">2.1 计算 alpha 多样性指数和 Beta 多样性距离矩阵</span></h4>
+<p>我们将使用 <code>core-metrics-phylogenetic</code> 流程，该流程首先将 ASV 特征表抽平到指定的测序深度，然后计算几种常用的 α 和 β 多样性指数，并调用 <code>Emperor</code> 程序为每个 β 多样性距离矩阵生成主坐标分析（PCoA）图。alpha 多样性指数和 Beta 多样性距离如下：</p>
+<blockquote>
+<ul>
+<li>Alpha diversity
+<ul>
+<li><u>Shannon’s diversity index</u> (a quantitative measure of community richness)</li>
+<li><u>Observed Features</u> (a qualitative measure of community richness)</li>
+<li><u>Faith’s Phylogenetic Diversity</u> (a qualitiative measure of community richness that incorporates phylogenetic relationships between the features)</li>
+<li><u>Evenness</u> (or Pielou’s Evenness; a measure of community evenness)</li>
+</ul>
+</li>
+<li>Beta diversity
+<ul>
+<li><u>Jaccard distance</u> (a qualitative measure of community dissimilarity)</li>
+<li><u>Bray-Curtis distance</u> (a quantitative measure of community dissimilarity)</li>
+<li><u>unweighted UniFrac distance</u> (a qualitative measure of community dissimilarity that incorporates phylogenetic relationships between the features)</li>
+<li><u>weighted UniFrac distance</u> (a quantitative measure of community dissimilarity that incorporates phylogenetic relationships between the features)</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<p>文件中呈现的信息并<strong>选择一个尽可能高的值（因此每个样本保留更多的序列）同时尽可能少地排除样本来进行选择</strong>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">qiime diversity core-metrics-phylogenetic \</span><br><span class="line">  --i-phylogeny rooted-tree.qza \</span><br><span class="line">  --i-table table.qza \</span><br><span class="line">  --p-sampling-depth 1103 \</span><br><span class="line">  --m-metadata-file sample_metadata.tsv \</span><br><span class="line">  --output-dir core-metrics-results</span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line"><span class="comment"># 参数说明</span></span><br><span class="line"><span class="comment">##  --i-phylogeny      输入有根树文件</span></span><br><span class="line"><span class="comment">##  --i-table          输入ASV特征丰度表</span></span><br><span class="line"><span class="comment">##  --p-sampling-depth 指定抽平(即稀疏 rarefaction)深度;</span></span><br><span class="line"><span class="comment">##                     注意，如果任何样本的总丰度小于该值，</span></span><br><span class="line"><span class="comment">##                     这些样本将从该分析中删除。</span></span><br><span class="line"><span class="comment">##                     选择时可以参考table.qzv呈现的信息。</span></span><br><span class="line"><span class="comment">##                     对于当前的二代测序产品，由于通量极高,</span></span><br><span class="line"><span class="comment">##                     一般可以选择最小丰度值的90%-95%</span></span><br><span class="line"><span class="comment">##  --m-metadata-file  输入数据信息表，可以是之前使用的元数据表，也可以另建</span></span><br><span class="line"><span class="comment">##  --output-dir       指定输出结果文件的目录</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922192759746.png" alt="image-20200922192759746"></p>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922185220000.png" alt="image-20200922185220000"></p>
+<h4><span id="22-alpha-多样性指数的组间差异分析">2.2 Alpha 多样性指数的组间差异分析</span></h4>
+<p>我们可以先来看看 alpha 多样性指数在不同分组之间的差异，采用默认的 KW 秩和检验。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># faith-pd 注意下面代码，直接复制可能会有问题，请参考下面的图片</span></span><br><span class="line">qiime diversity alpha-group-significance \</span><br><span class="line">  --i-alpha-diversity core-metrics-results/faith_pd_vector.qza \</span><br><span class="line">  --m-metadata-file sample_metadata.tsv \</span><br><span class="line">  --o-visualization core-metrics-results/faith-pd-group-significance.qzv</span><br><span class="line"></span><br><span class="line"><span class="comment"># evenness  注意下面代码，直接复制可能会有问题，请参考下面的图片</span></span><br><span class="line">qiime diversity alpha-group-significance \</span><br><span class="line">  --i-alpha-diversity core-metrics-results/evenness_vector.qza \</span><br><span class="line">  --m-metadata-file sample_metadata.tsv \</span><br><span class="line">  --o-visualization core-metrics-results/evenness-group-significance.qzv</span><br><span class="line"></span><br><span class="line"><span class="comment"># 参数说明										</span></span><br><span class="line"><span class="comment">## --i-alpha-diversity  输入 alpha 多样性指数文件</span></span><br><span class="line"><span class="comment">## --m-metadata-file    样本信息表,可使用元数据表</span></span><br><span class="line"><span class="comment">## --o-visualization    输出可视化结果路径</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Tips:</p>
+<p>如果你的分组其实是时间序列或其他连续变量，那么可以使用 <code>qiime diversity alpha-correlation</code> 命令来探究 alpha 多样性指数与时间关联性。</p>
+</blockquote>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922195924646.png" alt="image-20200922195924646"></p>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922200117469.png" alt="image-20200922200117469"></p>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922200131990.png" alt="image-20200922200131990"></p>
+<h4><span id="23-beta-多样性指数的组间差异分析">2.3 Beta 多样性指数的组间差异分析</span></h4>
+<p>对于 beta 多样性指数 (距离矩阵)，我们将使用 <code>beta-group-significance</code> 命令并选择 <a href="http://onlinelibrary.wiley.com/doi/10.1111/j.1442-9993.2001.01070.pp.x/full" target="_blank" rel="noopener">PERMANOVA</a> 的方法进行<u>组间差异分析与检验</u>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 组为body-site 注意下面代码，直接复制可能会有问题，请参考下面的图片</span></span><br><span class="line">qiime diversity beta-group-significance \</span><br><span class="line">  --i-distance-matrix core-metrics-results/unweighted_unifrac_distance_matrix.qza \</span><br><span class="line">  --m-metadata-file sample_metadata.tsv \</span><br><span class="line">  --m-metadata-column body-site \</span><br><span class="line">  --o-visualization core-metrics-results/unweighted-unifrac-body-site-significance.qzv \</span><br><span class="line">  --p-pairwise</span><br><span class="line"></span><br><span class="line"><span class="comment"># 组为subject 注意下面代码，直接复制可能会有问题，请参考下面的图片</span></span><br><span class="line">qiime diversity beta-group-significance \</span><br><span class="line">  --i-distance-matrix core-metrics-results/unweighted_unifrac_distance_matrix.qza \</span><br><span class="line">  --m-metadata-file sample_metadata.tsv \</span><br><span class="line">  --m-metadata-column subject \</span><br><span class="line">  --o-visualization core-metrics-results/unweighted-unifrac-subject-group-significance.qzv \</span><br><span class="line">  --p-pairwise</span><br><span class="line"></span><br><span class="line"><span class="comment"># 参数说明										</span></span><br><span class="line"><span class="comment">## --i-distance-matrix  输入距离矩阵文件</span></span><br><span class="line"><span class="comment">## --m-metadata-file    样本信息表,可使用元数据表</span></span><br><span class="line"><span class="comment">## --m-metadata-column  要进行比较的组，即在样本信息表中的列名</span></span><br><span class="line"><span class="comment">## --o-visualization    输出可视化结果路径</span></span><br><span class="line"><span class="comment">## --p-pairwise		    进行组间的两两成对检验，不加这个参数则不会进行</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Tips:</p>
+<p>如果你的分组其实是时间序列或其他连续变量，那么可以使用 qiime metadata distance-matrix<code> 命令配合</code>qiime diversity mantel<code>和</code>qiime diversity bioenv` 命令进行分析。</p>
+</blockquote>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922200708970.png" alt="image-20200922200708970"></p>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922200612495.png" alt="image-20200922200612495"></p>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922200738565.png" alt="image-20200922200738565"></p>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922200812413.png" alt="image-20200922200812413"></p>
+<h4><span id="24-自定义-emperor-的第三轴">2.4 自定义 emperor 的第三轴</span></h4>
+<p>排序，是在样本分组间探索微生物群落组成差异的常用方法。我们可以使用 <code>qiime emperor plot</code> 命令，在绘制三维 PCoA 图时，将自定义的连续型表量作为第三轴加入绘图。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># unweighted_unifrac 注意下面代码，直接复制可能会有问题，请参考下面的图片</span></span><br><span class="line">qiime emperor plot \</span><br><span class="line">  --i-pcoa core-metrics-results/unweighted_unifrac_pcoa_results.qza \</span><br><span class="line">  --m-metadata-file sample_metadata.tsv \</span><br><span class="line">  --p-custom-axes days-since-experiment-start \</span><br><span class="line">  --o-visualization core-metrics-results/unweighted-unifrac-emperor-days-since-experiment-start.qzv</span><br><span class="line"></span><br><span class="line"><span class="comment"># bray_curtis 注意下面代码，直接复制可能会有问题，请参考下面的图片</span></span><br><span class="line">qiime emperor plot \</span><br><span class="line">  --i-pcoa core-metrics-results/bray_curtis_pcoa_results.qza \</span><br><span class="line">  --m-metadata-file sample_metadata.tsv \</span><br><span class="line">  --p-custom-axes days-since-experiment-start \</span><br><span class="line">  --o-visualization core-metrics-results/bray-curtis-emperor-days-since-experiment-start.qzv</span><br><span class="line"></span><br><span class="line"><span class="comment"># 参数说明</span></span><br><span class="line"><span class="comment">##  --i-pcoa           输入PCoA结果文件</span></span><br><span class="line"><span class="comment">##  --m-metadata-file  样本信息表,可使用元数据表</span></span><br><span class="line"><span class="comment">##  --p-custom-axes    要指定 emperor 第三轴的列名，也是样本信息表中相应列的列名</span></span><br><span class="line"><span class="comment">##  --o-visualization  输出可视化结果的路径</span></span><br></pre></td></tr></table></figure>
+<img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922201754492.png" alt="image-20200922201754492" style="zoom:150%;">
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922193508459.png" alt="image-20200922193508459"></p>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922194018003.png" alt="image-20200922194018003"></p>
+<p>如上图，我们可以看到四个身体部位是如何随时间变化的。</p>
+<h3><span id="alpha-稀疏曲线">Alpha 稀疏曲线</span></h3>
+<p>使用 <code>qiime diversity alpha-rarefaction</code> 命令可以探索 α 多样性与采用深度之间的关系。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">qiime diversity alpha-rarefaction \</span><br><span class="line">  --i-table table.qza \</span><br><span class="line">  --i-phylogeny rooted-tree.qza \</span><br><span class="line">  --p-max-depth 4000 \</span><br><span class="line">  --m-metadata-file sample_metadata.tsv \</span><br><span class="line">  --o-visualization alpha-rarefaction.qzv</span><br><span class="line">  </span><br><span class="line"><span class="comment"># 参数说明</span></span><br><span class="line"><span class="comment">##  --i-table         输入特征丰度表文件</span></span><br><span class="line"><span class="comment">##  --i-phylogeny     有根树文件(用于计算Faith's PD)</span></span><br><span class="line"><span class="comment">##  --p-max-depth     最大的采样深度 (抽平深度)</span></span><br><span class="line"><span class="comment">##  --m-metadata-file 样本信息表,可使用元数据表</span></span><br><span class="line"><span class="comment">##  --o-visualization 输出可视化结果文件</span></span><br></pre></td></tr></table></figure>
+<img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922203126299.png" alt="image-20200922203126299" style="zoom:150%;">
+<img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922203047964.png" alt="image-20200922203047964" style="zoom:150%;">
+<h3><span id="ancom-物种差异分析">ANCOM 物种差异分析</span></h3>
+<p><a href="https://www.ncbi.nlm.nih.gov/pubmed/26028277" target="_blank" rel="noopener">ANCOM</a> 可用于识别不同样本组间丰度显著差异的物种 (或 ASV)。ANCOM 是使用<code>qiime composition</code> 命令实现的。ANCOM 假设组间的物种只有很少（小于约 25%）的一部分发生了显著变化 (如果你发现多数的物种都发生了明显变化，你可能就需要尝试使用 <code>qiime gneiss</code> 命令来找出真正变化的物种了)。<strong>如果你认为在组与组之间有更多的物种发生了改变，那么就不应该使用 ANCOM</strong>，因为它更容易出错 (I类错误/假阴性错误和II类错误/假阳性错误都有可能增加)。</p>
+<blockquote>
+<p>注意：物种丰度差异分析是微生物组学研究中常用的分析方法。QIIME 2 提供了两种分析方法：<code>gneiss</code> 和 <code>composition</code> 。这里使用的是 <code>composition</code>。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 对丰度表进行过滤，只比较肠道样本组之间差异，这样更符合 ANCOM 假设</span></span><br><span class="line">qiime feature-table filter-samples \</span><br><span class="line">  --i-table table.qza \</span><br><span class="line">  --m-metadata-file sample_metadata.tsv \</span><br><span class="line">  --p-where <span class="string">"[body-site]='gut'"</span> \</span><br><span class="line">  --o-filtered-table gut-table.qza</span><br><span class="line">  </span><br><span class="line"><span class="comment">#  参数说明</span></span><br><span class="line"><span class="comment">## --i-table          输入特征丰度表</span></span><br><span class="line"><span class="comment">## --m-metadata-file  样本信息表,可使用元数据表</span></span><br><span class="line"><span class="comment">## --p-where          参数用双引号包围，[]中填写进行过滤要依据的列名，</span></span><br><span class="line"><span class="comment">##                    =号后面的''中填写该列名下进行过滤要保留的组名</span></span><br><span class="line"><span class="comment">## --o-filtered-table 输出过滤后的特征表</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 特征丰度表添加伪计数，消除零值</span></span><br><span class="line">qiime composition add-pseudocount \</span><br><span class="line">  --i-table gut-table.qza \</span><br><span class="line">  --o-composition-table comp-gut-table.qza</span><br><span class="line">  </span><br><span class="line"><span class="comment"># 参数说明</span></span><br><span class="line"><span class="comment">## --i-table 输入的特征表</span></span><br><span class="line"><span class="comment">## --o-composition-table 新的特征丰度表，ANCOM 要求所有的丰度都不为零。</span></span><br><span class="line"><span class="comment">##                       为此，需要对每个丰度值添加一个伪计数</span></span><br><span class="line"><span class="comment">##                       add-pseudocount(一种遗失值插补方法)，</span></span><br><span class="line"><span class="comment">##                       这将产生一个新的组成型特征丰度表。</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 进行 ancom 分析</span></span><br><span class="line">qiime composition ancom \</span><br><span class="line">  --i-table comp-gut-table.qza \</span><br><span class="line">  --m-metadata-file sample_metadata.tsv \</span><br><span class="line">  --m-metadata-column subject \</span><br><span class="line">  --o-visualization ancom-subject.qzv</span><br><span class="line"></span><br><span class="line"><span class="comment"># 参数说明</span></span><br><span class="line"><span class="comment">##  --i-table            输入特征丰度表 (经过add-pseudocount处理)</span></span><br><span class="line"><span class="comment">##  --m-metadata-file    样本信息表,可使用元数据表</span></span><br><span class="line"><span class="comment">##  --m-metadata-column  比较的分组名，即是样本信息表的列名</span></span><br><span class="line"><span class="comment">##  --o-visualization    输出可视化结果</span></span><br></pre></td></tr></table></figure>
+<img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922213738221.png" alt="image-20200922213738221" style="zoom:150%;">
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922214134978.png" alt="image-20200922214134978"></p>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922214155565.png" alt="image-20200922214155565"></p>
+<p>上面分析的是ASV水平的差异物种，如果要分析分类单元水平的差异物种呢？</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 对过滤后只保留肠道样本的特征丰度表进行汇总，获得属水平物种丰度表</span></span><br><span class="line">qiime taxa collapse \</span><br><span class="line">  --i-table gut-table.qza \</span><br><span class="line">  --i-taxonomy taxonomy.qza \</span><br><span class="line">  --p-level 6 \</span><br><span class="line">  --o-collapsed-table gut-table-l6.qza</span><br><span class="line"></span><br><span class="line"><span class="comment">## 参数说明</span></span><br><span class="line"><span class="comment">##  --i-table           输入特征丰度表</span></span><br><span class="line"><span class="comment">##  --i-taxonomy        输入物种注释信息表</span></span><br><span class="line"><span class="comment">##  --p-level           要汇总的分类学水平</span></span><br><span class="line"><span class="comment">##  --o-collapsed-table 输出某分类学水平的物种丰度表</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 丰度表添加伪计数，消除零值</span></span><br><span class="line">qiime composition add-pseudocount \</span><br><span class="line">  --i-table gut-table-l6.qza \</span><br><span class="line">  --o-composition-table comp-gut-table-l6.qza</span><br><span class="line"></span><br><span class="line"><span class="comment">##  参数说明</span></span><br><span class="line"><span class="comment">## --i-table 输入的丰度表</span></span><br><span class="line"><span class="comment">## --o-composition-table 新的丰度表，ANCOM 要求所有的丰度都不为零。</span></span><br><span class="line"><span class="comment">##                       为此，需要对每个丰度值添加一个伪计数</span></span><br><span class="line"><span class="comment">##                       add-pseudocount(一种遗失值插补方法)，</span></span><br><span class="line"><span class="comment">##                       这将产生一个新的组成型特征丰度表。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 进行 ancom 分析</span></span><br><span class="line">qiime composition ancom \</span><br><span class="line">  --i-table comp-gut-table-l6.qza \</span><br><span class="line">  --m-metadata-file sample_metadata.tsv \</span><br><span class="line">  --m-metadata-column subject \</span><br><span class="line">  --o-visualization l6-ancom-subject.qzv</span><br><span class="line"></span><br><span class="line"><span class="comment"># 参数说明</span></span><br><span class="line"><span class="comment">##  --i-table            输入特征丰度表 (经过add-pseudocount处理)</span></span><br><span class="line"><span class="comment">##  --m-metadata-file    样本信息表,可使用元数据表</span></span><br><span class="line"><span class="comment">##  --m-metadata-column  比较的分组名，即是样本信息表的列名</span></span><br><span class="line"><span class="comment">##  --o-visualization    输出可视化结果</span></span><br></pre></td></tr></table></figure>
+<img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922215042673.png" alt="image-20200922215042673" style="zoom:150%;">
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922215103351.png" alt="image-20200922215103351"></p>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200922215118717.png" alt="image-20200922215118717"></p>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">
+    </div>
+
+      <div>
+        
+          
+<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:20px;">-----------------------------本文结束  <i class="fa fa-paw"></i>  感谢您的阅读-----------------------------</div>
+    
+</div>
+        
+      </div>
+      
+    
+    
+    
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\20200726\QIIME2-based-amplicon-analysis-tutorial(Preparation)\" rel="bookmark">基于 QIIME2 的扩增子分析教程-准备篇</a></div>
+    </li>
+  </ul>
+
+        <div class="reward-container">
+  <div><p style="font-size:14px; color:#34495e; margin:0 0 5px 0;">赞赏一下吧～.</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/./../image/reward1.jpg" alt="Sansan Li 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/./../image/reward2.png" alt="Sansan Li 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Sansan Li
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.microbiomecat.xyz/20201005/QIIME2-based-amplicon-analysis-tutorial(Basic)/" title="基于 QIIME2 的扩增子分析教程-基础篇">https://www.microbiomecat.xyz/20201005/QIIME2-based-amplicon-analysis-tutorial(Basic)/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/QIIME2/" rel="tag"><i class="fa fa-tag"></i> QIIME2</a>
+              <a href="/tags/%E6%89%A9%E5%A2%9E%E5%AD%90/" rel="tag"><i class="fa fa-tag"></i> 扩增子</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/20201001/Docker_tutorial/" rel="prev" title="Docker 基本操作教程">
+      <i class="fa fa-chevron-left"></i> Docker 基本操作教程
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#"><span class="nav-number">1.</span> <span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#"><span class="nav-number">2.</span> <span class="nav-text">创建目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#"><span class="nav-number">3.</span> <span class="nav-text">拷贝数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#"><span class="nav-number">4.</span> <span class="nav-text">导入数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#"><span class="nav-number">5.</span> <span class="nav-text">拆分样品</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#"><span class="nav-number">6.</span> <span class="nav-text">质控与生成特征表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#"><span class="nav-number">6.1.</span> <span class="nav-text">1. DADA2 流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#"><span class="nav-number">6.2.</span> <span class="nav-text">2. Deblur 流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#"><span class="nav-number">7.</span> <span class="nav-text">特征序列与特征表汇总</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#"><span class="nav-number">7.1.</span> <span class="nav-text">二选一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#"><span class="nav-number">7.2.</span> <span class="nav-text">创建可视化摘要</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#"><span class="nav-number">7.3.</span> <span class="nav-text">眼见为实</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#"><span class="nav-number">8.</span> <span class="nav-text">建树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#"><span class="nav-number">9.</span> <span class="nav-text">物种注释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#"><span class="nav-number">10.</span> <span class="nav-text">统计分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#"><span class="nav-number">10.1.</span> <span class="nav-text">1. 物种组成分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#"><span class="nav-number">10.2.</span> <span class="nav-text">2. Alpha 和 Beta 多样性分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#"><span class="nav-number">10.2.1.</span> <span class="nav-text">2.1 计算 alpha 多样性指数和 Beta 多样性距离矩阵</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#"><span class="nav-number">10.2.2.</span> <span class="nav-text">2.2 Alpha 多样性指数的组间差异分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#"><span class="nav-number">10.2.3.</span> <span class="nav-text">2.3 Beta 多样性指数的组间差异分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#"><span class="nav-number">10.2.4.</span> <span class="nav-text">2.4 自定义 emperor 的第三轴</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#"><span class="nav-number">10.3.</span> <span class="nav-text">Alpha 稀疏曲线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#"><span class="nav-number">10.4.</span> <span class="nav-text">ANCOM 物种差异分析</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Sansan Li"
+      src="/image/876364972032900262.jpg">
+  <p class="site-author-name" itemprop="name">Sansan Li</p>
+  <div class="site-description" itemprop="description">MicrobiomeCAT -- 微生物组学猫</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+      
+          <script type="text/javascript" charset="utf-8" src="/js/tagcloud.js"></script>
+          <script type="text/javascript" charset="utf-8" src="/js/tagcanvas.js"></script>
+          <div class="widget-wrap">
+              <div id="myCanvasContainer" class="widget tagcloud">
+              <canvas width="220" height="250" id="resCanvas" style="width=100%">
+                  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/QIIME2/" rel="tag">QIIME2</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/" rel="tag">markdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%89%A9%E5%A2%9E%E5%AD%90/" rel="tag">扩增子</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%94%B6%E7%BA%B3/" rel="tag">收纳</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A3%85%E4%BF%AE/" rel="tag">装修</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="tag">读书笔记</a><span class="tag-list-count">2</span></li></ul>
+              </canvas>
+              </div>
+          </div>
+        
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sansan Li</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">36k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">33 分钟</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : 'GItGRzUdbysXj6n5xqi5dRgu-MdYXbMMI',
+      appKey     : 'r68FaoVS1t6dfi2SdVhYhfq6',
+      placeholder: "向我提问吧",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+
+  <!-- Me added -->
+<script src="/js/counttime.js"></script>
+</body>
+</html>
