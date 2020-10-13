@@ -1,186 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>基于 QIIME2 的扩增子分析教程-准备篇</title>
-    <url>/20200726/QIIME2-based-amplicon-analysis-tutorial(Preparation)/</url>
+    <title>Docker 基本操作教程</title>
+    <url>/20201001/Docker_tutorial/</url>
     <content><![CDATA[<h2><span id="摘要">摘要</span></h2>
-<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img-1.png" class="[class names]" width="400" height="320" title="Docker and QIIME2 " alt="使用 Docker Desktop for Windows 搭建 QIIME2 分析平台">
-<ul>
-<li>使用 Docker Desktop for Windows 搭建 QIIME2 分析平台</li>
-<li>Docker 的使用方法简介</li>
-<li>准备扩增子测序所需的测试数据</li>
-</ul>
+<p>学习 Docker 的基本语法，看完这一篇，基本就能满足日常的使用。</p>
 <a id="more"></a>
 <hr>
 <!-- toc -->
 <ul>
-<li><a href="#%E5%BA%8F">序</a></li>
-<li><a href="#%E8%83%8C%E6%99%AF">背景</a></li>
-<li><a href="#%E6%90%AD%E5%BB%BA%E5%88%86%E6%9E%90%E7%8E%AF%E5%A2%83">搭建分析环境</a>
-<ul>
-<li><a href="#%E5%AE%89%E8%A3%85%E6%96%B9%E5%BC%8F%E7%AE%80%E4%BB%8B">安装方式简介</a>
-<ul>
-<li><a href="#%E7%B1%BBunix%E5%8E%9F%E7%94%9F%E5%AE%89%E8%A3%85">类Unix原生安装</a></li>
-<li><a href="#%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF">虚拟化技术</a></li>
-</ul>
-</li>
-<li><a href="#%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A4">安装步骤</a>
-<ul>
-<li><a href="#%E5%BC%80%E5%90%AF%E8%99%9A%E6%8B%9F%E5%8C%96">开启虚拟化</a></li>
-<li><a href="#%E5%AE%89%E8%A3%85-docker-desktop-for-windows">安装 Docker Desktop for Windows</a></li>
-<li><a href="#docker-%E5%8A%A0%E9%80%9F%E9%95%9C%E5%83%8F">Docker 加速镜像</a></li>
-<li><a href="#%E4%B8%8B%E8%BD%BD-qiime2-%E9%95%9C%E5%83%8F">下载 QIIME2 镜像</a></li>
-<li><a href="#docker-%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C">Docker 的基本操作</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#%E5%87%86%E5%A4%87%E5%8E%9F%E5%A7%8B%E6%95%B0%E6%8D%AE">准备原始数据</a></li>
+<li><a href="#%E5%8A%A0%E8%BD%BD%E6%9C%AC%E5%9C%B0%E9%95%9C%E5%83%8F">加载本地镜像</a></li>
+<li><a href="#%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E9%95%9C%E5%83%8F">查看当前系统中的镜像</a></li>
+<li><a href="#%E5%9C%A8-docker-hub-%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93%E6%9F%A5%E6%89%BE%E5%85%AC%E5%85%B1%E9%95%9C%E5%83%8F">在 Docker Hub 镜像仓库查找公共镜像</a></li>
+<li><a href="#%E6%8B%89%E5%8F%96%E9%95%9C%E5%83%8F">拉取镜像</a></li>
+<li><a href="#%E5%88%A0%E9%99%A4%E9%95%9C%E5%83%8F">删除镜像</a></li>
+<li><a href="#%E5%88%9B%E5%BB%BA%E5%AE%B9%E5%99%A8">创建容器</a></li>
+<li><a href="#%E6%9F%A5%E7%9C%8B%E7%8E%B0%E6%9C%89%E5%AE%B9%E5%99%A8%E7%8A%B6%E6%80%81">查看现有容器状态</a></li>
+<li><a href="#%E5%88%A0%E9%99%A4%E4%B8%80%E4%B8%AA%E6%88%96%E5%A4%9A%E4%B8%AA%E5%AE%B9%E5%99%A8">删除一个或多个容器</a></li>
+<li><a href="#%E5%90%AF%E5%8A%A8%E4%B8%80%E4%B8%AA%E6%88%96%E5%A4%9A%E4%B8%AA%E5%81%9C%E6%AD%A2%E7%9A%84%E5%AE%B9%E5%99%A8">启动一个或多个停止的容器</a></li>
+<li><a href="#%E5%81%9C%E6%AD%A2%E4%B8%80%E4%B8%AA%E6%88%96%E5%A4%9A%E4%B8%AA%E8%BF%90%E8%A1%8C%E4%B8%AD%E7%9A%84%E5%AE%B9%E5%99%A8">停止一个或多个运行中的容器</a></li>
+<li><a href="#%E9%87%8D%E5%90%AF%E4%B8%80%E4%B8%AA%E6%88%96%E5%A4%9A%E4%B8%AA%E5%AE%B9%E5%99%A8">重启一个或多个容器</a></li>
+<li><a href="#%E5%9C%A8%E8%BF%90%E8%A1%8C%E7%9A%84%E5%AE%B9%E5%99%A8%E4%B8%AD%E6%89%A7%E8%A1%8C%E5%91%BD%E4%BB%A4">在运行的容器中执行命令</a></li>
+<li><a href="#%E5%AE%B9%E5%99%A8%E4%B8%8E%E5%AE%BF%E4%B8%BB%E4%B8%BB%E6%9C%BA%E4%B9%8B%E9%97%B4%E7%9A%84%E6%95%B0%E6%8D%AE%E6%8B%B7%E8%B4%9D">容器与宿主主机之间的数据拷贝</a></li>
+<li><a href="#%E4%BB%8E%E5%AE%B9%E5%99%A8%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E6%96%B0%E7%9A%84%E9%95%9C%E5%83%8F">从容器创建一个新的镜像</a></li>
+<li><a href="#%E6%B8%85%E7%90%86docker%E7%A9%BA%E9%97%B4">清理docker空间</a></li>
 </ul>
 <!-- tocstop -->
-<h2><span id="序">序</span></h2>
-<p>其实本文之前有过一个版本，但是忘记了上传github（懒癌晚期患者），源文件又不知为何丢失了（个人分析是开了两个文件，一个编辑了，一个没有，后者也进行了保存而导致的）😭😭😭，所以这个版本笔者是快速重新写了一遍，和之前那个版本相比，可能简略了一部分内容，毕竟心态崩了😔😔😔，之后本人会慢慢修改完善的。</p>
-<hr>
-<h2><span id="背景">背景</span></h2>
-<p><strong>扩增子测序</strong>，特别是基于 16S rRNA 基因相应可变区域的扩增子测序，是当下微生物研究者们普遍采用的一种检测分析手段。而对于这一研究手段，其难点就在于如何对测序数据进行处理分析。而目前最为流行的两大分析工具，分别是 <a href="https://qiime2.org/" target="_blank" rel="noopener">QIIME2</a> 和 <a href="http://www.drive5.com/usearch/" target="_blank" rel="noopener">USEARCH</a>。国内知名的科研公众号<a href="https://blog.csdn.net/woodcorpse/" target="_blank" rel="noopener">宏基因组</a>对这两个分析工具都进行了详细的分析教程，包括中文翻译的使用文档。这些文档可以作为分析时查看相应命令参数的工具书👍👍👍，但在实际分析中，分析者其实仍旧会遇到各种各样的问题，特别是如何选择参数😵😵😵，要知道，轻微地修改某些参数，就可能导致最终分析结果的巨大变化；而这些是普通文档没有讲清楚的，也是本分析教程要着重帮助大家学习。</p>
-<p>目前初步打算将本教程设计为一个系列教程，从如何搭建分析平台和环境，到详细讲解 <a href="https://qiime2.org/" target="_blank" rel="noopener">QIIME2</a> 实战分析的几种 pipeline 流程，如其中的 DADA2 pipeline、VSEARCH pipeline等等；之后再考虑基于分析的结果，拓展一些绘图分析的教程。</p>
-<p>关于 QIIME2 的简介可以点击<a href="https://docs.qiime2.org/2020.6/getting-started/" target="_blank" rel="noopener">这里</a>（官网，英文）和<a href="https://blog.csdn.net/woodcorpse/article/details/75103929" target="_blank" rel="noopener">这里</a>（宏基因组，中文）查看。推荐在学习本教程的过程中，通过以上链接来学习相应的基本概念😀😀😀。也就是说，<u>本教程是进阶版的教程</u>。</p>
-<hr>
-<h2><span id="搭建分析环境">搭建分析环境</span></h2>
-<h3><span id="安装方式简介">安装方式简介</span></h3>
-<h4><span id="类unix原生安装">类Unix原生安装</span></h4>
-<p>原生的 QIIME2 是在 linux 系统上搭建的，因此，原生的安装也需要在linux系统上进行；此外，由于MAC OS系统其实和 linux 系统一样，也属于 Unix 系统的衍生👪，所以也可以原生地安装 QIIME2 软件 (具体的安装方式和 Linux 其实是一致的)。说 QIIME2 是一个软件，其实倒不如说 QIIME2 是一堆软件或脚本，它通过将已有的一些分析脚本/软件的输入输出文件格式以及参数范式化，而达到将这些分析脚本/软件串联成分析流程/网络的目的。而正因如此，QIIME2 需要将这些分析脚本/软件全部安装到系统中去，才能完成这个分析平台的搭建。因此，我们就需要安装 Minconda 来提供 <a href="https://docs.conda.io/en/latest/" target="_blank" rel="noopener">conda</a> 环境（<u>“环境”的作用是解决软件之间的冲突问题</u>）并快速安装和管理 QIIME2 所需的主程序和插件。以下是原文的描述：</p>
-<blockquote>
-<p>Miniconda provides the conda environment and package manager, and is the recommended way to install QIIME 2. Follow the Miniconda instructions for downloading and installing Miniconda. You may choose either Miniconda2 or Miniconda3 (i.e. Miniconda Python 2 or 3). QIIME 2 will work with either version of Miniconda.</p>
-</blockquote>
-<p>所以Miniconda2和Minconda3都是可以的，当然，更推荐Minconda3，因为所对应的是 Python3（这就别问为什么了😶😶😶）。<br>
-安装的方法也非常的简单，直接按照<a href="https://docs.qiime2.org/2020.6/install/native/" target="_blank" rel="noopener">官网流程</a>来就行了，或者参考宏基因组的翻译的<a href="https://blog.csdn.net/woodcorpse/article/details/75103929" target="_blank" rel="noopener">中文流程</a>。当然实际安装中可能会遇到一些包下载不了的问题，当然，最直接的方法就是<strong>多试几次</strong>😅😅😅，或者有机会的话，我会在以后的教程中叫大家如何有效解决😏😏😏。因此，这里再不展开介绍如何原生安装 QIIME2。</p>
-<hr>
-<h4><span id="虚拟化技术">虚拟化技术</span></h4>
-<ol>
-<li>
-<p>VirtualBox虚拟机</p>
-</li>
-<li>
-<p>VMware虚拟机</p>
-</li>
-<li>
-<p>云服务器</p>
-</li>
-<li>
-<p>Docker容器引擎<br>
-<a href="https://www.docker.com/" target="_blank" rel="noopener">Docker</a> 其实和一般的虚拟机是有本质区别的（他不是一个虚拟“机”而是一个容“器”），它基于 GO 语言，是一个开源的应用容器引擎。他可以提供一个轻量级、可移植的容器，以加载开发者的应用、脚本、依赖，并发布到目前常见的 Linux、Mac OS 以及 Windows 系统上去，后者即为虚拟化。<br>
-相比其他的虚拟化技术，Docker 最大的特点是<u>容器性能的开销极低</u>❤️❤️❤️。因此，非常适合于作为教程学习软件来在 Windows 的系统中搭建 QIIME2 使用。</p>
-</li>
-</ol>
-<hr>
-<h3><span id="安装步骤">安装步骤</span></h3>
-<p>本教程选择具有低资源门槛，多系统兼容和可移植性的 docker 技术来搭建/安装 QIIME2 分析平台；初学者可以先在 windows 系统上安装配置该分析平台，并满足对本分析教程的学习以及小规模数据的分析，而在有大规模数据分析需求的时候，docker 也可以快速移植到工作站和服务器上面（当然，这部分教程我会在以后补充😝😝😝）。<br>
-安装的过程大致为：</p>
-<ul>
-<li>开启虚拟化</li>
-<li>安装 Docker for Windows</li>
-<li>下载 QIIME2 镜像</li>
-<li>Docker 的基本操作</li>
-</ul>
-<h4><span id="开启虚拟化">开启虚拟化</span></h4>
-<p>我们将使用 <a href="https://docs.docker.com/docker-for-windows/install/" target="_blank" rel="noopener">Docker Desktop for Windows</a> 软件来实现在 Windows 系统上安装和运行 docker。开始安装之前，我们得首先确定自己的系统可以安装这个软件。安装<br>
-Docker for Windows 需要你的 Windows 版本为 64 位的 Windows 10 Pro <strong>专业版</strong>、<strong>企业版</strong>和<strong>教育版</strong>（1607 年纪念更新，版本 14393 或更高版本）。<u>家庭版的安装不能使用本教程，或许可以参考<a href="https://docs.docker.com/docker-for-windows/install-windows-home/" target="_blank" rel="noopener">这里</a></u>。如果你的 Windows版本不是这些，那么建议你先升级自己的 Windows。比如家庭版 Windows 10 其实只需要购买一个专业版的 key 就可以快速升级了，别问我哪里能买到哦㊙️㊙️㊙️。或者你也可以安装 <a href="https://docs.docker.com/toolbox/overview/" target="_blank" rel="noopener">Docker Toolbox</a>，至于怎么安装，请自行百度了，毕竟我也没用过😝😝😝。比如我的笔记本是 windows 10 专业版的：</p>
-<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img0.jpg" class="[class names]" width="750" height="480" title="windows版本">
-<p>确定自己的系统满足以上要求后,我们需要先确认自己的电脑打开了虚拟化，首先键盘按 Ctrl + Alt + Delete 来调出任务管理器：</p>
-<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img0.1.jpg" class="[class names]" width="645" height="585" title="查看虚拟化">
-<p>我这边显示“已启用”，如果你的电脑显示“未启用”之类的，那么请执行以下操作：<u><strong>打开“程序与功能”–&gt;选中“启用或关闭 Windows 功能”中的“Hyper-V”–&gt;确定后重启电脑</strong></u>。</p>
-<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img1.jpg" class="[class names]" width="600" height="600" title="程序与功能">
-<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img2.jpg" class="[class names]" width="660" height="330" title="Hyper-V">
-<p>重启电脑后，我们再次 Ctrl + Alt + Delete 调出任务管理器查看是否开启了虚拟化。<br>
-<small>对于安装了、安装过 VMware 的系统，请彻底卸载 VMware 后再执行以上过程。</small></p>
-<h4><span id="安装-docker-desktop-for-windows">安装 Docker Desktop for Windows</span></h4>
-<p>开启虚拟化后，到 Docker 官网下载 Docker Desktop for Windows，点击<a href="https://www.docker.com/products/docker-desktop" target="_blank" rel="noopener">这里</a>或<a href="https://www.docker.com/products/docker-desktop" target="_blank" rel="noopener">这里</a>跳转到下载页面如下。</p>
-<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img3.jpg" class="[class names]" width="540" height="300" title="下载Docker1">
-<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img3.2.jpg" class="[class names]" width="780" height="480" title="下载Docker2">
-<p>以上下载页面只需要选择一个哦☝️。<br>
-打开下载的安装包，依次点击就可以进行安装了，需要注意的是，安装包会自行判断你的系统是否可以安装 Docker Desktop for Windows。如果你的虚拟化没有打开，那可能就会安装失败了。<br>
-<small>对于安装了、安装过 VMware 的系统，这一步如果失败了，可以尝试关闭 Hyper-V 后重启，再打开 Hyper-V 再重启，也许就可以解决问题了（这是我当时的解决方式）。</small><br>
-完成安装后，可以看到 Docker Desktop 已经在开始菜单中了：</p>
-<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img4.jpg" class="[class names]" width="410" height="460" title="打开Docker1">
-<p>我们点击图标打开它。此时可以发现屏幕右下角的任务栏系统托盘区，出现了一个鲸鱼🐋的图标，并且鼠标放在上面后显示“Docker Desktop is running”，这说明 Docker 引擎已经启动了。</p>
-<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img5.jpg" class="[class names]" width="500" height="165" title="打开Docker2">
-<p>第一次安装启用可能会弹出 Docker Cloud 的登录界面，可以先关掉，也可以去注册然后登录，使用和git有点类似，这里先不讲：</p>
-<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img4.5.jpg" class="[class names]" width="500" height="300" title="打开Docker3">
-<hr>
-<h4><span id="docker-加速镜像">Docker 加速镜像</span></h4>
-<p>国内从 DockerHub 拉取镜像时，会很慢，此时可以尝试配置镜像加速器。可以尝试百度查找可用的国内加速器服务。我们这里使用阿里云的镜像:<a href="https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors" target="_blank" rel="noopener">https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors</a>，可以用你的支付宝/淘宝账号登陆。</p>
-<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img8.1.jpg" class="[class names]" width="750" height="320" title="获取镜像1">
-<p>登陆后，点击左侧菜单栏中的镜像加速器，就可以看到属于你的专属地址：</p>
-<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img8.jpg" class="[class names]" width="500" height="300" title="获取镜像2">
-<p>先复制这个地址。然后右键点击屏幕右下角的任务栏系统托盘区，并点击弹出的列表中的 Settings。此时会弹出一个设置窗口，我们点击 Docker Engine，并修改 registry-mirrors 项（也就是 registry-mirrors 一行下面双引号的内容）为刚才复制的地址；如果没有 registry-mirrors，那么则自己手动添加</p>
-<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img9.jpg" class="[class names]" width="800" height="400" title="获取镜像3">
-<p>之后点击 Apply &amp; Restart, Docker 就会重启并应用我们配置的镜像地址了。</p>
-<hr>
-<h4><span id="下载-qiime2-镜像">下载 QIIME2 镜像</span></h4>
-<p>我们打开 window 10 自带的 Powershell，如果你使用的是 VScode 编辑器，也可以用它里面的终端（其实也就是 Powershell）：</p>
-<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img6.jpg" class="[class names]" width="500" height="500" title="下载镜像1">
-<p>我们可以先看一下镜像加速地址是否配置正确，在 Powershell 的终端中输入 docker info，可以看到出现的信息的最后部分，就有 “Registry Mirrors”，检查其下的地址是否正确。</p>
-<figure class="highlight bash"><figcaption><span>查docker信息</span></figcaption><table><tr><td class="code"><pre><span class="line">docker info</span><br></pre></td></tr></table></figure>
-<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img14.jpg" class="[class names]" width="700" height="200" title="下载镜像2">
-<p>接着我们再在终端输入</p>
-<figure class="highlight bash"><figcaption><span>拉取镜像</span></figcaption><table><tr><td class="code"><pre><span class="line">docker pull qiime2/core:2020.6</span><br></pre></td></tr></table></figure>
-<p><small>此操作类似于 git 的拉取</small><br>
-此时就开始下载 QIIME2 的镜像了。</p>
-<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img7.jpg" class="[class names]" width="700" height="230" title="下载镜像3">
-<p>如果下载中出现问题，或者下载速度归零，那么可以使用 Ctrl + C 结束当前的进行，并按“上”键（键盘右下角的上下左右键哦），获取刚才输入的命令，然后“回车”键重新运行拉取命令。我花了大概两个小时才下载完成，一个经验是在夜里 12 点之后，下载速度会快很多。</p>
-<hr>
-<h4><span id="docker-的基本操作">Docker 的基本操作</span></h4>
-<p>下载完成后，我们在终端输入以下命令，查看当前系统中的镜像有哪些？</p>
-<figure class="highlight bash"><figcaption><span>查看镜像</span></figcaption><table><tr><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></table></figure>
-<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img10.jpg" class="[class names]" width="750" height="185" title="运行docker1">
-<p>我们发现除了 qiime2:2020.6 的最新版本，我们可以发现，系统中还有一个 qiime2:2020.2 的老版本，我希望把它删除掉，释放一些空间出来，那么，就在终端中输入：</p>
-<figure class="highlight bash"><figcaption><span>删除镜像</span></figcaption><table><tr><td class="code"><pre><span class="line">docker rmi qiime2/core:2020.2</span><br></pre></td></tr></table></figure>
-<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img11.png" class="[class names]" width="750" height="299" title="运行docker2">
-<p>再次查看系统中的镜像，便可发现 qiime2:2020.2 的老版本已经被移除掉了。</p>
-<p>接下来，我们可以尝试运行这个刚下载的镜像 qiime2/core:2020.6。需要注意的是，我们用 “–name” 给创建的容器命名为 “qiime2-2020-6”；再不修改容器名的情况下，我们不能重新运行以下命令（因为已经有这个容器了）。</p>
-<figure class="highlight bash"><figcaption><span>第一次运行docker镜像</span></figcaption><table><tr><td class="code"><pre><span class="line">docker run --name qiime2-2020-6 -it qiime2/core:2020.6</span><br></pre></td></tr></table></figure>
-<p>参数解析：</p>
-<p>–name 容器名</p>
-<p>-t: 在新容器内指定一个伪终端或终端。</p>
-<p>-i: 允许你对容器内的标准输入 (STDIN) 进行交互。</p>
-<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img12.jpg" class="[class names]" width="650" height="500" title="运行docker3">
-<p>注意第二行的 root@5d0b9481a30e:/data#，可以发现，我们其实已进入了一个安装有 qiime2 的 linux 系统的容器。</p>
-<p>我们可以输入</p>
-<figure class="highlight bash"><figcaption><span>查看docker中安装的QIIME2的信息</span></figcaption><table><tr><td class="code"><pre><span class="line">qiime info</span><br></pre></td></tr></table></figure>
-<p>查看 qiime2 是否真的在这个系统里了。如果没有什么纰漏，那么我们将看到 qiime2:2020.6 的相应信息，具体请参见上图。</p>
-<p>若要退出容器，可以在命令行输入<code>exit</code>或是在键盘上同时按 Ctrl + D。</p>
-<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img13.jpg" class="[class names]" width="900" height="90" title="运行docker4">
-<p>现在，我们不光下载了一个 QIIME2 的镜像，而且其实也创建了一个名为 qiime2-2020-6 的 Docker 容器（注意刚才 docker run 命令）。</p>
-<p>我们可以使用以下命令查看当前系统中的容器（结果见上图）。我们可以发现这个容器目前的状态为 “Exited”。</p>
-<figure class="highlight bash"><figcaption><span>查看容器</span></figcaption><table><tr><td class="code"><pre><span class="line">docker ps -a <span class="comment">## 查看全部的容器</span></span><br><span class="line"></span><br><span class="line">docker ps <span class="comment">## 查看启动的容器</span></span><br></pre></td></tr></table></figure>
-<p>此时我们若需要重新运行这个容器，测需要使用如下命令。</p>
-<figure class="highlight bash"><figcaption><span>启动与重启docker</span></figcaption><table><tr><td class="code"><pre><span class="line">docker start qiime2-2020-6 <span class="comment">## 启动一个已停止的容器</span></span><br><span class="line"></span><br><span class="line">docker restart qiime2-2020-6 <span class="comment">## 无论是否停止，直接重启一个容器</span></span><br></pre></td></tr></table></figure>
-<p>若此时再使用 <code>docker ps -a</code> 命令，则会发现，此时的容器已经处于 “Up” 状态。但是，与第一次启动容器不同，我们并没有进入容器中。</p>
-<p>我们可使用 attach 命令进入容器:</p>
-<figure class="highlight bash"><figcaption><span>进入docker的一种方式</span></figcaption><table><tr><td class="code"><pre><span class="line">docker attach qiime2-2020-6</span><br></pre></td></tr></table></figure>
-<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img15.jpg" class="[class names]" width="850" height="230" title="运行docker5">
-<p>可以发现，在退出时，这个容器也停止了。<br>
-我们再使用 exec 命令进入容器:</p>
-<figure class="highlight bash"><figcaption><span>进入docker的另一种方式</span></figcaption><table><tr><td class="code"><pre><span class="line">docker start qiime2-2020-6 <span class="comment">## 首先需要重新运行这个容器</span></span><br><span class="line"></span><br><span class="line">docker <span class="built_in">exec</span> -it qiime2-2020-6 /bin/bash <span class="comment">## 进入容器，并执行“打开一个bash”的命令</span></span><br></pre></td></tr></table></figure>
-<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img16.jpg" class="[class names]" width="800" height="200" title="运行docker6">
-<p>可以发现，在退出时，这个容器并没有停止。</p>
-<p>若我们想要关闭这个容器，则使用 kill 命令:</p>
-<figure class="highlight bash"><figcaption><span>杀死正在运行中的容器</span></figcaption><table><tr><td class="code"><pre><span class="line">docker <span class="built_in">kill</span> -s KILL qiime2-2020-6</span><br></pre></td></tr></table></figure>
-<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img17.jpg" class="[class names]" width="800" height="200" title="运行docker7">
-<p>我们尝试在容器中运行命令 cat /proc/version和ls分别查看当前系统的版本信息和当前目录下的文件列表</p>
-<hr>
-<h2><span id="准备原始数据">准备原始数据</span></h2>
-<p>以后教程所用到的原始文件，可点击<a href="https://microbiomecat.lanzous.com/if8MMf85h2h" target="_blank" rel="noopener">这里</a>下载，并将下载的文件放到相应位置，以便挂在到 Docker 中去。<br>
-你也可以在 Docker 环境中使用如下代码下载并解压。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mkdir tutorial; <span class="built_in">cd</span> tutorial</span><br><span class="line"></span><br><span class="line">wget https://github.com/microbiomeCat/tutorials/blob/master/qiime2_dada2/rawdata.tar.gz</span><br><span class="line"></span><br><span class="line">tar -xzvf rawdata.tar.gz</span><br></pre></td></tr></table></figure>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
+<h2><span id="加载本地镜像">加载本地镜像</span></h2>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">docker load -i D:\Documents\psn_qiime2.tar</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200921132904537.png" alt="image-20200921132904537"></p>
+<h2><span id="查看当前系统中的镜像">查看当前系统中的镜像</span></h2>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">docker images</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200921133756512.png" alt="image-20200921133756512"></p>
+<h2><span id="在-docker-hub-镜像仓库查找公共镜像">在 Docker Hub 镜像仓库查找公共镜像</span></h2>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">docker search python3</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200921133721467.png" alt="image-20200921133721467"></p>
+<h2><span id="拉取镜像">拉取镜像</span></h2>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">docker pull rackspacedot/python37</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200921134437901.png" alt="image-20200921134437901"></p>
+<h2><span id="删除镜像">删除镜像</span></h2>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">docker rmi rackspacedot/python37</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200921134716476.png" alt="image-20200921134716476"></p>
+<h2><span id="创建容器">创建容器</span></h2>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#创建容器并以交互方式运行，映射宿主的D:/Documents位置到容器的/data路径</span></span><br><span class="line"></span><br><span class="line">docker run -it -v D:/Documents:/data --name qiime2_psn psn_qiime2</span><br><span class="line"></span><br><span class="line"><span class="comment">## 其中 -i: 以交互模式运行容器，通常与 -t 同时使用；</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## -t: 为容器重新分配一个伪输入终端，通常与 -i 同时使用；</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## --volume , -v: 绑定一个卷</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">## 还可以使用 --cpuset="0-2" or --cpuset="0,1,2": 指定容器使用特定的CPU运行；</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## -m :设置容器使用内存最大值；</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 推出容器并关闭</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">exit</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#只创建容器，不启动，映射宿主的D:/Documents位置到容器的/data路径</span></span><br><span class="line"></span><br><span class="line">docker create -it -v D:/Documents:/data --name psn_qiime2-2020-8 psn_qiime2</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200921143127948.png" alt="image-20200921143127948"></p>
+<h2><span id="查看现有容器状态">查看现有容器状态</span></h2>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"># 查看当前运行的容器</span><br><span class="line">docker ps</span><br><span class="line"></span><br><span class="line"># 查看所有容器</span><br><span class="line">docker ps -a</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200921143150521.png" alt="image-20200921143150521"></p>
+<h2><span id="删除一个或多个容器">删除一个或多个容器</span></h2>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">docker rm qiime2_psn</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200921143302052.png" alt="image-20200921143302052"></p>
+<h2><span id="启动一个或多个停止的容器">启动一个或多个停止的容器</span></h2>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">docker start psn_qiime2-2020-8</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200921143457628.png" alt="image-20200921143457628"></p>
+<h2><span id="停止一个或多个运行中的容器">停止一个或多个运行中的容器</span></h2>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">docker stop psn_qiime2-2020-8</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200921143840632.png" alt="image-20200921143840632"></p>
+<h2><span id="重启一个或多个容器">重启一个或多个容器</span></h2>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">docker restart psn_qiime2-2020-8</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200921144023692.png" alt="image-20200921144023692"></p>
+<h2><span id="在运行的容器中执行命令">在运行的容器中执行命令</span></h2>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># hello world</span><br><span class="line">docker exec psn_qiime2-2020-8 echo &quot;hello world&quot;</span><br><span class="line"></span><br><span class="line"># 查看容器当前目录中的文件</span><br><span class="line">docker exec psn_qiime2-2020-8 ls</span><br><span class="line"></span><br><span class="line"># 交互模式进入容器中,并打开一个终端</span><br><span class="line">docker exec -it psn_qiime2-2020-8 &#x2F;bin&#x2F;bash</span><br><span class="line"></span><br><span class="line">## 注意，此时退出不会关闭容器</span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200921144823697.png" alt="image-20200921144823697"></p>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200921145113708.png" alt="image-20200921145113708"></p>
+<h2><span id="容器与宿主主机之间的数据拷贝">容器与宿主主机之间的数据拷贝</span></h2>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 拷贝宿主文件到容器的data目录下（即容器的主目录） # 反过来也是可以实现的</span></span><br><span class="line">docker cp C:\Users\personalbio\network2_legend.pdf psn_qiime2-2020-8:/data</span><br><span class="line"><span class="comment"># 查看主目录文件</span></span><br><span class="line">docker <span class="built_in">exec</span> psn_qiime2-2020-8 ls</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200921150005597.png" alt="image-20200921150005597"></p>
+<h2><span id="从容器创建一个新的镜像">从容器创建一个新的镜像</span></h2>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">docker commit  -m <span class="string">"my qiime2"</span> -a <span class="string">"PSN"</span> psn_qiime2-2020-8  myqiime2:v1</span><br><span class="line"><span class="comment">## 其中 -m 为说明的文章</span></span><br><span class="line"><span class="comment">## -a 为作者名</span></span><br><span class="line"><span class="comment">## 后面依次接：容器名 镜像仓库名:标签</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200921151239192.png" alt="image-20200921151239192"></p>
+<h2><span id="清理docker空间">清理docker空间</span></h2>
+<p>通过docker rm 和docker rmi可删除无用的镜像和容器</p>
+<p>对于磁盘空间，首先需用管理员身份打开powershell：右键点击 Powershell 图标，点击 “以管理员身份运行”。</p>
+<img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200924174531747.png" alt="image-20200924174531747" style="zoom:100%;">
+<img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200924174701019.png" alt="image-20200924174701019" style="zoom:150%;">
+<p>然后输入以下代码：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># docker system prune -a -f    # 这条代码会自动删除当前关闭的容器，以及没有容器在使用的镜像，所以还是手动删除的好。</span></span><br><span class="line">net stop com.docker.service</span><br><span class="line">taskkill /F /IM <span class="string">"Docker Desktop.exe"</span></span><br><span class="line">stop-vm DockerDesktopVM</span><br><span class="line">Optimize-VHD -Path <span class="string">"C:\ProgramData\DockerDesktop\vm-data\DockerDesktop.vhdx"</span> -Mode Full <span class="comment">## 这个地址从docker的settings 里面找，如下图。</span></span><br><span class="line">start-vm DockerDesktopVM</span><br><span class="line">start <span class="string">"C:\Program Files\Docker\Docker\Docker Desktop.exe"</span></span><br><span class="line">net start com.docker.service</span><br></pre></td></tr></table></figure>
+<img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200924182452739.png" alt="image-20200924182452739" style="zoom:150%;">
+<img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200924174919251.png" alt="image-20200924174919251" style="zoom:150%;"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
       <categories>
-        <category>扩增子</category>
+        <category>其他</category>
       </categories>
       <tags>
-        <tag>QIIME2</tag>
-        <tag>扩增子</tag>
+        <tag>Docker</tag>
       </tags>
   </entry>
   <entry>
@@ -529,229 +431,223 @@ Docker for Windows 需要你的 Windows 版本为 64 位的 Windows 10 Pro <stro
       </tags>
   </entry>
   <entry>
-    <title>Markdown 实用语法</title>
-    <url>/20200809/Markdown_Programming_Language/</url>
+    <title>基于 QIIME2 的扩增子分析教程-准备篇</title>
+    <url>/20200726/QIIME2-based-amplicon-analysis-tutorial(Preparation)/</url>
     <content><![CDATA[<h2><span id="摘要">摘要</span></h2>
-<p><a href="https://baike.baidu.com/item/markdown/3245829?fr=aladdin" target="_blank" rel="noopener">Markdown</a> 一种轻量级的<strong>标记语言</strong>。我们熟悉的 HTML 网页文件，它的全称是：超文本标记语言 (英语：HyperText Markup Language) 其实也是一种标记语言。</p>
-<p>而<strong>标记语言</strong>，则是通过一系列约定好的标记来对电子文档进行标记，以实现对电子文档的<u>语义、结构、及格式</u>的定义。</p>
-<p>相比于其他的标记语言，markdown 更强调和关注<big><strong>内容</strong></big>，而尽可能<big><strong>简化</strong></big>对标记语法的编程要求。</p>
-<p>可以说，如果要向所有人推荐一门编程语言，<u>那么Markdown 绝对是最简单、最实用</u>。</p>
+<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img-1.png" class="[class names]" width="400" height="320" title="Docker and QIIME2 " alt="使用 Docker Desktop for Windows 搭建 QIIME2 分析平台">
+<ul>
+<li>使用 Docker Desktop for Windows 搭建 QIIME2 分析平台</li>
+<li>Docker 的使用方法简介</li>
+<li>准备扩增子测序所需的测试数据</li>
+</ul>
+<a id="more"></a>
+<hr>
+<!-- toc -->
+<ul>
+<li><a href="#%E5%BA%8F">序</a></li>
+<li><a href="#%E8%83%8C%E6%99%AF">背景</a></li>
+<li><a href="#%E6%90%AD%E5%BB%BA%E5%88%86%E6%9E%90%E7%8E%AF%E5%A2%83">搭建分析环境</a>
+<ul>
+<li><a href="#%E5%AE%89%E8%A3%85%E6%96%B9%E5%BC%8F%E7%AE%80%E4%BB%8B">安装方式简介</a>
+<ul>
+<li><a href="#%E7%B1%BBunix%E5%8E%9F%E7%94%9F%E5%AE%89%E8%A3%85">类Unix原生安装</a></li>
+<li><a href="#%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF">虚拟化技术</a></li>
+</ul>
+</li>
+<li><a href="#%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A4">安装步骤</a>
+<ul>
+<li><a href="#%E5%BC%80%E5%90%AF%E8%99%9A%E6%8B%9F%E5%8C%96">开启虚拟化</a></li>
+<li><a href="#%E5%AE%89%E8%A3%85-docker-desktop-for-windows">安装 Docker Desktop for Windows</a></li>
+<li><a href="#docker-%E5%8A%A0%E9%80%9F%E9%95%9C%E5%83%8F">Docker 加速镜像</a></li>
+<li><a href="#%E4%B8%8B%E8%BD%BD-qiime2-%E9%95%9C%E5%83%8F">下载 QIIME2 镜像</a></li>
+<li><a href="#docker-%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C">Docker 的基本操作</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E5%87%86%E5%A4%87%E5%8E%9F%E5%A7%8B%E6%95%B0%E6%8D%AE">准备原始数据</a></li>
+</ul>
+<!-- tocstop -->
+<h2><span id="序">序</span></h2>
+<p>其实本文之前有过一个版本，但是忘记了上传github（懒癌晚期患者），源文件又不知为何丢失了（个人分析是开了两个文件，一个编辑了，一个没有，后者也进行了保存而导致的）😭😭😭，所以这个版本笔者是快速重新写了一遍，和之前那个版本相比，可能简略了一部分内容，毕竟心态崩了😔😔😔，之后本人会慢慢修改完善的。</p>
+<hr>
+<h2><span id="背景">背景</span></h2>
+<p><strong>扩增子测序</strong>，特别是基于 16S rRNA 基因相应可变区域的扩增子测序，是当下微生物研究者们普遍采用的一种检测分析手段。而对于这一研究手段，其难点就在于如何对测序数据进行处理分析。而目前最为流行的两大分析工具，分别是 <a href="https://qiime2.org/" target="_blank" rel="noopener">QIIME2</a> 和 <a href="http://www.drive5.com/usearch/" target="_blank" rel="noopener">USEARCH</a>。国内知名的科研公众号<a href="https://blog.csdn.net/woodcorpse/" target="_blank" rel="noopener">宏基因组</a>对这两个分析工具都进行了详细的分析教程，包括中文翻译的使用文档。这些文档可以作为分析时查看相应命令参数的工具书👍👍👍，但在实际分析中，分析者其实仍旧会遇到各种各样的问题，特别是如何选择参数😵😵😵，要知道，轻微地修改某些参数，就可能导致最终分析结果的巨大变化；而这些是普通文档没有讲清楚的，也是本分析教程要着重帮助大家学习。</p>
+<p>目前初步打算将本教程设计为一个系列教程，从如何搭建分析平台和环境，到详细讲解 <a href="https://qiime2.org/" target="_blank" rel="noopener">QIIME2</a> 实战分析的几种 pipeline 流程，如其中的 DADA2 pipeline、VSEARCH pipeline等等；之后再考虑基于分析的结果，拓展一些绘图分析的教程。</p>
+<p>关于 QIIME2 的简介可以点击<a href="https://docs.qiime2.org/2020.6/getting-started/" target="_blank" rel="noopener">这里</a>（官网，英文）和<a href="https://blog.csdn.net/woodcorpse/article/details/75103929" target="_blank" rel="noopener">这里</a>（宏基因组，中文）查看。推荐在学习本教程的过程中，通过以上链接来学习相应的基本概念😀😀😀。也就是说，<u>本教程是进阶版的教程</u>。</p>
+<hr>
+<h2><span id="搭建分析环境">搭建分析环境</span></h2>
+<h3><span id="安装方式简介">安装方式简介</span></h3>
+<h4><span id="类unix原生安装">类Unix原生安装</span></h4>
+<p>原生的 QIIME2 是在 linux 系统上搭建的，因此，原生的安装也需要在linux系统上进行；此外，由于MAC OS系统其实和 linux 系统一样，也属于 Unix 系统的衍生👪，所以也可以原生地安装 QIIME2 软件 (具体的安装方式和 Linux 其实是一致的)。说 QIIME2 是一个软件，其实倒不如说 QIIME2 是一堆软件或脚本，它通过将已有的一些分析脚本/软件的输入输出文件格式以及参数范式化，而达到将这些分析脚本/软件串联成分析流程/网络的目的。而正因如此，QIIME2 需要将这些分析脚本/软件全部安装到系统中去，才能完成这个分析平台的搭建。因此，我们就需要安装 Minconda 来提供 <a href="https://docs.conda.io/en/latest/" target="_blank" rel="noopener">conda</a> 环境（<u>“环境”的作用是解决软件之间的冲突问题</u>）并快速安装和管理 QIIME2 所需的主程序和插件。以下是原文的描述：</p>
+<blockquote>
+<p>Miniconda provides the conda environment and package manager, and is the recommended way to install QIIME 2. Follow the Miniconda instructions for downloading and installing Miniconda. You may choose either Miniconda2 or Miniconda3 (i.e. Miniconda Python 2 or 3). QIIME 2 will work with either version of Miniconda.</p>
+</blockquote>
+<p>所以Miniconda2和Minconda3都是可以的，当然，更推荐Minconda3，因为所对应的是 Python3（这就别问为什么了😶😶😶）。<br>
+安装的方法也非常的简单，直接按照<a href="https://docs.qiime2.org/2020.6/install/native/" target="_blank" rel="noopener">官网流程</a>来就行了，或者参考宏基因组的翻译的<a href="https://blog.csdn.net/woodcorpse/article/details/75103929" target="_blank" rel="noopener">中文流程</a>。当然实际安装中可能会遇到一些包下载不了的问题，当然，最直接的方法就是<strong>多试几次</strong>😅😅😅，或者有机会的话，我会在以后的教程中叫大家如何有效解决😏😏😏。因此，这里再不展开介绍如何原生安装 QIIME2。</p>
+<hr>
+<h4><span id="虚拟化技术">虚拟化技术</span></h4>
+<ol>
+<li>
+<p>VirtualBox虚拟机</p>
+</li>
+<li>
+<p>VMware虚拟机</p>
+</li>
+<li>
+<p>云服务器</p>
+</li>
+<li>
+<p>Docker容器引擎<br>
+<a href="https://www.docker.com/" target="_blank" rel="noopener">Docker</a> 其实和一般的虚拟机是有本质区别的（他不是一个虚拟“机”而是一个容“器”），它基于 GO 语言，是一个开源的应用容器引擎。他可以提供一个轻量级、可移植的容器，以加载开发者的应用、脚本、依赖，并发布到目前常见的 Linux、Mac OS 以及 Windows 系统上去，后者即为虚拟化。<br>
+相比其他的虚拟化技术，Docker 最大的特点是<u>容器性能的开销极低</u>❤️❤️❤️。因此，非常适合于作为教程学习软件来在 Windows 的系统中搭建 QIIME2 使用。</p>
+</li>
+</ol>
+<hr>
+<h3><span id="安装步骤">安装步骤</span></h3>
+<p>本教程选择具有低资源门槛，多系统兼容和可移植性的 docker 技术来搭建/安装 QIIME2 分析平台；初学者可以先在 windows 系统上安装配置该分析平台，并满足对本分析教程的学习以及小规模数据的分析，而在有大规模数据分析需求的时候，docker 也可以快速移植到工作站和服务器上面（当然，这部分教程我会在以后补充😝😝😝）。<br>
+安装的过程大致为：</p>
+<ul>
+<li>开启虚拟化</li>
+<li>安装 Docker for Windows</li>
+<li>下载 QIIME2 镜像</li>
+<li>Docker 的基本操作</li>
+</ul>
+<h4><span id="开启虚拟化">开启虚拟化</span></h4>
+<p>我们将使用 <a href="https://docs.docker.com/docker-for-windows/install/" target="_blank" rel="noopener">Docker Desktop for Windows</a> 软件来实现在 Windows 系统上安装和运行 docker。开始安装之前，我们得首先确定自己的系统可以安装这个软件。安装<br>
+Docker for Windows 需要你的 Windows 版本为 64 位的 Windows 10 Pro <strong>专业版</strong>、<strong>企业版</strong>和<strong>教育版</strong>（1607 年纪念更新，版本 14393 或更高版本）。<u>家庭版的安装不能使用本教程，或许可以参考<a href="https://docs.docker.com/docker-for-windows/install-windows-home/" target="_blank" rel="noopener">这里</a></u>。如果你的 Windows版本不是这些，那么建议你先升级自己的 Windows。比如家庭版 Windows 10 其实只需要购买一个专业版的 key 就可以快速升级了，别问我哪里能买到哦㊙️㊙️㊙️。或者你也可以安装 <a href="https://docs.docker.com/toolbox/overview/" target="_blank" rel="noopener">Docker Toolbox</a>，至于怎么安装，请自行百度了，毕竟我也没用过😝😝😝。比如我的笔记本是 windows 10 专业版的：</p>
+<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img0.jpg" class="[class names]" width="750" height="480" title="windows版本">
+<p>确定自己的系统满足以上要求后,我们需要先确认自己的电脑打开了虚拟化，首先键盘按 Ctrl + Alt + Delete 来调出任务管理器：</p>
+<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img0.1.jpg" class="[class names]" width="645" height="585" title="查看虚拟化">
+<p>我这边显示“已启用”，如果你的电脑显示“未启用”之类的，那么请执行以下操作：<u><strong>打开“程序与功能”–&gt;选中“启用或关闭 Windows 功能”中的“Hyper-V”–&gt;确定后重启电脑</strong></u>。</p>
+<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img1.jpg" class="[class names]" width="600" height="600" title="程序与功能">
+<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img2.jpg" class="[class names]" width="660" height="330" title="Hyper-V">
+<p>重启电脑后，我们再次 Ctrl + Alt + Delete 调出任务管理器查看是否开启了虚拟化。<br>
+<small>对于安装了、安装过 VMware 的系统，请彻底卸载 VMware 后再执行以上过程。</small></p>
+<h4><span id="安装-docker-desktop-for-windows">安装 Docker Desktop for Windows</span></h4>
+<p>开启虚拟化后，到 Docker 官网下载 Docker Desktop for Windows，点击<a href="https://www.docker.com/products/docker-desktop" target="_blank" rel="noopener">这里</a>或<a href="https://www.docker.com/products/docker-desktop" target="_blank" rel="noopener">这里</a>跳转到下载页面如下。</p>
+<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img3.jpg" class="[class names]" width="540" height="300" title="下载Docker1">
+<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img3.2.jpg" class="[class names]" width="780" height="480" title="下载Docker2">
+<p>以上下载页面只需要选择一个哦☝️。<br>
+打开下载的安装包，依次点击就可以进行安装了，需要注意的是，安装包会自行判断你的系统是否可以安装 Docker Desktop for Windows。如果你的虚拟化没有打开，那可能就会安装失败了。<br>
+<small>对于安装了、安装过 VMware 的系统，这一步如果失败了，可以尝试关闭 Hyper-V 后重启，再打开 Hyper-V 再重启，也许就可以解决问题了（这是我当时的解决方式）。</small><br>
+完成安装后，可以看到 Docker Desktop 已经在开始菜单中了：</p>
+<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img4.jpg" class="[class names]" width="410" height="460" title="打开Docker1">
+<p>我们点击图标打开它。此时可以发现屏幕右下角的任务栏系统托盘区，出现了一个鲸鱼🐋的图标，并且鼠标放在上面后显示“Docker Desktop is running”，这说明 Docker 引擎已经启动了。</p>
+<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img5.jpg" class="[class names]" width="500" height="165" title="打开Docker2">
+<p>第一次安装启用可能会弹出 Docker Cloud 的登录界面，可以先关掉，也可以去注册然后登录，使用和git有点类似，这里先不讲：</p>
+<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img4.5.jpg" class="[class names]" width="500" height="300" title="打开Docker3">
+<hr>
+<h4><span id="docker-加速镜像">Docker 加速镜像</span></h4>
+<p>国内从 DockerHub 拉取镜像时，会很慢，此时可以尝试配置镜像加速器。可以尝试百度查找可用的国内加速器服务。我们这里使用阿里云的镜像:<a href="https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors" target="_blank" rel="noopener">https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors</a>，可以用你的支付宝/淘宝账号登陆。</p>
+<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img8.1.jpg" class="[class names]" width="750" height="320" title="获取镜像1">
+<p>登陆后，点击左侧菜单栏中的镜像加速器，就可以看到属于你的专属地址：</p>
+<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img8.jpg" class="[class names]" width="500" height="300" title="获取镜像2">
+<p>先复制这个地址。然后右键点击屏幕右下角的任务栏系统托盘区，并点击弹出的列表中的 Settings。此时会弹出一个设置窗口，我们点击 Docker Engine，并修改 registry-mirrors 项（也就是 registry-mirrors 一行下面双引号的内容）为刚才复制的地址；如果没有 registry-mirrors，那么则自己手动添加</p>
+<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img9.jpg" class="[class names]" width="800" height="400" title="获取镜像3">
+<p>之后点击 Apply &amp; Restart, Docker 就会重启并应用我们配置的镜像地址了。</p>
+<hr>
+<h4><span id="下载-qiime2-镜像">下载 QIIME2 镜像</span></h4>
+<p>我们打开 window 10 自带的 Powershell，如果你使用的是 VScode 编辑器，也可以用它里面的终端（其实也就是 Powershell）：</p>
+<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img6.jpg" class="[class names]" width="500" height="500" title="下载镜像1">
+<p>我们可以先看一下镜像加速地址是否配置正确，在 Powershell 的终端中输入 docker info，可以看到出现的信息的最后部分，就有 “Registry Mirrors”，检查其下的地址是否正确。</p>
+<figure class="highlight bash"><figcaption><span>查docker信息</span></figcaption><table><tr><td class="code"><pre><span class="line">docker info</span><br></pre></td></tr></table></figure>
+<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img14.jpg" class="[class names]" width="700" height="200" title="下载镜像2">
+<p>接着我们再在终端输入</p>
+<figure class="highlight bash"><figcaption><span>拉取镜像</span></figcaption><table><tr><td class="code"><pre><span class="line">docker pull qiime2/core:2020.6</span><br></pre></td></tr></table></figure>
+<p><small>此操作类似于 git 的拉取</small><br>
+此时就开始下载 QIIME2 的镜像了。</p>
+<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img7.jpg" class="[class names]" width="700" height="230" title="下载镜像3">
+<p>如果下载中出现问题，或者下载速度归零，那么可以使用 Ctrl + C 结束当前的进行，并按“上”键（键盘右下角的上下左右键哦），获取刚才输入的命令，然后“回车”键重新运行拉取命令。我花了大概两个小时才下载完成，一个经验是在夜里 12 点之后，下载速度会快很多。</p>
+<hr>
+<h4><span id="docker-的基本操作">Docker 的基本操作</span></h4>
+<p>下载完成后，我们在终端输入以下命令，查看当前系统中的镜像有哪些？</p>
+<figure class="highlight bash"><figcaption><span>查看镜像</span></figcaption><table><tr><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></table></figure>
+<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img10.jpg" class="[class names]" width="750" height="185" title="运行docker1">
+<p>我们发现除了 qiime2:2020.6 的最新版本，我们可以发现，系统中还有一个 qiime2:2020.2 的老版本，我希望把它删除掉，释放一些空间出来，那么，就在终端中输入：</p>
+<figure class="highlight bash"><figcaption><span>删除镜像</span></figcaption><table><tr><td class="code"><pre><span class="line">docker rmi qiime2/core:2020.2</span><br></pre></td></tr></table></figure>
+<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img11.png" class="[class names]" width="750" height="299" title="运行docker2">
+<p>再次查看系统中的镜像，便可发现 qiime2:2020.2 的老版本已经被移除掉了。</p>
+<p>接下来，我们可以尝试运行这个刚下载的镜像 qiime2/core:2020.6。需要注意的是，我们用 “–name” 给创建的容器命名为 “qiime2-2020-6”；再不修改容器名的情况下，我们不能重新运行以下命令（因为已经有这个容器了）。</p>
+<figure class="highlight bash"><figcaption><span>第一次运行docker镜像</span></figcaption><table><tr><td class="code"><pre><span class="line">docker run --name qiime2-2020-6 -it qiime2/core:2020.6</span><br></pre></td></tr></table></figure>
+<p>参数解析：</p>
+<p>–name 容器名</p>
+<p>-t: 在新容器内指定一个伪终端或终端。</p>
+<p>-i: 允许你对容器内的标准输入 (STDIN) 进行交互。</p>
+<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img12.jpg" class="[class names]" width="650" height="500" title="运行docker3">
+<p>注意第二行的 root@5d0b9481a30e:/data#，可以发现，我们其实已进入了一个安装有 qiime2 的 linux 系统的容器。</p>
+<p>我们可以输入</p>
+<figure class="highlight bash"><figcaption><span>查看docker中安装的QIIME2的信息</span></figcaption><table><tr><td class="code"><pre><span class="line">qiime info</span><br></pre></td></tr></table></figure>
+<p>查看 qiime2 是否真的在这个系统里了。如果没有什么纰漏，那么我们将看到 qiime2:2020.6 的相应信息，具体请参见上图。</p>
+<p>若要退出容器，可以在命令行输入<code>exit</code>或是在键盘上同时按 Ctrl + D。</p>
+<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img13.jpg" class="[class names]" width="900" height="90" title="运行docker4">
+<p>现在，我们不光下载了一个 QIIME2 的镜像，而且其实也创建了一个名为 qiime2-2020-6 的 Docker 容器（注意刚才 docker run 命令）。</p>
+<p>我们可以使用以下命令查看当前系统中的容器（结果见上图）。我们可以发现这个容器目前的状态为 “Exited”。</p>
+<figure class="highlight bash"><figcaption><span>查看容器</span></figcaption><table><tr><td class="code"><pre><span class="line">docker ps -a <span class="comment">## 查看全部的容器</span></span><br><span class="line"></span><br><span class="line">docker ps <span class="comment">## 查看启动的容器</span></span><br></pre></td></tr></table></figure>
+<p>此时我们若需要重新运行这个容器，测需要使用如下命令。</p>
+<figure class="highlight bash"><figcaption><span>启动与重启docker</span></figcaption><table><tr><td class="code"><pre><span class="line">docker start qiime2-2020-6 <span class="comment">## 启动一个已停止的容器</span></span><br><span class="line"></span><br><span class="line">docker restart qiime2-2020-6 <span class="comment">## 无论是否停止，直接重启一个容器</span></span><br></pre></td></tr></table></figure>
+<p>若此时再使用 <code>docker ps -a</code> 命令，则会发现，此时的容器已经处于 “Up” 状态。但是，与第一次启动容器不同，我们并没有进入容器中。</p>
+<p>我们可使用 attach 命令进入容器:</p>
+<figure class="highlight bash"><figcaption><span>进入docker的一种方式</span></figcaption><table><tr><td class="code"><pre><span class="line">docker attach qiime2-2020-6</span><br></pre></td></tr></table></figure>
+<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img15.jpg" class="[class names]" width="850" height="230" title="运行docker5">
+<p>可以发现，在退出时，这个容器也停止了。<br>
+我们再使用 exec 命令进入容器:</p>
+<figure class="highlight bash"><figcaption><span>进入docker的另一种方式</span></figcaption><table><tr><td class="code"><pre><span class="line">docker start qiime2-2020-6 <span class="comment">## 首先需要重新运行这个容器</span></span><br><span class="line"></span><br><span class="line">docker <span class="built_in">exec</span> -it qiime2-2020-6 /bin/bash <span class="comment">## 进入容器，并执行“打开一个bash”的命令</span></span><br></pre></td></tr></table></figure>
+<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img16.jpg" class="[class names]" width="800" height="200" title="运行docker6">
+<p>可以发现，在退出时，这个容器并没有停止。</p>
+<p>若我们想要关闭这个容器，则使用 kill 命令:</p>
+<figure class="highlight bash"><figcaption><span>杀死正在运行中的容器</span></figcaption><table><tr><td class="code"><pre><span class="line">docker <span class="built_in">kill</span> -s KILL qiime2-2020-6</span><br></pre></td></tr></table></figure>
+<img src="/../image/QIIME2%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B-%E5%87%86%E5%A4%87%E7%AF%87/img17.jpg" class="[class names]" width="800" height="200" title="运行docker7">
+<p>我们尝试在容器中运行命令 cat /proc/version和ls分别查看当前系统的版本信息和当前目录下的文件列表</p>
+<hr>
+<h2><span id="准备原始数据">准备原始数据</span></h2>
+<p>以后教程所用到的原始文件，可点击<a href="https://microbiomecat.lanzous.com/if8MMf85h2h" target="_blank" rel="noopener">这里</a>下载，并将下载的文件放到相应位置，以便挂在到 Docker 中去。<br>
+你也可以在 Docker 环境中使用如下代码下载并解压。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mkdir tutorial; <span class="built_in">cd</span> tutorial</span><br><span class="line"></span><br><span class="line">wget https://github.com/microbiomeCat/tutorials/blob/master/qiime2_dada2/rawdata.tar.gz</span><br><span class="line"></span><br><span class="line">tar -xzvf rawdata.tar.gz</span><br></pre></td></tr></table></figure>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
+      <categories>
+        <category>扩增子</category>
+      </categories>
+      <tags>
+        <tag>QIIME2</tag>
+        <tag>扩增子</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>小家越住越大-收纳篇</title>
+    <url>/20200818/small_house_big_home_(storage)/</url>
+    <content><![CDATA[<blockquote><p>你如何对待家，家便如何对待你。</p>
+<p>**House ≠ Home **<br>
+那个灰色的水泥壳子，并不是家。<br>
+人可以没有房，却不能没有家。<br>
+好好住的地方就是家。</p>
+<p>**Designer ≠ Dweller **<br>
+设计者，只能提供半成品的“住宅”。<br>
+居住者，才能搭建独一无二的“家”。</p>
+<p>**Bigger ≠ Better **<br>
+与其烦恼买不起大房子考虑改善型居住，不如好好提升自己内在的“住商”。</p>
+<p>**M<sup>2</sup> ≠ M<sup>3</sup> **<br>
+收纳是管理好小房子的大智慧。</p>
+<footer><strong>逯薇</strong><cite>《小家越住越大》</cite></footer></blockquote>
+<p><br><br></p>
+<p>本文为阅读逯薇《小家越住越大》三部曲的读书笔记。</p>
+<p>本篇主要整理其中的收纳部分。</p>
 <a id="more"></a>
 <!-- toc -->
 <ul>
-<li><a href="#%E6%A0%87%E9%A2%98">标题</a>
-<ul>
-<li><a href="#%E6%A0%87%E9%A2%98%E6%95%88%E6%9E%9C">标题—效果</a></li>
-</ul>
-</li>
-<li><a href="#%E6%A0%BC%E5%BC%8F%E5%AD%97%E4%BD%93">格式—字体</a>
-<ul>
-<li><a href="#%E6%A0%BC%E5%BC%8F%E5%AD%97%E4%BD%93%E6%95%88%E6%9E%9C">格式—字体—效果</a></li>
-</ul>
-</li>
-<li><a href="#%E6%A0%BC%E5%BC%8F%E4%B8%8B%E5%88%92%E7%BA%BF%E4%B8%8E%E5%88%A0%E9%99%A4%E7%BA%BF">格式—下划线与删除线</a>
-<ul>
-<li><a href="#%E6%A0%BC%E5%BC%8F%E4%B8%8B%E5%88%92%E7%BA%BF%E4%B8%8E%E5%88%A0%E9%99%A4%E7%BA%BF%E6%95%88%E6%9E%9C">格式—下划线与删除线—效果</a></li>
-</ul>
-</li>
-<li><a href="#%E6%A0%BC%E5%BC%8F%E5%88%86%E5%89%B2%E7%BA%BF">格式—分割线</a>
-<ul>
-<li><a href="#%E6%A0%BC%E5%BC%8F%E5%88%86%E5%89%B2%E7%BA%BF%E6%95%88%E6%9E%9C">格式—分割线—效果</a></li>
-</ul>
-</li>
-<li><a href="#%E6%A0%BC%E5%BC%8F%E4%B8%8B%E6%A0%87%E4%B8%8E%E4%B8%8A%E6%A0%87">格式—下标与上标</a>
-<ul>
-<li><a href="#%E6%A0%BC%E5%BC%8F%E4%B8%8B%E6%A0%87%E4%B8%8E%E4%B8%8A%E6%A0%87%E6%95%88%E6%9E%9C">格式—下标与上标—效果</a></li>
-</ul>
-</li>
-<li><a href="#%E6%A0%BC%E5%BC%8F%E8%84%9A%E6%B3%A8">格式—脚注</a>
-<ul>
-<li><a href="#%E6%A0%BC%E5%BC%8F%E8%84%9A%E6%B3%A8%E6%95%88%E6%9E%9C">格式—脚注—效果</a></li>
-</ul>
-</li>
-<li><a href="#%E5%88%97%E8%A1%A8%E6%9C%89%E5%BA%8F%E5%88%97%E8%A1%A8">列表—有序列表</a>
-<ul>
-<li><a href="#%E5%88%97%E8%A1%A8%E6%9C%89%E5%BA%8F%E5%88%97%E8%A1%A8%E6%95%88%E6%9E%9C">列表—有序列表—效果</a></li>
-</ul>
-</li>
-<li><a href="#%E5%88%97%E8%A1%A8%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A8">列表—无序列表</a>
-<ul>
-<li><a href="#%E5%88%97%E8%A1%A8%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A8%E6%95%88%E6%9E%9C">列表—无序列表—效果</a></li>
-</ul>
-</li>
-<li><a href="#%E5%88%97%E8%A1%A8%E5%88%97%E8%A1%A8%E5%88%86%E5%B1%82">列表—列表分层</a>
-<ul>
-<li><a href="#%E5%88%97%E8%A1%A8%E5%88%97%E8%A1%A8%E5%88%86%E5%B1%82%E6%95%88%E6%9E%9C">列表—列表分层—效果</a></li>
-</ul>
-</li>
-<li><a href="#%E5%8C%BA%E5%9D%971">区块1</a>
-<ul>
-<li><a href="#%E5%8C%BA%E5%9D%971%E6%95%88%E6%9E%9C">区块1—效果</a></li>
-</ul>
-</li>
-<li><a href="#%E5%8C%BA%E5%9D%972">区块2</a>
-<ul>
-<li><a href="#%E5%8C%BA%E5%9D%972%E6%95%88%E6%9E%9C">区块2—效果</a></li>
-</ul>
-</li>
-<li><a href="#%E9%93%BE%E6%8E%A5">链接</a>
-<ul>
-<li><a href="#%E9%93%BE%E6%8E%A5%E6%95%88%E6%9E%9C">链接—效果</a></li>
-</ul>
-</li>
-<li><a href="#%E5%9B%BE%E7%89%87%E6%9D%A5%E8%87%AA%E7%BD%91%E7%BB%9C-%E5%9B%BE%E5%BA%8A">图片—来自网络、图床</a>
-<ul>
-<li><a href="#%E5%9B%BE%E7%89%87%E6%9D%A5%E8%87%AA%E7%BD%91%E7%BB%9C-%E5%9B%BE%E5%BA%8A%E6%95%88%E6%9E%9C">图片—来自网络、图床—效果</a></li>
-</ul>
-</li>
-<li><a href="#%E5%9B%BE%E7%89%87%E6%9D%A5%E8%87%AA%E6%9C%AC%E5%9C%B0">图片—来自本地</a>
-<ul>
-<li><a href="#%E5%9B%BE%E7%89%87%E6%9D%A5%E8%87%AA%E6%9C%AC%E5%9C%B0%E6%95%88%E6%9E%9C">图片—来自本地—效果</a></li>
-</ul>
-</li>
-<li><a href="#%E5%9B%BE%E7%89%87html-%E6%A0%BC%E5%BC%8F%E5%AE%9E%E7%8E%B0%E7%BC%A9%E6%94%BE">图片—HTML 格式实现缩放</a>
-<ul>
-<li><a href="#%E5%9B%BE%E7%89%87html-%E6%A0%BC%E5%BC%8F%E5%AE%9E%E7%8E%B0%E7%BC%A9%E6%94%BE%E6%95%88%E6%9E%9C">图片—HTML 格式实现缩放—效果</a></li>
-</ul>
-</li>
-<li><a href="#%E8%A1%A8%E6%A0%BC">表格</a>
-<ul>
-<li><a href="#%E8%A1%A8%E6%A0%BC%E6%95%88%E6%9E%9C">表格—效果</a></li>
-</ul>
-</li>
-<li><a href="#%E4%BB%A3%E7%A0%81%E5%9D%97">代码块</a>
-<ul>
-<li><a href="#%E4%BB%A3%E7%A0%81%E5%9D%97%E6%95%88%E6%9E%9C">代码块—效果</a></li>
-</ul>
-</li>
-<li><a href="#%E8%BF%9B%E9%98%B6%E6%8A%80%E5%B7%A7%E4%BD%BF%E7%94%A8-html-%E5%85%83%E7%B4%A0">进阶技巧—使用 HTML 元素</a>
-<ul>
-<li><a href="#%E8%BF%9B%E9%98%B6%E6%8A%80%E5%B7%A7%E4%BD%BF%E7%94%A8-html-%E5%85%83%E7%B4%A0%E6%95%88%E6%9E%9C">进阶技巧—使用 HTML 元素—效果</a></li>
-</ul>
-</li>
-<li><a href="#%E8%BF%9B%E9%98%B6%E6%8A%80%E5%B7%A7%E8%A1%A8%E6%83%85%E5%8C%85">进阶技巧—表情包</a>
-<ul>
-<li><a href="#%E8%BF%9B%E9%98%B6%E6%8A%80%E5%B7%A7%E8%A1%A8%E6%83%85%E5%8C%85%E6%95%88%E6%9E%9C">进阶技巧—表情包—效果</a></li>
-</ul>
-</li>
+<li><a href="#%E6%94%B6%E7%BA%B3">收纳</a></li>
 </ul>
 <!-- tocstop -->
-<h2><span id="标题">标题</span></h2>
-<p>使用 # 号表示 1-6 级标题，一级标题对应一个 # 号，二级标题对应两个 # 号，以此类推。</p>
-<figure class="highlight markdown"><figcaption><span>标题代码</span></figcaption><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="section"># 我是一级标题 </span></span><br><span class="line"><span class="section">## 我是二级标题</span></span><br><span class="line"><span class="section">### 我是三级标题</span></span><br><span class="line"><span class="section">#### 我是四级标题</span></span><br><span class="line"><span class="section">##### 我是五级标题</span></span><br><span class="line"><span class="section">###### 我是六级标题</span></span><br><span class="line">我不是标题:smile::smile::smile:</span><br></pre></td></tr></table></figure>
-<h3><span id="标题效果">标题—效果</span></h3>
-<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809153521.png" alt></p>
-<hr>
-<h2><span id="格式字体">格式—字体</span></h2>
-<figure class="highlight markdown"><figcaption><span>格式—字体代码</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="emphasis">*斜体文本*</span></span><br><span class="line"><span class="emphasis">_斜体文本_</span></span><br><span class="line"><span class="strong">**粗体文本**</span></span><br><span class="line"><span class="strong">__粗体文本__</span></span><br><span class="line"><span class="strong">***粗斜体文本**</span>*</span><br><span class="line"><span class="strong">___粗斜体文本__</span>_</span><br></pre></td></tr></table></figure>
-<h3><span id="格式字体效果">格式—字体—效果</span></h3>
-<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809154026.png" alt></p>
-<hr>
-<h2><span id="格式下划线与删除线">格式—下划线与删除线</span></h2>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;u&gt;这句话很重要，我给它加了下划线&lt;&#x2F;u&gt;</span><br><span class="line">~~这句话现在不再适用了，我给它加个删除线~~</span><br></pre></td></tr></table></figure>
-<p>注意：这里的下划线实际是通过 HTML 的 &lt;u&gt; 标签来实现的。</p>
-<h3><span id="格式下划线与删除线效果">格式—下划线与删除线—效果</span></h3>
-<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809154532.png" alt></p>
-<hr>
-<h2><span id="格式分割线">格式—分割线</span></h2>
-<p>在一行中用三个以上的星号、减号、下滑线来建立一个分隔线，行内不能有其他内容，但可以在星号、减号、下划线中间插入任意空格。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">某段内容</span><br><span class="line">- - -</span><br><span class="line">另一段内容</span><br><span class="line">***</span><br><span class="line">另另一段内容</span><br><span class="line">___</span><br><span class="line">另另另一段内容</span><br><span class="line">_ _ _</span><br><span class="line">另另另另一段内容</span><br></pre></td></tr></table></figure>
-<h3><span id="格式分割线效果">格式—分割线—效果</span></h3>
-<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809155028.png" alt></p>
-<hr>
-<h2><span id="格式下标与上标">格式—下标与上标</span></h2>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">10^10^ &#x3D; 10,000,000,000</span><br><span class="line">$10^&#123;10&#125;$ &#x3D; 10,000,000,000</span><br><span class="line">未知数 $X_1$, $X_2$</span><br><span class="line"></span><br><span class="line">以下采用 HTML 的方法</span><br><span class="line">10&lt;sup&gt;10&lt;&#x2F;sup&gt; &#x3D; 10,000,000,000</span><br><span class="line">未知数 X&lt;sub&gt;1&lt;&#x2F;sub&gt;, X&lt;sub&gt;2&lt;&#x2F;sub&gt;</span><br></pre></td></tr></table></figure>
-<p>注意：双 $ 符的写法为 Markdown 的公式写法，字体会有一定变化。</p>
-<h3><span id="格式下标与上标效果">格式—下标与上标—效果</span></h3>
-<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809155443.png" alt></p>
-<hr>
-<h2><span id="格式脚注">格式—脚注</span></h2>
-<figure class="highlight markdown"><figcaption><span>格式—脚注代码</span></figcaption><table><tr><td class="code"><pre><span class="line">不知是谁说过：其实地上本没有路，走的人多了，也便成了路[^1]。</span><br><span class="line"></span><br><span class="line">一段输出之后。。。。</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line">脚注:</span><br><span class="line">[<span class="symbol">^1</span>]:<span class="link">其实是鲁迅说的。</span></span><br></pre></td></tr></table></figure>
-<h3><span id="格式脚注效果">格式—脚注—效果</span></h3>
-<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809160428.png" alt></p>
-<hr>
-<h2><span id="列表有序列表">列表—有序列表</span></h2>
-<figure class="highlight markdown"><figcaption><span>列表—有序列表代码</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="section">#### 把大象装冰箱，总共分几步</span></span><br><span class="line"><span class="bullet">1. </span>把冰箱门打开</span><br><span class="line"><span class="bullet">2. </span>把大象装进去</span><br><span class="line"><span class="bullet">3. </span>把冰箱门关上</span><br><span class="line"><span class="code">	</span></span><br><span class="line"><span class="bullet">1. </span>把冰箱门打开</span><br><span class="line"><span class="bullet">100. </span>把大象装进去</span><br><span class="line"><span class="bullet">20. </span>把冰箱门关上</span><br></pre></td></tr></table></figure>
-<p>采用任意数字 + . + 空格的方式，自动排序。</p>
-<h3><span id="列表有序列表效果">列表—有序列表—效果</span></h3>
-<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809171333.png" alt></p>
-<hr>
-<h2><span id="列表无序列表">列表—无序列表</span></h2>
-<figure class="highlight markdown"><figcaption><span>列表—无序列表代码</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="section">#### 我最喜欢的食物：</span></span><br><span class="line"><span class="bullet">- </span>粉蒸肉</span><br><span class="line"><span class="bullet">- </span>红烧肉</span><br><span class="line"><span class="bullet">- </span>回锅肉</span><br><span class="line"></span><br><span class="line"><span class="section">#### 我最喜欢的食物：</span></span><br><span class="line"><span class="bullet">* </span>烤鸡</span><br><span class="line"><span class="bullet">* </span>大盘鸡</span><br><span class="line"><span class="bullet">* </span>肯德基</span><br><span class="line"></span><br><span class="line"><span class="section">#### 我最喜欢的食物：</span></span><br><span class="line"><span class="bullet">+ </span>烤鱼</span><br><span class="line"><span class="bullet">+ </span>水煮鱼</span><br><span class="line"><span class="bullet">+ </span>酸菜鱼</span><br></pre></td></tr></table></figure>
-<p>采用任意数字 + . + 空格的方式，自动排序。</p>
-<h3><span id="列表无序列表效果">列表—无序列表—效果</span></h3>
-<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809171334.png" alt></p>
-<hr>
-<h2><span id="列表列表分层">列表—列表分层</span></h2>
-<figure class="highlight markdown"><figcaption><span>列表—列表分层代码</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="section">#### 我最喜欢的食物：</span></span><br><span class="line"><span class="bullet">- </span>回锅肉</span><br><span class="line"><span class="bullet">    - </span>四川回锅肉</span><br><span class="line"><span class="bullet">    - </span>湖南回锅肉</span><br><span class="line"><span class="bullet">    - </span>老干妈回锅肉</span><br><span class="line"><span class="bullet">- </span>红烧肉</span><br><span class="line"><span class="bullet">    - </span>甜的</span><br><span class="line"><span class="bullet">    - </span>不甜的</span><br></pre></td></tr></table></figure>
-<p>二级列表要 - 之前加四个空格。</p>
-<h3><span id="列表列表分层效果">列表—列表分层—效果</span></h3>
-<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809171335.png" alt></p>
-<hr>
-<h2><span id="区块1">区块1</span></h2>
-<figure class="highlight markdown"><figcaption><span>区块代码1</span></figcaption><table><tr><td class="code"><pre><span class="line">只有空想而不为其奋斗、追求、理想是不会实现的，正如那句话说的那样：</span><br><span class="line"></span><br><span class="line"><span class="quote">&gt; 其实地上本没有路，</span></span><br><span class="line"><span class="quote">&gt; 走的人多了，</span></span><br><span class="line"><span class="quote">&gt; 也便成了路</span></span><br><span class="line"><span class="quote">&gt;                                ----鲁迅</span></span><br><span class="line"></span><br><span class="line">所以，有了理想，并且始终如一的追求、奋斗、实践，那样理想才有可能实现。</span><br></pre></td></tr></table></figure>
-<p>一个例子。</p>
-<h3><span id="区块1效果">区块1—效果</span></h3>
-<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809171336.png" alt></p>
-<hr>
-<h2><span id="区块2">区块2</span></h2>
-<figure class="highlight markdown"><figcaption><span>区块代码2</span></figcaption><table><tr><td class="code"><pre><span class="line">&gt;警告：</span><br><span class="line">&gt;</span><br><span class="line">&gt;&gt; 千万不要学 markdown</span><br><span class="line">&gt;&gt; 否则你可能会再也离不开它！</span><br><span class="line">&gt;</span><br><span class="line">&gt;警告完毕！</span><br></pre></td></tr></table></figure>
-<p>另一个例子。</p>
-<h3><span id="区块2效果">区块2—效果</span></h3>
-<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809171337.png" alt></p>
-<hr>
-<h2><span id="链接">链接</span></h2>
-<figure class="highlight markdown"><figcaption><span>链接代码</span></figcaption><table><tr><td class="code"><pre><span class="line">学习 markdown，大家可以点击[<span class="string">这里</span>](<span class="link">https://www.runoob.com/markdown/md-tutorial.html</span>)。</span><br></pre></td></tr></table></figure>
-<h3><span id="链接效果">链接—效果</span></h3>
-<p>学习 markdown，大家可以点击<a href="https://www.runoob.com/markdown/md-tutorial.html" target="_blank" rel="noopener">这里</a>。</p>
-<hr>
-<h2><span id="图片来自网络-图床">图片—来自网络、图床</span></h2>
-<figure class="highlight markdown"><figcaption><span>图片代码1</span></figcaption><table><tr><td class="code"><pre><span class="line">![<span class="string">图片1</span>](<span class="link">https://iknow-pic.cdn.bcebos.com/8b13632762d0f7030cd823a305fa513d2697c563?x-bce-process=image/resize,m_lfit,w_600,h_800,limit_1</span>)</span><br></pre></td></tr></table></figure>
-<h3><span id="图片来自网络-图床效果">图片—来自网络、图床—效果</span></h3>
-<p><img src="https://iknow-pic.cdn.bcebos.com/8b13632762d0f7030cd823a305fa513d2697c563?x-bce-process=image/resize,m_lfit,w_600,h_800,limit_1" alt="图片1"></p>
-<hr>
-<h2><span id="图片来自本地">图片—来自本地</span></h2>
-<figure class="highlight markdown"><figcaption><span>图片代码2</span></figcaption><table><tr><td class="code"><pre><span class="line">![<span class="string">图片2</span>](<span class="link">images/安利markdown/鲁迅.jpg</span>)</span><br></pre></td></tr></table></figure>
-<p>可以是绝对路径，也可以是相对当前 md 文件的相对路径。注意斜杠方向。</p>
-<h3><span id="图片来自本地效果">图片—来自本地—效果</span></h3>
-<img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809171338.png" alt="图片2" style="zoom:100%;">
-<hr>
-<h2><span id="图片html-格式实现缩放">图片—HTML 格式实现缩放</span></h2>
-<figure class="highlight markdown"><figcaption><span>图片代码2</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"https://iknow-pic.cdn.bcebos.com/8b13632762d0f7030cd823a305fa513d2697c563?x-bce-process=image/resize,m_lfit,w_600,h_800,limit_1"</span> <span class="attr">alt</span>=<span class="string">"图片2"</span> <span class="attr">style</span>=<span class="string">"zoom:40%;"</span> /&gt;</span></span></span><br></pre></td></tr></table></figure>
-<p>在 Typora 中可以简单实现哦。</p>
-<h3><span id="图片html-格式实现缩放效果">图片—HTML 格式实现缩放—效果</span></h3>
-<img src="https://iknow-pic.cdn.bcebos.com/8b13632762d0f7030cd823a305fa513d2697c563?x-bce-process=image/resize,m_lfit,w_600,h_800,limit_1" alt="图片2" style="zoom:40%;">
-<hr>
-<h2><span id="表格">表格</span></h2>
-<p>Markdown 的表格，使用 | 来分隔不同的单元格，使用 - 来分隔表头和其他行。</p>
-<figure class="highlight markdown"><figcaption><span>图片代码3</span></figcaption><table><tr><td class="code"><pre><span class="line">| 表头1 | 表头2 | 表头3 |</span><br><span class="line">| :---: | :--- | ---: |</span><br><span class="line">| 单元格 | 单元格 |单元格 |</span><br><span class="line">| 单元格 | 单元格 |单元格 |</span><br></pre></td></tr></table></figure>
-<h3><span id="表格效果">表格—效果</span></h3>
-<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809171339.png" alt></p>
-<hr>
-<h2><span id="代码块">代码块</span></h2>
-<p>注意 前面的 $ 号请忽略</p>
-<figure class="highlight plain"><figcaption><span>代码块代码</span></figcaption><table><tr><td class="code"><pre><span class="line">$ &#96;&#96;&#96;python</span><br><span class="line">$ def function()</span><br><span class="line">$ return &quot;llll&quot;</span><br><span class="line">$ &#96;&#96;&#96;</span><br><span class="line"></span><br><span class="line">$ &#96;&#96;&#96;R</span><br><span class="line">$ library(tidyverse)</span><br><span class="line">$ print(Hello world)</span><br><span class="line">$ &#96;&#96;&#96;</span><br></pre></td></tr></table></figure>
-<h3><span id="代码块效果">代码块—效果</span></h3>
-<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809171307.png" alt></p>
-<hr>
-<h2><span id="进阶技巧使用-html-元素">进阶技巧—使用 HTML 元素</span></h2>
-<figure class="highlight markdown"><figcaption><span>使用HTML元素代码</span></figcaption><table><tr><td class="code"><pre><span class="line">使用<span class="xml"><span class="tag">&lt;<span class="name">kbd</span>&gt;</span></span>Tab<span class="xml"><span class="tag">&lt;/<span class="name">kbd</span>&gt;</span></span>切换大小写</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">b</span>&gt;</span></span>加粗<span class="xml"><span class="tag">&lt;/<span class="name">b</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">strong</span>&gt;</span></span>加粗<span class="xml"><span class="tag">&lt;/<span class="name">strong</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">i</span>&gt;</span></span>斜体<span class="xml"><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">em</span>&gt;</span></span>斜体<span class="xml"><span class="tag">&lt;/<span class="name">em</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">big</span>&gt;</span></span>变大<span class="xml"><span class="tag">&lt;/<span class="name">big</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">small</span>&gt;</span></span>变小<span class="xml"><span class="tag">&lt;/<span class="name">small</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
-<h3><span id="进阶技巧使用-html-元素效果">进阶技巧—使用 HTML 元素—效果</span></h3>
-<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809171244.png" alt></p>
-<hr>
-<h2><span id="进阶技巧表情包">进阶技巧—表情包</span></h2>
-<figure class="highlight markdown"><figcaption><span>表情包代码</span></figcaption><table><tr><td class="code"><pre><span class="line">:smile::laughing::blush::smiley::relaxed::smirk::heart<span class="emphasis">_eyes::kissing_</span>heart::kissing<span class="emphasis">_closed_</span>eyes::flushed:</span><br><span class="line">:relieved::satisfied::grin::wink::stuck<span class="emphasis">_out_</span>tongue<span class="emphasis">_winking_</span>eye::stuck<span class="emphasis">_out_</span>tongue<span class="emphasis">_closed_</span>eyes::grinning::kissing::kissing<span class="emphasis">_smiling_</span>eyes::confounded:</span><br><span class="line">:stuck<span class="emphasis">_out_</span>tongue::sleeping::worried::frowning::open_mouth::grimacing::confused::hushed::expressionless::unamused:</span><br></pre></td></tr></table></figure>
-<p>更多 emoji 请到<a href="https://www.webfx.com/tools/emoji-cheat-sheet/" target="_blank" rel="noopener">这里</a>查找，个别 emoji 表情可能你的md编辑器不支持，所以不要强求。</p>
-<h3><span id="进阶技巧表情包效果">进阶技巧—表情包—效果</span></h3>
-<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809171236.png" alt></p>
-<hr>
+<h2><span id="收纳">收纳</span></h2>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
       <categories>
-        <category>其他</category>
+        <category>生活</category>
+        <category>装修</category>
       </categories>
       <tags>
-        <tag>hexo</tag>
-        <tag>markdown</tag>
+        <tag>装修</tag>
+        <tag>读书笔记</tag>
+        <tag>收纳</tag>
       </tags>
   </entry>
   <entry>
@@ -885,249 +781,6 @@ Docker for Windows 需要你的 Windows 版本为 64 位的 Windows 10 Pro <stro
         <tag>装修</tag>
         <tag>读书笔记</tag>
         <tag>收纳</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>小家越住越大-玄关篇</title>
-    <url>/20200818/small_house_big_home_(storage)/</url>
-    <content><![CDATA[<blockquote><p>有舍，才有得。<br>
-想要得到整体的“宽”<br>
-必须先舍得局部的“窄”。</p>
-<footer><strong>逯薇</strong><cite>《小家越住越大》</cite></footer></blockquote>
-<p><br><br></p>
-<p>本文为阅读逯薇《小家越住越大》三部曲的读书笔记。</p>
-<p>本篇主要整理其中的客厅部分 (主要是介绍电视柜)。</p>
-<a id="more"></a>
-<!-- toc -->
-<ul>
-<li><a href="#%E5%B9%B3%E9%9D%A2%E5%B8%83%E5%B1%80%E5%9B%BE">平面布局图</a></li>
-<li><a href="#%E8%B6%85%E7%BA%A7%E5%A4%A7%E6%9F%9C">超级大柜</a></li>
-<li><a href="#%E5%AE%A2%E5%8E%85%E5%8D%B3%E6%98%AF%E4%B9%A6%E6%88%BF">客厅即是书房</a></li>
-<li><a href="#%E5%90%84%E5%BD%92%E5%85%B6%E4%BD%8D%E6%9C%89%E9%9C%B2%E6%9C%89%E8%97%8F">各归其位，有露有藏</a>
-<ul>
-<li><a href="#%E7%B2%BE%E7%A5%9E%E4%BB%B7%E5%80%BC">精神价值</a>
-<ul>
-<li><a href="#%E5%AE%B6%E7%9A%84%E5%BE%85%E5%AE%A2%E4%B9%8B%E9%81%93">家的待客之道</a></li>
-</ul>
-</li>
-<li><a href="#%E5%AE%9E%E7%94%A8%E4%BB%B7%E5%80%BC">实用价值</a></li>
-<li><a href="#%E9%9E%8B%E6%9F%9C%E5%B0%BA%E5%AF%B8%E4%B8%8E%E6%AC%BE%E5%BC%8F">鞋柜尺寸与款式</a>
-<ul>
-<li><a href="#%E6%B7%B1%E5%BA%A6">深度</a></li>
-<li><a href="#%E5%B1%82%E6%9D%BF%E9%97%B4%E8%B7%9D">层板间距</a></li>
-<li><a href="#%E5%8F%AF%E6%B4%BB%E5%8A%A8%E7%9A%84%E5%B1%82%E6%9D%BF">可活动的层板</a></li>
-<li><a href="#%E9%9E%8B%E6%9F%9C%E7%9A%84%E6%9E%84%E6%88%90">鞋柜的构成</a></li>
-<li><a href="#%E5%AE%B9%E9%87%8F%E4%BC%98%E5%85%88">容量优先</a></li>
-<li><a href="#%E6%95%9E%E5%BC%80%E5%B8%B8%E9%9E%8B%E4%BD%8D">敞开“常鞋位”</a></li>
-<li><a href="#%E5%B0%8F%E7%BA%A2%E4%B9%A6%E6%8E%A8%E8%8D%90%E6%AC%BE%E9%80%82%E7%94%A8%E4%BA%8E%E6%9C%AC%E4%BA%BA%E7%9A%84%E5%BC%80%E9%97%A8%E6%97%A0%E7%8E%84%E5%85%B3%E6%88%B7%E5%9E%8B">小红书推荐款（适用于本人的开门无玄关户型）</a></li>
-<li><a href="#%E9%9E%8B%E7%9B%92-%E7%95%99%E4%B8%8E%E5%BC%83">鞋盒 留与弃</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<!-- tocstop -->
-<h2><span id="平面布局图">平面布局图</span></h2>
-<p>“沙发对着电视”的长方形空间，是最常见的客厅布局。</p>
-<p>想要客厅真正的“显大”，秘诀就是：</p>
-<ol>
-<li>可以活动的家具尽量不买太大。</li>
-<li>固定收纳却要尽量做大</li>
-</ol>
-<h2><span id="超级大柜">超级大柜</span></h2>
-<p>一面长 3.9 米，宽 0.3 米的电视柜，相当于100个登记箱的容量。</p>
-<p>作用：用于存放全家人的 70% 的公共物品：</p>
-<p>1.书籍 (如果你没有书房，或者书架不够大)，孩子的绘本将是一个很大的收纳需求<br>
-2.药品，不多，可以放在餐边柜。<br>
-3.文具，包括一些闲置的笔记本电脑、手机等<br>
-4.玩具 (如果你有孩子)<br>
-5.文件，用<strong>两孔夹</strong><br>
-6.影集，婚纱照片<br>
-7.收藏，工艺品，乐高，高达，模型<br>
-8.影音，CD，音响，PS4，相机，三脚架<br>
-9.工具，吸尘器，五金工具，等也可以考虑放在这里</p>
-<h2><span id="客厅即是书房">客厅即是书房</span></h2>
-<p>个人认为，客厅可以放一些不需要特别认真看的书：比如小说、绘本、历史、科普、散文等“闲书”。</p>
-<p>而对于一些经常使用的，专业、工作相关的，工具类的书籍，则可以放在书房/书架 (工作区)。比如IT类的书籍、考证用的书籍、字典等</p>
-<p>书的数量需要控制，以“保留能放进客厅大柜的书”作为原则。</p>
-<h2><span id="各归其位有露有藏">各归其位，有露有藏</span></h2>
-<p>露：美丽的。</p>
-<p>藏：“不美”的。</p>
-<p><strong>藏的容器</strong>——宜家的透明收纳盒 (要买盖子)：透明可视、长方高效、自然摞放。</p>
-<p>每格柜子的净尺寸宽 400 mm，高 350 mm，刚好可以放进去 4 个收纳盒。</p>
-<h3><span id="精神价值">精神价值</span></h3>
-<p>缓冲空间、第一印象、家的标志</p>
-<h4><span id="家的待客之道">家的待客之道</span></h4>
-<p>客鞋：从网上购买四星级酒店标准的白色布制拖鞋（10 双），压叠放在一起，节省空间，可机洗。</p>
-<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200823225112003.png" alt="image-20200823225112003"></p>
-<h3><span id="实用价值">实用价值</span></h3>
-<p>更换拖鞋，挂衣放包，放置钥匙雨伞</p>
-<ul>
-<li>
-<p>基本功能是第一位的</p>
-</li>
-<li>
-<p>鞋子的收纳永远是最令人头痛的，所以需要一个大鞋柜</p>
-</li>
-</ul>
-<p>鞋子的数量统计：</p>
-<ol>
-<li>
-<p>女主人：15-40 双；本人情况：40</p>
-</li>
-<li>
-<p>男主人：8-15 双；本人情况：10</p>
-</li>
-<li>
-<p>父母：5-8 双；本人情况：5*2</p>
-</li>
-<li>
-<p>孩子：5-12 双；本人情况：未知，定为 10</p>
-</li>
-<li>
-<p>客人：2-5 双；本人情况：10</p>
-</li>
-</ol>
-<p>全家统计：35-80 双；本人情况：80</p>
-<h3><span id="鞋柜尺寸与款式">鞋柜尺寸与款式</span></h3>
-<h4><span id="深度">深度</span></h4>
-<p>标准层板深度 350 mm (可平放45 码以内的鞋)</p>
-<p>可放鞋盒 400 mm (普通鞋盒)</p>
-<h4><span id="层板间距">层板间距</span></h4>
-<p>以女性高跟鞋为参考标准</p>
-<p>鞋帮 (40 mm) + 鞋跟(20~110 mm) = 单鞋高度 (最高150 mm)</p>
-<p>故上下层板基准间距为 160 mm</p>
-<h4><span id="可活动的层板">可活动的层板</span></h4>
-<p>当进行鞋柜定制时，为了最大化利用鞋柜空间，可要求店家“<strong><u>打排钻</u></strong>”：通过排钻孔、卡件和层板实现灵活的层板高度。</p>
-<h4><span id="鞋柜的构成">鞋柜的构成</span></h4>
-<ul>
-<li>基础配置：
-<ul>
-<li>地柜：H = 1100 mm 台面大，用途广，可配抽屉</li>
-<li>吊柜：H = 1700 mm 放置非当季鞋子</li>
-<li>高柜：H = 2360 mm 大容量首选，柜门可做全身镜子</li>
-</ul>
-</li>
-<li>升级配置：
-<ul>
-<li>鞋凳：H = 450 mm 换鞋舒服，不尴尬</li>
-<li>装饰柜：H = 2360 mm 家庭品味的展示：如有人放一些工艺品、乐高、高达</li>
-</ul>
-</li>
-</ul>
-<h4><span id="容量优先">容量优先</span></h4>
-<p>即先保证基础配置，再考虑升级配置</p>
-<h4><span id="敞开常鞋位">敞开“常鞋位”</span></h4>
-<p>传统鞋柜，底层架空100 mm 放置常用鞋，其实位置不足；<br>
-改良模式，底部两层为敞开隔板，不舍柜门，常用鞋位置充裕。</p>
-<img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200823221609606.png" alt="image-20200823221609606" style="zoom: 80%;">
-<p>传统型，常鞋位不足（如果只能有一个地柜，就比较严重）</p>
-<img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200823221656539.png" alt="image-20200823221656539" style="zoom: 80%;">
-<p>改良型，常鞋位充足 (特别是在地柜只有一个的时候)</p>
-<h4><span id="小红书推荐款适用于本人的开门无玄关户型">小红书推荐款（适用于本人的开门无玄关户型）</span></h4>
-<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200823223138381.png" alt="image-20200823223138381"></p>
-<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200823223418308.png" alt="image-20200823223418308"></p>
-<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200823223630771.png" alt="image-20200823223630771"></p>
-<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200823223830769.png" alt="image-20200823223830769"></p>
-<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200823224024610.png" alt="image-20200823224024610"></p>
-<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200823224044011.png" alt="image-20200823224044011"></p>
-<h4><span id="鞋盒-留与弃">鞋盒 留与弃</span></h4>
-<p>鞋盒大小参差，摞放不齐，不清楚盒内情况</p>
-<p>可购买**<u>防尘鞋袋</u>**，透明可视，轻巧省地，出差旅行也可使用</p>
-<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200823224635867.png" alt="image-20200823224635867"></p>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
-      <categories>
-        <category>生活</category>
-        <category>装修</category>
-      </categories>
-      <tags>
-        <tag>装修</tag>
-        <tag>读书笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Docker 基本操作教程</title>
-    <url>/20201001/Docker_tutorial/</url>
-    <content><![CDATA[<h2><span id="摘要">摘要</span></h2>
-<p>学习 Docker 的基本语法，看完这一篇，基本就能满足日常的使用。</p>
-<a id="more"></a>
-<hr>
-<!-- toc -->
-<ul>
-<li><a href="#%E5%8A%A0%E8%BD%BD%E6%9C%AC%E5%9C%B0%E9%95%9C%E5%83%8F">加载本地镜像</a></li>
-<li><a href="#%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E9%95%9C%E5%83%8F">查看当前系统中的镜像</a></li>
-<li><a href="#%E5%9C%A8-docker-hub-%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93%E6%9F%A5%E6%89%BE%E5%85%AC%E5%85%B1%E9%95%9C%E5%83%8F">在 Docker Hub 镜像仓库查找公共镜像</a></li>
-<li><a href="#%E6%8B%89%E5%8F%96%E9%95%9C%E5%83%8F">拉取镜像</a></li>
-<li><a href="#%E5%88%A0%E9%99%A4%E9%95%9C%E5%83%8F">删除镜像</a></li>
-<li><a href="#%E5%88%9B%E5%BB%BA%E5%AE%B9%E5%99%A8">创建容器</a></li>
-<li><a href="#%E6%9F%A5%E7%9C%8B%E7%8E%B0%E6%9C%89%E5%AE%B9%E5%99%A8%E7%8A%B6%E6%80%81">查看现有容器状态</a></li>
-<li><a href="#%E5%88%A0%E9%99%A4%E4%B8%80%E4%B8%AA%E6%88%96%E5%A4%9A%E4%B8%AA%E5%AE%B9%E5%99%A8">删除一个或多个容器</a></li>
-<li><a href="#%E5%90%AF%E5%8A%A8%E4%B8%80%E4%B8%AA%E6%88%96%E5%A4%9A%E4%B8%AA%E5%81%9C%E6%AD%A2%E7%9A%84%E5%AE%B9%E5%99%A8">启动一个或多个停止的容器</a></li>
-<li><a href="#%E5%81%9C%E6%AD%A2%E4%B8%80%E4%B8%AA%E6%88%96%E5%A4%9A%E4%B8%AA%E8%BF%90%E8%A1%8C%E4%B8%AD%E7%9A%84%E5%AE%B9%E5%99%A8">停止一个或多个运行中的容器</a></li>
-<li><a href="#%E9%87%8D%E5%90%AF%E4%B8%80%E4%B8%AA%E6%88%96%E5%A4%9A%E4%B8%AA%E5%AE%B9%E5%99%A8">重启一个或多个容器</a></li>
-<li><a href="#%E5%9C%A8%E8%BF%90%E8%A1%8C%E7%9A%84%E5%AE%B9%E5%99%A8%E4%B8%AD%E6%89%A7%E8%A1%8C%E5%91%BD%E4%BB%A4">在运行的容器中执行命令</a></li>
-<li><a href="#%E5%AE%B9%E5%99%A8%E4%B8%8E%E5%AE%BF%E4%B8%BB%E4%B8%BB%E6%9C%BA%E4%B9%8B%E9%97%B4%E7%9A%84%E6%95%B0%E6%8D%AE%E6%8B%B7%E8%B4%9D">容器与宿主主机之间的数据拷贝</a></li>
-<li><a href="#%E4%BB%8E%E5%AE%B9%E5%99%A8%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E6%96%B0%E7%9A%84%E9%95%9C%E5%83%8F">从容器创建一个新的镜像</a></li>
-<li><a href="#%E6%B8%85%E7%90%86docker%E7%A9%BA%E9%97%B4">清理docker空间</a></li>
-</ul>
-<!-- tocstop -->
-<h2><span id="加载本地镜像">加载本地镜像</span></h2>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">docker load -i D:\Documents\psn_qiime2.tar</span><br></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200921132904537.png" alt="image-20200921132904537"></p>
-<h2><span id="查看当前系统中的镜像">查看当前系统中的镜像</span></h2>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">docker images</span><br></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200921133756512.png" alt="image-20200921133756512"></p>
-<h2><span id="在-docker-hub-镜像仓库查找公共镜像">在 Docker Hub 镜像仓库查找公共镜像</span></h2>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">docker search python3</span><br></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200921133721467.png" alt="image-20200921133721467"></p>
-<h2><span id="拉取镜像">拉取镜像</span></h2>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">docker pull rackspacedot/python37</span><br></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200921134437901.png" alt="image-20200921134437901"></p>
-<h2><span id="删除镜像">删除镜像</span></h2>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">docker rmi rackspacedot/python37</span><br></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200921134716476.png" alt="image-20200921134716476"></p>
-<h2><span id="创建容器">创建容器</span></h2>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#创建容器并以交互方式运行，映射宿主的D:/Documents位置到容器的/data路径</span></span><br><span class="line"></span><br><span class="line">docker run -it -v D:/Documents:/data --name qiime2_psn psn_qiime2</span><br><span class="line"></span><br><span class="line"><span class="comment">## 其中 -i: 以交互模式运行容器，通常与 -t 同时使用；</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## -t: 为容器重新分配一个伪输入终端，通常与 -i 同时使用；</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## --volume , -v: 绑定一个卷</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">## 还可以使用 --cpuset="0-2" or --cpuset="0,1,2": 指定容器使用特定的CPU运行；</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## -m :设置容器使用内存最大值；</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 推出容器并关闭</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">exit</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#只创建容器，不启动，映射宿主的D:/Documents位置到容器的/data路径</span></span><br><span class="line"></span><br><span class="line">docker create -it -v D:/Documents:/data --name psn_qiime2-2020-8 psn_qiime2</span><br></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200921143127948.png" alt="image-20200921143127948"></p>
-<h2><span id="查看现有容器状态">查看现有容器状态</span></h2>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"># 查看当前运行的容器</span><br><span class="line">docker ps</span><br><span class="line"></span><br><span class="line"># 查看所有容器</span><br><span class="line">docker ps -a</span><br></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200921143150521.png" alt="image-20200921143150521"></p>
-<h2><span id="删除一个或多个容器">删除一个或多个容器</span></h2>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">docker rm qiime2_psn</span><br></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200921143302052.png" alt="image-20200921143302052"></p>
-<h2><span id="启动一个或多个停止的容器">启动一个或多个停止的容器</span></h2>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">docker start psn_qiime2-2020-8</span><br></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200921143457628.png" alt="image-20200921143457628"></p>
-<h2><span id="停止一个或多个运行中的容器">停止一个或多个运行中的容器</span></h2>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">docker stop psn_qiime2-2020-8</span><br></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200921143840632.png" alt="image-20200921143840632"></p>
-<h2><span id="重启一个或多个容器">重启一个或多个容器</span></h2>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">docker restart psn_qiime2-2020-8</span><br></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200921144023692.png" alt="image-20200921144023692"></p>
-<h2><span id="在运行的容器中执行命令">在运行的容器中执行命令</span></h2>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># hello world</span><br><span class="line">docker exec psn_qiime2-2020-8 echo &quot;hello world&quot;</span><br><span class="line"></span><br><span class="line"># 查看容器当前目录中的文件</span><br><span class="line">docker exec psn_qiime2-2020-8 ls</span><br><span class="line"></span><br><span class="line"># 交互模式进入容器中,并打开一个终端</span><br><span class="line">docker exec -it psn_qiime2-2020-8 &#x2F;bin&#x2F;bash</span><br><span class="line"></span><br><span class="line">## 注意，此时退出不会关闭容器</span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200921144823697.png" alt="image-20200921144823697"></p>
-<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200921145113708.png" alt="image-20200921145113708"></p>
-<h2><span id="容器与宿主主机之间的数据拷贝">容器与宿主主机之间的数据拷贝</span></h2>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 拷贝宿主文件到容器的data目录下（即容器的主目录） # 反过来也是可以实现的</span></span><br><span class="line">docker cp C:\Users\personalbio\network2_legend.pdf psn_qiime2-2020-8:/data</span><br><span class="line"><span class="comment"># 查看主目录文件</span></span><br><span class="line">docker <span class="built_in">exec</span> psn_qiime2-2020-8 ls</span><br></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200921150005597.png" alt="image-20200921150005597"></p>
-<h2><span id="从容器创建一个新的镜像">从容器创建一个新的镜像</span></h2>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">docker commit  -m <span class="string">"my qiime2"</span> -a <span class="string">"PSN"</span> psn_qiime2-2020-8  myqiime2:v1</span><br><span class="line"><span class="comment">## 其中 -m 为说明的文章</span></span><br><span class="line"><span class="comment">## -a 为作者名</span></span><br><span class="line"><span class="comment">## 后面依次接：容器名 镜像仓库名:标签</span></span><br></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200921151239192.png" alt="image-20200921151239192"></p>
-<h2><span id="清理docker空间">清理docker空间</span></h2>
-<p>通过docker rm 和docker rmi可删除无用的镜像和容器</p>
-<p>对于磁盘空间，首先需用管理员身份打开powershell：右键点击 Powershell 图标，点击 “以管理员身份运行”。</p>
-<img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200924174531747.png" alt="image-20200924174531747" style="zoom:100%;">
-<img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200924174701019.png" alt="image-20200924174701019" style="zoom:150%;">
-<p>然后输入以下代码：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># docker system prune -a -f    # 这条代码会自动删除当前关闭的容器，以及没有容器在使用的镜像，所以还是手动删除的好。</span></span><br><span class="line">net stop com.docker.service</span><br><span class="line">taskkill /F /IM <span class="string">"Docker Desktop.exe"</span></span><br><span class="line">stop-vm DockerDesktopVM</span><br><span class="line">Optimize-VHD -Path <span class="string">"C:\ProgramData\DockerDesktop\vm-data\DockerDesktop.vhdx"</span> -Mode Full <span class="comment">## 这个地址从docker的settings 里面找，如下图。</span></span><br><span class="line">start-vm DockerDesktopVM</span><br><span class="line">start <span class="string">"C:\Program Files\Docker\Docker\Docker Desktop.exe"</span></span><br><span class="line">net start com.docker.service</span><br></pre></td></tr></table></figure>
-<img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200924182452739.png" alt="image-20200924182452739" style="zoom:150%;">
-<img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200924174919251.png" alt="image-20200924174919251" style="zoom:150%;"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
-      <categories>
-        <category>其他</category>
-      </categories>
-      <tags>
-        <tag>Docker</tag>
       </tags>
   </entry>
   <entry>
@@ -1378,6 +1031,390 @@ Docker for Windows 需要你的 Windows 版本为 64 位的 Windows 10 Pro <stro
       </tags>
   </entry>
   <entry>
+    <title>Markdown 实用语法</title>
+    <url>/20200809/Markdown_Programming_Language/</url>
+    <content><![CDATA[<h2><span id="摘要">摘要</span></h2>
+<p><a href="https://baike.baidu.com/item/markdown/3245829?fr=aladdin" target="_blank" rel="noopener">Markdown</a> 一种轻量级的<strong>标记语言</strong>。我们熟悉的 HTML 网页文件，它的全称是：超文本标记语言 (英语：HyperText Markup Language) 其实也是一种标记语言。</p>
+<p>而<strong>标记语言</strong>，则是通过一系列约定好的标记来对电子文档进行标记，以实现对电子文档的<u>语义、结构、及格式</u>的定义。</p>
+<p>相比于其他的标记语言，markdown 更强调和关注<big><strong>内容</strong></big>，而尽可能<big><strong>简化</strong></big>对标记语法的编程要求。</p>
+<p>可以说，如果要向所有人推荐一门编程语言，<u>那么Markdown 绝对是最简单、最实用</u>。</p>
+<a id="more"></a>
+<!-- toc -->
+<ul>
+<li><a href="#%E6%A0%87%E9%A2%98">标题</a>
+<ul>
+<li><a href="#%E6%A0%87%E9%A2%98%E6%95%88%E6%9E%9C">标题—效果</a></li>
+</ul>
+</li>
+<li><a href="#%E6%A0%BC%E5%BC%8F%E5%AD%97%E4%BD%93">格式—字体</a>
+<ul>
+<li><a href="#%E6%A0%BC%E5%BC%8F%E5%AD%97%E4%BD%93%E6%95%88%E6%9E%9C">格式—字体—效果</a></li>
+</ul>
+</li>
+<li><a href="#%E6%A0%BC%E5%BC%8F%E4%B8%8B%E5%88%92%E7%BA%BF%E4%B8%8E%E5%88%A0%E9%99%A4%E7%BA%BF">格式—下划线与删除线</a>
+<ul>
+<li><a href="#%E6%A0%BC%E5%BC%8F%E4%B8%8B%E5%88%92%E7%BA%BF%E4%B8%8E%E5%88%A0%E9%99%A4%E7%BA%BF%E6%95%88%E6%9E%9C">格式—下划线与删除线—效果</a></li>
+</ul>
+</li>
+<li><a href="#%E6%A0%BC%E5%BC%8F%E5%88%86%E5%89%B2%E7%BA%BF">格式—分割线</a>
+<ul>
+<li><a href="#%E6%A0%BC%E5%BC%8F%E5%88%86%E5%89%B2%E7%BA%BF%E6%95%88%E6%9E%9C">格式—分割线—效果</a></li>
+</ul>
+</li>
+<li><a href="#%E6%A0%BC%E5%BC%8F%E4%B8%8B%E6%A0%87%E4%B8%8E%E4%B8%8A%E6%A0%87">格式—下标与上标</a>
+<ul>
+<li><a href="#%E6%A0%BC%E5%BC%8F%E4%B8%8B%E6%A0%87%E4%B8%8E%E4%B8%8A%E6%A0%87%E6%95%88%E6%9E%9C">格式—下标与上标—效果</a></li>
+</ul>
+</li>
+<li><a href="#%E6%A0%BC%E5%BC%8F%E8%84%9A%E6%B3%A8">格式—脚注</a>
+<ul>
+<li><a href="#%E6%A0%BC%E5%BC%8F%E8%84%9A%E6%B3%A8%E6%95%88%E6%9E%9C">格式—脚注—效果</a></li>
+</ul>
+</li>
+<li><a href="#%E5%88%97%E8%A1%A8%E6%9C%89%E5%BA%8F%E5%88%97%E8%A1%A8">列表—有序列表</a>
+<ul>
+<li><a href="#%E5%88%97%E8%A1%A8%E6%9C%89%E5%BA%8F%E5%88%97%E8%A1%A8%E6%95%88%E6%9E%9C">列表—有序列表—效果</a></li>
+</ul>
+</li>
+<li><a href="#%E5%88%97%E8%A1%A8%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A8">列表—无序列表</a>
+<ul>
+<li><a href="#%E5%88%97%E8%A1%A8%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A8%E6%95%88%E6%9E%9C">列表—无序列表—效果</a></li>
+</ul>
+</li>
+<li><a href="#%E5%88%97%E8%A1%A8%E5%88%97%E8%A1%A8%E5%88%86%E5%B1%82">列表—列表分层</a>
+<ul>
+<li><a href="#%E5%88%97%E8%A1%A8%E5%88%97%E8%A1%A8%E5%88%86%E5%B1%82%E6%95%88%E6%9E%9C">列表—列表分层—效果</a></li>
+</ul>
+</li>
+<li><a href="#%E5%8C%BA%E5%9D%971">区块1</a>
+<ul>
+<li><a href="#%E5%8C%BA%E5%9D%971%E6%95%88%E6%9E%9C">区块1—效果</a></li>
+</ul>
+</li>
+<li><a href="#%E5%8C%BA%E5%9D%972">区块2</a>
+<ul>
+<li><a href="#%E5%8C%BA%E5%9D%972%E6%95%88%E6%9E%9C">区块2—效果</a></li>
+</ul>
+</li>
+<li><a href="#%E9%93%BE%E6%8E%A5">链接</a>
+<ul>
+<li><a href="#%E9%93%BE%E6%8E%A5%E6%95%88%E6%9E%9C">链接—效果</a></li>
+</ul>
+</li>
+<li><a href="#%E5%9B%BE%E7%89%87%E6%9D%A5%E8%87%AA%E7%BD%91%E7%BB%9C-%E5%9B%BE%E5%BA%8A">图片—来自网络、图床</a>
+<ul>
+<li><a href="#%E5%9B%BE%E7%89%87%E6%9D%A5%E8%87%AA%E7%BD%91%E7%BB%9C-%E5%9B%BE%E5%BA%8A%E6%95%88%E6%9E%9C">图片—来自网络、图床—效果</a></li>
+</ul>
+</li>
+<li><a href="#%E5%9B%BE%E7%89%87%E6%9D%A5%E8%87%AA%E6%9C%AC%E5%9C%B0">图片—来自本地</a>
+<ul>
+<li><a href="#%E5%9B%BE%E7%89%87%E6%9D%A5%E8%87%AA%E6%9C%AC%E5%9C%B0%E6%95%88%E6%9E%9C">图片—来自本地—效果</a></li>
+</ul>
+</li>
+<li><a href="#%E5%9B%BE%E7%89%87html-%E6%A0%BC%E5%BC%8F%E5%AE%9E%E7%8E%B0%E7%BC%A9%E6%94%BE">图片—HTML 格式实现缩放</a>
+<ul>
+<li><a href="#%E5%9B%BE%E7%89%87html-%E6%A0%BC%E5%BC%8F%E5%AE%9E%E7%8E%B0%E7%BC%A9%E6%94%BE%E6%95%88%E6%9E%9C">图片—HTML 格式实现缩放—效果</a></li>
+</ul>
+</li>
+<li><a href="#%E8%A1%A8%E6%A0%BC">表格</a>
+<ul>
+<li><a href="#%E8%A1%A8%E6%A0%BC%E6%95%88%E6%9E%9C">表格—效果</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BB%A3%E7%A0%81%E5%9D%97">代码块</a>
+<ul>
+<li><a href="#%E4%BB%A3%E7%A0%81%E5%9D%97%E6%95%88%E6%9E%9C">代码块—效果</a></li>
+</ul>
+</li>
+<li><a href="#%E8%BF%9B%E9%98%B6%E6%8A%80%E5%B7%A7%E4%BD%BF%E7%94%A8-html-%E5%85%83%E7%B4%A0">进阶技巧—使用 HTML 元素</a>
+<ul>
+<li><a href="#%E8%BF%9B%E9%98%B6%E6%8A%80%E5%B7%A7%E4%BD%BF%E7%94%A8-html-%E5%85%83%E7%B4%A0%E6%95%88%E6%9E%9C">进阶技巧—使用 HTML 元素—效果</a></li>
+</ul>
+</li>
+<li><a href="#%E8%BF%9B%E9%98%B6%E6%8A%80%E5%B7%A7%E8%A1%A8%E6%83%85%E5%8C%85">进阶技巧—表情包</a>
+<ul>
+<li><a href="#%E8%BF%9B%E9%98%B6%E6%8A%80%E5%B7%A7%E8%A1%A8%E6%83%85%E5%8C%85%E6%95%88%E6%9E%9C">进阶技巧—表情包—效果</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<h2><span id="标题">标题</span></h2>
+<p>使用 # 号表示 1-6 级标题，一级标题对应一个 # 号，二级标题对应两个 # 号，以此类推。</p>
+<figure class="highlight markdown"><figcaption><span>标题代码</span></figcaption><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="section"># 我是一级标题 </span></span><br><span class="line"><span class="section">## 我是二级标题</span></span><br><span class="line"><span class="section">### 我是三级标题</span></span><br><span class="line"><span class="section">#### 我是四级标题</span></span><br><span class="line"><span class="section">##### 我是五级标题</span></span><br><span class="line"><span class="section">###### 我是六级标题</span></span><br><span class="line">我不是标题:smile::smile::smile:</span><br></pre></td></tr></table></figure>
+<h3><span id="标题效果">标题—效果</span></h3>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809153521.png" alt></p>
+<hr>
+<h2><span id="格式字体">格式—字体</span></h2>
+<figure class="highlight markdown"><figcaption><span>格式—字体代码</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="emphasis">*斜体文本*</span></span><br><span class="line"><span class="emphasis">_斜体文本_</span></span><br><span class="line"><span class="strong">**粗体文本**</span></span><br><span class="line"><span class="strong">__粗体文本__</span></span><br><span class="line"><span class="strong">***粗斜体文本**</span>*</span><br><span class="line"><span class="strong">___粗斜体文本__</span>_</span><br></pre></td></tr></table></figure>
+<h3><span id="格式字体效果">格式—字体—效果</span></h3>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809154026.png" alt></p>
+<hr>
+<h2><span id="格式下划线与删除线">格式—下划线与删除线</span></h2>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;u&gt;这句话很重要，我给它加了下划线&lt;&#x2F;u&gt;</span><br><span class="line">~~这句话现在不再适用了，我给它加个删除线~~</span><br></pre></td></tr></table></figure>
+<p>注意：这里的下划线实际是通过 HTML 的 &lt;u&gt; 标签来实现的。</p>
+<h3><span id="格式下划线与删除线效果">格式—下划线与删除线—效果</span></h3>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809154532.png" alt></p>
+<hr>
+<h2><span id="格式分割线">格式—分割线</span></h2>
+<p>在一行中用三个以上的星号、减号、下滑线来建立一个分隔线，行内不能有其他内容，但可以在星号、减号、下划线中间插入任意空格。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">某段内容</span><br><span class="line">- - -</span><br><span class="line">另一段内容</span><br><span class="line">***</span><br><span class="line">另另一段内容</span><br><span class="line">___</span><br><span class="line">另另另一段内容</span><br><span class="line">_ _ _</span><br><span class="line">另另另另一段内容</span><br></pre></td></tr></table></figure>
+<h3><span id="格式分割线效果">格式—分割线—效果</span></h3>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809155028.png" alt></p>
+<hr>
+<h2><span id="格式下标与上标">格式—下标与上标</span></h2>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">10^10^ &#x3D; 10,000,000,000</span><br><span class="line">$10^&#123;10&#125;$ &#x3D; 10,000,000,000</span><br><span class="line">未知数 $X_1$, $X_2$</span><br><span class="line"></span><br><span class="line">以下采用 HTML 的方法</span><br><span class="line">10&lt;sup&gt;10&lt;&#x2F;sup&gt; &#x3D; 10,000,000,000</span><br><span class="line">未知数 X&lt;sub&gt;1&lt;&#x2F;sub&gt;, X&lt;sub&gt;2&lt;&#x2F;sub&gt;</span><br></pre></td></tr></table></figure>
+<p>注意：双 $ 符的写法为 Markdown 的公式写法，字体会有一定变化。</p>
+<h3><span id="格式下标与上标效果">格式—下标与上标—效果</span></h3>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809155443.png" alt></p>
+<hr>
+<h2><span id="格式脚注">格式—脚注</span></h2>
+<figure class="highlight markdown"><figcaption><span>格式—脚注代码</span></figcaption><table><tr><td class="code"><pre><span class="line">不知是谁说过：其实地上本没有路，走的人多了，也便成了路[^1]。</span><br><span class="line"></span><br><span class="line">一段输出之后。。。。</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line">脚注:</span><br><span class="line">[<span class="symbol">^1</span>]:<span class="link">其实是鲁迅说的。</span></span><br></pre></td></tr></table></figure>
+<h3><span id="格式脚注效果">格式—脚注—效果</span></h3>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809160428.png" alt></p>
+<hr>
+<h2><span id="列表有序列表">列表—有序列表</span></h2>
+<figure class="highlight markdown"><figcaption><span>列表—有序列表代码</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="section">#### 把大象装冰箱，总共分几步</span></span><br><span class="line"><span class="bullet">1. </span>把冰箱门打开</span><br><span class="line"><span class="bullet">2. </span>把大象装进去</span><br><span class="line"><span class="bullet">3. </span>把冰箱门关上</span><br><span class="line"><span class="code">	</span></span><br><span class="line"><span class="bullet">1. </span>把冰箱门打开</span><br><span class="line"><span class="bullet">100. </span>把大象装进去</span><br><span class="line"><span class="bullet">20. </span>把冰箱门关上</span><br></pre></td></tr></table></figure>
+<p>采用任意数字 + . + 空格的方式，自动排序。</p>
+<h3><span id="列表有序列表效果">列表—有序列表—效果</span></h3>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809171333.png" alt></p>
+<hr>
+<h2><span id="列表无序列表">列表—无序列表</span></h2>
+<figure class="highlight markdown"><figcaption><span>列表—无序列表代码</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="section">#### 我最喜欢的食物：</span></span><br><span class="line"><span class="bullet">- </span>粉蒸肉</span><br><span class="line"><span class="bullet">- </span>红烧肉</span><br><span class="line"><span class="bullet">- </span>回锅肉</span><br><span class="line"></span><br><span class="line"><span class="section">#### 我最喜欢的食物：</span></span><br><span class="line"><span class="bullet">* </span>烤鸡</span><br><span class="line"><span class="bullet">* </span>大盘鸡</span><br><span class="line"><span class="bullet">* </span>肯德基</span><br><span class="line"></span><br><span class="line"><span class="section">#### 我最喜欢的食物：</span></span><br><span class="line"><span class="bullet">+ </span>烤鱼</span><br><span class="line"><span class="bullet">+ </span>水煮鱼</span><br><span class="line"><span class="bullet">+ </span>酸菜鱼</span><br></pre></td></tr></table></figure>
+<p>采用任意数字 + . + 空格的方式，自动排序。</p>
+<h3><span id="列表无序列表效果">列表—无序列表—效果</span></h3>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809171334.png" alt></p>
+<hr>
+<h2><span id="列表列表分层">列表—列表分层</span></h2>
+<figure class="highlight markdown"><figcaption><span>列表—列表分层代码</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="section">#### 我最喜欢的食物：</span></span><br><span class="line"><span class="bullet">- </span>回锅肉</span><br><span class="line"><span class="bullet">    - </span>四川回锅肉</span><br><span class="line"><span class="bullet">    - </span>湖南回锅肉</span><br><span class="line"><span class="bullet">    - </span>老干妈回锅肉</span><br><span class="line"><span class="bullet">- </span>红烧肉</span><br><span class="line"><span class="bullet">    - </span>甜的</span><br><span class="line"><span class="bullet">    - </span>不甜的</span><br></pre></td></tr></table></figure>
+<p>二级列表要 - 之前加四个空格。</p>
+<h3><span id="列表列表分层效果">列表—列表分层—效果</span></h3>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809171335.png" alt></p>
+<hr>
+<h2><span id="区块1">区块1</span></h2>
+<figure class="highlight markdown"><figcaption><span>区块代码1</span></figcaption><table><tr><td class="code"><pre><span class="line">只有空想而不为其奋斗、追求、理想是不会实现的，正如那句话说的那样：</span><br><span class="line"></span><br><span class="line"><span class="quote">&gt; 其实地上本没有路，</span></span><br><span class="line"><span class="quote">&gt; 走的人多了，</span></span><br><span class="line"><span class="quote">&gt; 也便成了路</span></span><br><span class="line"><span class="quote">&gt;                                ----鲁迅</span></span><br><span class="line"></span><br><span class="line">所以，有了理想，并且始终如一的追求、奋斗、实践，那样理想才有可能实现。</span><br></pre></td></tr></table></figure>
+<p>一个例子。</p>
+<h3><span id="区块1效果">区块1—效果</span></h3>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809171336.png" alt></p>
+<hr>
+<h2><span id="区块2">区块2</span></h2>
+<figure class="highlight markdown"><figcaption><span>区块代码2</span></figcaption><table><tr><td class="code"><pre><span class="line">&gt;警告：</span><br><span class="line">&gt;</span><br><span class="line">&gt;&gt; 千万不要学 markdown</span><br><span class="line">&gt;&gt; 否则你可能会再也离不开它！</span><br><span class="line">&gt;</span><br><span class="line">&gt;警告完毕！</span><br></pre></td></tr></table></figure>
+<p>另一个例子。</p>
+<h3><span id="区块2效果">区块2—效果</span></h3>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809171337.png" alt></p>
+<hr>
+<h2><span id="链接">链接</span></h2>
+<figure class="highlight markdown"><figcaption><span>链接代码</span></figcaption><table><tr><td class="code"><pre><span class="line">学习 markdown，大家可以点击[<span class="string">这里</span>](<span class="link">https://www.runoob.com/markdown/md-tutorial.html</span>)。</span><br></pre></td></tr></table></figure>
+<h3><span id="链接效果">链接—效果</span></h3>
+<p>学习 markdown，大家可以点击<a href="https://www.runoob.com/markdown/md-tutorial.html" target="_blank" rel="noopener">这里</a>。</p>
+<hr>
+<h2><span id="图片来自网络-图床">图片—来自网络、图床</span></h2>
+<figure class="highlight markdown"><figcaption><span>图片代码1</span></figcaption><table><tr><td class="code"><pre><span class="line">![<span class="string">图片1</span>](<span class="link">https://iknow-pic.cdn.bcebos.com/8b13632762d0f7030cd823a305fa513d2697c563?x-bce-process=image/resize,m_lfit,w_600,h_800,limit_1</span>)</span><br></pre></td></tr></table></figure>
+<h3><span id="图片来自网络-图床效果">图片—来自网络、图床—效果</span></h3>
+<p><img src="https://iknow-pic.cdn.bcebos.com/8b13632762d0f7030cd823a305fa513d2697c563?x-bce-process=image/resize,m_lfit,w_600,h_800,limit_1" alt="图片1"></p>
+<hr>
+<h2><span id="图片来自本地">图片—来自本地</span></h2>
+<figure class="highlight markdown"><figcaption><span>图片代码2</span></figcaption><table><tr><td class="code"><pre><span class="line">![<span class="string">图片2</span>](<span class="link">images/安利markdown/鲁迅.jpg</span>)</span><br></pre></td></tr></table></figure>
+<p>可以是绝对路径，也可以是相对当前 md 文件的相对路径。注意斜杠方向。</p>
+<h3><span id="图片来自本地效果">图片—来自本地—效果</span></h3>
+<img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809171338.png" alt="图片2" style="zoom:100%;">
+<hr>
+<h2><span id="图片html-格式实现缩放">图片—HTML 格式实现缩放</span></h2>
+<figure class="highlight markdown"><figcaption><span>图片代码2</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"https://iknow-pic.cdn.bcebos.com/8b13632762d0f7030cd823a305fa513d2697c563?x-bce-process=image/resize,m_lfit,w_600,h_800,limit_1"</span> <span class="attr">alt</span>=<span class="string">"图片2"</span> <span class="attr">style</span>=<span class="string">"zoom:40%;"</span> /&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>在 Typora 中可以简单实现哦。</p>
+<h3><span id="图片html-格式实现缩放效果">图片—HTML 格式实现缩放—效果</span></h3>
+<img src="https://iknow-pic.cdn.bcebos.com/8b13632762d0f7030cd823a305fa513d2697c563?x-bce-process=image/resize,m_lfit,w_600,h_800,limit_1" alt="图片2" style="zoom:40%;">
+<hr>
+<h2><span id="表格">表格</span></h2>
+<p>Markdown 的表格，使用 | 来分隔不同的单元格，使用 - 来分隔表头和其他行。</p>
+<figure class="highlight markdown"><figcaption><span>图片代码3</span></figcaption><table><tr><td class="code"><pre><span class="line">| 表头1 | 表头2 | 表头3 |</span><br><span class="line">| :---: | :--- | ---: |</span><br><span class="line">| 单元格 | 单元格 |单元格 |</span><br><span class="line">| 单元格 | 单元格 |单元格 |</span><br></pre></td></tr></table></figure>
+<h3><span id="表格效果">表格—效果</span></h3>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809171339.png" alt></p>
+<hr>
+<h2><span id="代码块">代码块</span></h2>
+<p>注意 前面的 $ 号请忽略</p>
+<figure class="highlight plain"><figcaption><span>代码块代码</span></figcaption><table><tr><td class="code"><pre><span class="line">$ &#96;&#96;&#96;python</span><br><span class="line">$ def function()</span><br><span class="line">$ return &quot;llll&quot;</span><br><span class="line">$ &#96;&#96;&#96;</span><br><span class="line"></span><br><span class="line">$ &#96;&#96;&#96;R</span><br><span class="line">$ library(tidyverse)</span><br><span class="line">$ print(Hello world)</span><br><span class="line">$ &#96;&#96;&#96;</span><br></pre></td></tr></table></figure>
+<h3><span id="代码块效果">代码块—效果</span></h3>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809171307.png" alt></p>
+<hr>
+<h2><span id="进阶技巧使用-html-元素">进阶技巧—使用 HTML 元素</span></h2>
+<figure class="highlight markdown"><figcaption><span>使用HTML元素代码</span></figcaption><table><tr><td class="code"><pre><span class="line">使用<span class="xml"><span class="tag">&lt;<span class="name">kbd</span>&gt;</span></span>Tab<span class="xml"><span class="tag">&lt;/<span class="name">kbd</span>&gt;</span></span>切换大小写</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">b</span>&gt;</span></span>加粗<span class="xml"><span class="tag">&lt;/<span class="name">b</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">strong</span>&gt;</span></span>加粗<span class="xml"><span class="tag">&lt;/<span class="name">strong</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">i</span>&gt;</span></span>斜体<span class="xml"><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">em</span>&gt;</span></span>斜体<span class="xml"><span class="tag">&lt;/<span class="name">em</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">big</span>&gt;</span></span>变大<span class="xml"><span class="tag">&lt;/<span class="name">big</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">small</span>&gt;</span></span>变小<span class="xml"><span class="tag">&lt;/<span class="name">small</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<h3><span id="进阶技巧使用-html-元素效果">进阶技巧—使用 HTML 元素—效果</span></h3>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809171244.png" alt></p>
+<hr>
+<h2><span id="进阶技巧表情包">进阶技巧—表情包</span></h2>
+<figure class="highlight markdown"><figcaption><span>表情包代码</span></figcaption><table><tr><td class="code"><pre><span class="line">:smile::laughing::blush::smiley::relaxed::smirk::heart<span class="emphasis">_eyes::kissing_</span>heart::kissing<span class="emphasis">_closed_</span>eyes::flushed:</span><br><span class="line">:relieved::satisfied::grin::wink::stuck<span class="emphasis">_out_</span>tongue<span class="emphasis">_winking_</span>eye::stuck<span class="emphasis">_out_</span>tongue<span class="emphasis">_closed_</span>eyes::grinning::kissing::kissing<span class="emphasis">_smiling_</span>eyes::confounded:</span><br><span class="line">:stuck<span class="emphasis">_out_</span>tongue::sleeping::worried::frowning::open_mouth::grimacing::confused::hushed::expressionless::unamused:</span><br></pre></td></tr></table></figure>
+<p>更多 emoji 请到<a href="https://www.webfx.com/tools/emoji-cheat-sheet/" target="_blank" rel="noopener">这里</a>查找，个别 emoji 表情可能你的md编辑器不支持，所以不要强求。</p>
+<h3><span id="进阶技巧表情包效果">进阶技巧—表情包—效果</span></h3>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/20200809171236.png" alt></p>
+<hr>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
+      <categories>
+        <category>其他</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+        <tag>markdown</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>小家越住越大-玄关篇</title>
+    <url>/20200818/small_house_big_home_(storage)/</url>
+    <content><![CDATA[<blockquote><p>有舍，才有得。<br>
+想要得到整体的“宽”<br>
+必须先舍得局部的“窄”。</p>
+<footer><strong>逯薇</strong><cite>《小家越住越大》</cite></footer></blockquote>
+<p><br><br></p>
+<p>本文为阅读逯薇《小家越住越大》三部曲的读书笔记。</p>
+<p>本篇主要整理其中的客厅部分 (主要是介绍电视柜)。</p>
+<a id="more"></a>
+<!-- toc -->
+<ul>
+<li><a href="#%E5%B9%B3%E9%9D%A2%E5%B8%83%E5%B1%80%E5%9B%BE">平面布局图</a></li>
+<li><a href="#%E8%B6%85%E7%BA%A7%E5%A4%A7%E6%9F%9C">超级大柜</a></li>
+<li><a href="#%E5%AE%A2%E5%8E%85%E5%8D%B3%E6%98%AF%E4%B9%A6%E6%88%BF">客厅即是书房</a></li>
+<li><a href="#%E5%90%84%E5%BD%92%E5%85%B6%E4%BD%8D%E6%9C%89%E9%9C%B2%E6%9C%89%E8%97%8F">各归其位，有露有藏</a>
+<ul>
+<li><a href="#%E7%B2%BE%E7%A5%9E%E4%BB%B7%E5%80%BC">精神价值</a>
+<ul>
+<li><a href="#%E5%AE%B6%E7%9A%84%E5%BE%85%E5%AE%A2%E4%B9%8B%E9%81%93">家的待客之道</a></li>
+</ul>
+</li>
+<li><a href="#%E5%AE%9E%E7%94%A8%E4%BB%B7%E5%80%BC">实用价值</a></li>
+<li><a href="#%E9%9E%8B%E6%9F%9C%E5%B0%BA%E5%AF%B8%E4%B8%8E%E6%AC%BE%E5%BC%8F">鞋柜尺寸与款式</a>
+<ul>
+<li><a href="#%E6%B7%B1%E5%BA%A6">深度</a></li>
+<li><a href="#%E5%B1%82%E6%9D%BF%E9%97%B4%E8%B7%9D">层板间距</a></li>
+<li><a href="#%E5%8F%AF%E6%B4%BB%E5%8A%A8%E7%9A%84%E5%B1%82%E6%9D%BF">可活动的层板</a></li>
+<li><a href="#%E9%9E%8B%E6%9F%9C%E7%9A%84%E6%9E%84%E6%88%90">鞋柜的构成</a></li>
+<li><a href="#%E5%AE%B9%E9%87%8F%E4%BC%98%E5%85%88">容量优先</a></li>
+<li><a href="#%E6%95%9E%E5%BC%80%E5%B8%B8%E9%9E%8B%E4%BD%8D">敞开“常鞋位”</a></li>
+<li><a href="#%E5%B0%8F%E7%BA%A2%E4%B9%A6%E6%8E%A8%E8%8D%90%E6%AC%BE%E9%80%82%E7%94%A8%E4%BA%8E%E6%9C%AC%E4%BA%BA%E7%9A%84%E5%BC%80%E9%97%A8%E6%97%A0%E7%8E%84%E5%85%B3%E6%88%B7%E5%9E%8B">小红书推荐款（适用于本人的开门无玄关户型）</a></li>
+<li><a href="#%E9%9E%8B%E7%9B%92-%E7%95%99%E4%B8%8E%E5%BC%83">鞋盒 留与弃</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<h2><span id="平面布局图">平面布局图</span></h2>
+<p>“沙发对着电视”的长方形空间，是最常见的客厅布局。</p>
+<p>想要客厅真正的“显大”，秘诀就是：</p>
+<ol>
+<li>可以活动的家具尽量不买太大。</li>
+<li>固定收纳却要尽量做大</li>
+</ol>
+<h2><span id="超级大柜">超级大柜</span></h2>
+<p>一面长 3.9 米，宽 0.3 米的电视柜，相当于100个登记箱的容量。</p>
+<p>作用：用于存放全家人的 70% 的公共物品：</p>
+<p>1.书籍 (如果你没有书房，或者书架不够大)，孩子的绘本将是一个很大的收纳需求<br>
+2.药品，不多，可以放在餐边柜。<br>
+3.文具，包括一些闲置的笔记本电脑、手机等<br>
+4.玩具 (如果你有孩子)<br>
+5.文件，用<strong>两孔夹</strong><br>
+6.影集，婚纱照片<br>
+7.收藏，工艺品，乐高，高达，模型<br>
+8.影音，CD，音响，PS4，相机，三脚架<br>
+9.工具，吸尘器，五金工具，等也可以考虑放在这里</p>
+<h2><span id="客厅即是书房">客厅即是书房</span></h2>
+<p>个人认为，客厅可以放一些不需要特别认真看的书：比如小说、绘本、历史、科普、散文等“闲书”。</p>
+<p>而对于一些经常使用的，专业、工作相关的，工具类的书籍，则可以放在书房/书架 (工作区)。比如IT类的书籍、考证用的书籍、字典等</p>
+<p>书的数量需要控制，以“保留能放进客厅大柜的书”作为原则。</p>
+<h2><span id="各归其位有露有藏">各归其位，有露有藏</span></h2>
+<p>露：美丽的。</p>
+<p>藏：“不美”的。</p>
+<p><strong>藏的容器</strong>——宜家的透明收纳盒 (要买盖子)：透明可视、长方高效、自然摞放。</p>
+<p>每格柜子的净尺寸宽 400 mm，高 350 mm，刚好可以放进去 4 个收纳盒。</p>
+<h3><span id="精神价值">精神价值</span></h3>
+<p>缓冲空间、第一印象、家的标志</p>
+<h4><span id="家的待客之道">家的待客之道</span></h4>
+<p>客鞋：从网上购买四星级酒店标准的白色布制拖鞋（10 双），压叠放在一起，节省空间，可机洗。</p>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200823225112003.png" alt="image-20200823225112003"></p>
+<h3><span id="实用价值">实用价值</span></h3>
+<p>更换拖鞋，挂衣放包，放置钥匙雨伞</p>
+<ul>
+<li>
+<p>基本功能是第一位的</p>
+</li>
+<li>
+<p>鞋子的收纳永远是最令人头痛的，所以需要一个大鞋柜</p>
+</li>
+</ul>
+<p>鞋子的数量统计：</p>
+<ol>
+<li>
+<p>女主人：15-40 双；本人情况：40</p>
+</li>
+<li>
+<p>男主人：8-15 双；本人情况：10</p>
+</li>
+<li>
+<p>父母：5-8 双；本人情况：5*2</p>
+</li>
+<li>
+<p>孩子：5-12 双；本人情况：未知，定为 10</p>
+</li>
+<li>
+<p>客人：2-5 双；本人情况：10</p>
+</li>
+</ol>
+<p>全家统计：35-80 双；本人情况：80</p>
+<h3><span id="鞋柜尺寸与款式">鞋柜尺寸与款式</span></h3>
+<h4><span id="深度">深度</span></h4>
+<p>标准层板深度 350 mm (可平放45 码以内的鞋)</p>
+<p>可放鞋盒 400 mm (普通鞋盒)</p>
+<h4><span id="层板间距">层板间距</span></h4>
+<p>以女性高跟鞋为参考标准</p>
+<p>鞋帮 (40 mm) + 鞋跟(20~110 mm) = 单鞋高度 (最高150 mm)</p>
+<p>故上下层板基准间距为 160 mm</p>
+<h4><span id="可活动的层板">可活动的层板</span></h4>
+<p>当进行鞋柜定制时，为了最大化利用鞋柜空间，可要求店家“<strong><u>打排钻</u></strong>”：通过排钻孔、卡件和层板实现灵活的层板高度。</p>
+<h4><span id="鞋柜的构成">鞋柜的构成</span></h4>
+<ul>
+<li>基础配置：
+<ul>
+<li>地柜：H = 1100 mm 台面大，用途广，可配抽屉</li>
+<li>吊柜：H = 1700 mm 放置非当季鞋子</li>
+<li>高柜：H = 2360 mm 大容量首选，柜门可做全身镜子</li>
+</ul>
+</li>
+<li>升级配置：
+<ul>
+<li>鞋凳：H = 450 mm 换鞋舒服，不尴尬</li>
+<li>装饰柜：H = 2360 mm 家庭品味的展示：如有人放一些工艺品、乐高、高达</li>
+</ul>
+</li>
+</ul>
+<h4><span id="容量优先">容量优先</span></h4>
+<p>即先保证基础配置，再考虑升级配置</p>
+<h4><span id="敞开常鞋位">敞开“常鞋位”</span></h4>
+<p>传统鞋柜，底层架空100 mm 放置常用鞋，其实位置不足；<br>
+改良模式，底部两层为敞开隔板，不舍柜门，常用鞋位置充裕。</p>
+<img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200823221609606.png" alt="image-20200823221609606" style="zoom: 80%;">
+<p>传统型，常鞋位不足（如果只能有一个地柜，就比较严重）</p>
+<img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200823221656539.png" alt="image-20200823221656539" style="zoom: 80%;">
+<p>改良型，常鞋位充足 (特别是在地柜只有一个的时候)</p>
+<h4><span id="小红书推荐款适用于本人的开门无玄关户型">小红书推荐款（适用于本人的开门无玄关户型）</span></h4>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200823223138381.png" alt="image-20200823223138381"></p>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200823223418308.png" alt="image-20200823223418308"></p>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200823223630771.png" alt="image-20200823223630771"></p>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200823223830769.png" alt="image-20200823223830769"></p>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200823224024610.png" alt="image-20200823224024610"></p>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200823224044011.png" alt="image-20200823224044011"></p>
+<h4><span id="鞋盒-留与弃">鞋盒 留与弃</span></h4>
+<p>鞋盒大小参差，摞放不齐，不清楚盒内情况</p>
+<p>可购买**<u>防尘鞋袋</u>**，透明可视，轻巧省地，出差旅行也可使用</p>
+<p><img src="https://gitee.com/microbiomecat/image_hosting/raw/master/img/image-20200823224635867.png" alt="image-20200823224635867"></p>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
+      <categories>
+        <category>生活</category>
+        <category>装修</category>
+      </categories>
+      <tags>
+        <tag>装修</tag>
+        <tag>读书笔记</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>基于 QIIME2 的扩增子分析教程-实战篇</title>
     <url>/20201006/QIIME2-based-amplicon-analysis-tutorial(Practical)/</url>
     <content><![CDATA[<h2><span id="摘要">摘要</span></h2>
@@ -1473,43 +1510,6 @@ Docker for Windows 需要你的 Windows 版本为 64 位的 Windows 10 Pro <stro
       <tags>
         <tag>QIIME2</tag>
         <tag>扩增子</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>小家越住越大-收纳篇</title>
-    <url>/20200818/small_house_big_home_(storage)/</url>
-    <content><![CDATA[<blockquote><p>你如何对待家，家便如何对待你。</p>
-<p>**House ≠ Home **<br>
-那个灰色的水泥壳子，并不是家。<br>
-人可以没有房，却不能没有家。<br>
-好好住的地方就是家。</p>
-<p>**Designer ≠ Dweller **<br>
-设计者，只能提供半成品的“住宅”。<br>
-居住者，才能搭建独一无二的“家”。</p>
-<p>**Bigger ≠ Better **<br>
-与其烦恼买不起大房子考虑改善型居住，不如好好提升自己内在的“住商”。</p>
-<p>**M<sup>2</sup> ≠ M<sup>3</sup> **<br>
-收纳是管理好小房子的大智慧。</p>
-<footer><strong>逯薇</strong><cite>《小家越住越大》</cite></footer></blockquote>
-<p><br><br></p>
-<p>本文为阅读逯薇《小家越住越大》三部曲的读书笔记。</p>
-<p>本篇主要整理其中的收纳部分。</p>
-<a id="more"></a>
-<!-- toc -->
-<ul>
-<li><a href="#%E6%94%B6%E7%BA%B3">收纳</a></li>
-</ul>
-<!-- tocstop -->
-<h2><span id="收纳">收纳</span></h2>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text/javascript" src="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-simple-mindmap@0.2.0/dist/mindmap.min.css">]]></content>
-      <categories>
-        <category>生活</category>
-        <category>装修</category>
-      </categories>
-      <tags>
-        <tag>装修</tag>
-        <tag>读书笔记</tag>
-        <tag>收纳</tag>
       </tags>
   </entry>
   <entry>
